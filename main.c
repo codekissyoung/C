@@ -2,14 +2,10 @@
 #include "func.h"
 
 int main(int argv,char* argc[]){
-	int c;
-	printf("hello cky!\n");
-	c = max(4,6);
-	printf("%d \n",c);
-	printf("argv is %d \n",argv);
-	// int i = 0;
+	printf("%d \n",max(4,6)); // 调用函数
+	printf("argv is %d \n",argv); // 程序输入参数的个数
 	for(int i = 0;i < argv;i++){
-		printf("argc[%d] is %s \n",i,argc[i]);
+		printf("argc[%d] is %s \n",i,argc[i]);　// 依次打印输入的参数
 	}
 	return 0;
 }
