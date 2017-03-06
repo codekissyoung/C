@@ -7,5 +7,14 @@ int main(int argv,char* argc[]){
 	for(int i = 0;i < argv;i++){
 		printf("argc[%d] is %s \n",i,argc[i]);// 依次打印输入的参数
 	}
+
+	// 测试程序运行时间的优化　gcc -O2
+	int i, j, x;
+	x = 0;
+	for(i = 0; i < 100000; i++) {
+		for(j = i; j > 0; j--) {
+			x += j;
+		}
+	}
 	return 0;
 }
