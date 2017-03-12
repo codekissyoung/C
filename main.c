@@ -1,28 +1,33 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <sys/stat.h>
 #include "func.h"
 #include "static.h" // 静态库
 #include "share.h" // 动态库
 
+
+float PI = 3.14; // 全局变量
+
 int main(int argv,char* argc[]){
-	int test = 10;
-	int t2 = 20;
-	int t3 = test + t2;
-	printf("t3 : %d \n",t3);
-	// int *a;
-	// *a = test;
-	// printf("%s \n",a);
-	printf("%d \n",max(4,6)); // 调用函数
+
+	// float PI = 9.12;
+	printf("打印全局变量 PI : %f \n",PI);
+
+
 	printf("argv is %d \n",argv); // 程序输入参数的个数
 	for(int i = 0;i < argv;i++){
-		printf("%d\n",i);
 		printf("argc[%d] is %s \n",i,argc[i]);// 依次打印输入的参数
 	}
-	// 测试动态库
-	share();
-	// 测试静态库
-	printf("静态库add(3,5)是%d \n",add(3,5));
+	printf(" max(4,6) : %d \n",max(4,6)); // 调用函数
+	
+	share();// 测试动态库
+	
+
+	printf("静态库add(3,5)是%d \n",add(3,5)); // 测试静态库
 
 	goto end;
+	printf("测试 goto ");
+
 
 	// 测试程序运行时间的优化　gcc -O2
 	int i, j, x;
