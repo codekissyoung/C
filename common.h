@@ -9,6 +9,9 @@
 #define MAX 64
 typedef struct test_struct Test;
 
+
+
+
 /*全局变量申明*/
 extern float a1;
 extern int b1;

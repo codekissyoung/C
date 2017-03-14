@@ -1,4 +1,11 @@
 #include "common.h"
+/* 调试代码 */
+#define DEBUG 1
+#ifdef DEBUG
+#define debug(a, b) printf(#a"\n",b)
+#else
+#define debug(a,b) ;
+#endif
 // 全局变量定义
 int b1 = 14;
 float PI = 3.14;
@@ -14,6 +21,7 @@ int main(int argv,char* argc[]){
 	printf("ANSI :%d\n", __STDC__ );
 	printf("AUTHOR: %s \n---------------\n\n","codekissyoung");
 
+	debug(测试 %d,10);
 	char *cp;
 
 	cp = (char*)&var;
