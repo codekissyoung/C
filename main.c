@@ -1,14 +1,21 @@
 #include "common.h"
+// 全局变量定义
+int b1 = 14;
+float PI = 3.14;
+Test var = {{0x12345678,0x98765432},0x30};
+
 int main(int argv,char* argc[]){
 
-	// 初始化程序各个全局变量值
-	a1 = 13;
-	b1 = 14;
-	PI = 3.14;
+	// 使用预定义宏
+	printf("File :%s\n", __FILE__ );
+	printf("Date :%s\n", __DATE__ );
+	printf("Time :%s\n", __TIME__ );
+	printf("Line :%d\n", __LINE__ );
+	printf("ANSI :%d\n", __STDC__ );
+	printf("AUTHOR: %s \n---------------\n\n","codekissyoung");
 
-	Test var = {{0x12345678,0x98765432},0x30};
 	char *cp;
-	// Test *tp;
+
 	cp = (char*)&var;
 	printf("*cp : %x ,cp : %p\n",*cp,cp);
 	printf("*cp : %x ,cp + 1 : %p \n",*(cp+1),cp + 1);
@@ -29,7 +36,7 @@ int main(int argv,char* argc[]){
 	printf("%s \n",str);
 
 	f();
-	printf("a1 = %d , b1 = %d \n",a1,b1);
+	printf("a1 = %f , b1 = %d \n",a1,b1);
 
 	printf("打印全局变量 PI : %f \n",PI);
 
@@ -50,7 +57,6 @@ int main(int argv,char* argc[]){
 	int i, j, x;
 	x = 0;
 	for(i = 0; i < 100000; i++) {
-		// printf("%d \n",i);
 		for(j = i; j > 0; j--) {
 			x += j;
 		}

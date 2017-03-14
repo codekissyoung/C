@@ -9,10 +9,10 @@
 #define MAX 64
 typedef struct test_struct Test;
 
-/*全局变量*/
-int a1;
-int b1;
-float PI;
+/*全局变量申明*/
+extern float a1;
+extern int b1;
+extern float PI;
 
 struct test_struct{
 	int array[2];

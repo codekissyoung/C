@@ -1,4 +1,5 @@
 #include "common.h"
+float a1 = 23.29; // a1 变量定义
 int max(int a, int b){
 	if(a > b)
 		return a;
@@ -15,7 +16,7 @@ int swap(int *a,int *b){
 }
 
 void f(){
-	a1 = 23.29;
+	printf("b1 in f() : %d \n", b1);
 }
 
 // 不定参数
