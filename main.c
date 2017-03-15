@@ -6,6 +6,7 @@
 #else
 #define debug(a,b) ;
 #endif
+
 // 全局变量定义
 int b1 = 14;
 float PI = 3.14;
@@ -20,6 +21,24 @@ int main(int argv,char* argc[]){
 	printf("Line :%d\n", __LINE__ );
 	printf("ANSI :%d\n", __STDC__ );
 	printf("AUTHOR: %s \n---------------\n\n","codekissyoung");
+
+
+
+
+	// 进程相关
+	printf("当前进程ID : %u\n",getpid());
+	printf("当前进程父ID : %u\n",getppid());
+	printf("当前用户ID : %u\n",getuid());
+	printf("当前有效用户ID : %u\n",geteuid());
+	printf("当前组ID : %u\n",getgid());
+	printf("当前有效组ID : %u\n",getegid());
+
+	printf("环境变量测试: \n");
+	// for(int i = 0;environ[i] != NULL;i++){
+	// 	printf("each : %s \n",environ[i]);
+	// }
+	char* home = getenv("HOME");
+	printf("HOME : %s \n",home);
 
 	debug(测试 %d,10);
 	char *cp;
@@ -72,5 +91,5 @@ int main(int argv,char* argc[]){
 
 	end:
 		printf("the end \n");
-	return 0;
+	return 1;
 }

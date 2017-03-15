@@ -2,9 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/stat.h>
+#include <fcntl.h> /* linux系统调用的头文件 */
+#include <unistd.h> /* 进程相关函数头文件 */
 #include <stdarg.h>
 #include <string.h>
-
+#include <errno.h> /* 错误号申明头文件 */
 /*全局宏*/
 #define MAX 64
 typedef struct test_struct Test;
@@ -16,6 +18,7 @@ typedef struct test_struct Test;
 extern float a1;
 extern int b1;
 extern float PI;
+extern char ** environ;
 
 struct test_struct{
 	int array[2];
