@@ -22,9 +22,6 @@ int main(int argv,char* argc[]){
 	printf("ANSI :%d\n", __STDC__ );
 	printf("AUTHOR: %s \n---------------\n\n","codekissyoung");
 
-
-
-
 	// 进程相关
 	printf("当前进程ID : %u\n",getpid());
 	printf("当前进程父ID : %u\n",getppid());
