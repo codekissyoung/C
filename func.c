@@ -64,3 +64,45 @@ void alter(int** p){
 	*q = 100;
 	*p = q;
 }
+
+void _print_space(int a){
+	for(int i = 0;i < a;i++){
+		printf(" ");
+	}
+}
+void _print_star(int a){
+	for(int i = 0;i < a;i++){
+		printf("*");
+	}
+}
+
+// 打印一个菱形
+void print_diamond(int a){
+	printf("菱形长度: %d \n",a);
+	int i;
+	for(i = 0;i < a;i++){
+		_print_space(a - i);
+		_print_star((2 * i) - 1);
+		printf("\n");
+	}
+	
+	_print_star(2 * a - 1) ;
+	printf("\n");
+	for(i = a - 1;i > 0;i--){
+		_print_space(a - i);
+		_print_star((2 * i) - 1);
+		printf("\n");
+	}
+}
+
+// 乘法表
+void plus(int a){
+	for(int row = 1; row <= a;row++){
+		for(int col = 1;col <= row;col ++){
+			printf("%d x %d = %d\t",col,row,col * row);
+		}
+		printf("\n");
+	}
+}
+
+

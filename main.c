@@ -1,4 +1,5 @@
 #include "common.h"
+
 /* 调试代码 */
 #define DEBUG 1
 #ifdef DEBUG
@@ -21,7 +22,6 @@ int main(int argv,char* argc[]){
 	printf("Line :%d\n", __LINE__ );
 	printf("ANSI :%d\n", __STDC__ );
 	printf("AUTHOR: %s \n---------------\n\n","codekissyoung");
-
 	// 进程相关
 	printf("当前进程ID : %u\n",getpid());
 	printf("当前进程父ID : %u\n",getppid());
@@ -29,13 +29,31 @@ int main(int argv,char* argc[]){
 	printf("当前有效用户ID : %u\n",geteuid());
 	printf("当前组ID : %u\n",getgid());
 	printf("当前有效组ID : %u\n",getegid());
+	
+	printf("-----------------\n\n");
 
 	printf("环境变量测试: \n");
 	// for(int i = 0;environ[i] != NULL;i++){
 	// 	printf("each : %s \n",environ[i]);
 	// }
-	char* home = getenv("HOME");
+	char* home = getenv("HOME"); // 获取环境变量HOME
 	printf("HOME : %s \n",home);
+
+	/*
+	printf("输入一个值: \n");
+	int inter;
+	if(scanf("%d",&inter) == 1){
+		printf("您输入的是:%d\n",inter);
+	}else{
+		printf("Error : you do not enter a str!");
+	}
+	*/
+
+	// 打印一个菱形
+	// print_diamond(11);
+	
+	// 打印99乘法表
+	// plus(9);
 
 	debug(测试 %d,10);
 	char *cp;
@@ -53,7 +71,6 @@ int main(int argv,char* argc[]){
 	pointer();
 
 	print_args(-1,"hello","world",NULL);
-
 	print_args(-1,"Olympic","china","Beijing",NULL);
 
 	char *str = "hello world \n";
@@ -61,7 +78,6 @@ int main(int argv,char* argc[]){
 
 	f();
 	printf("a1 = %f , b1 = %d \n",a1,b1);
-
 	printf("打印全局变量 PI : %f \n",PI);
 
 	printf("argv is %d \n",argv); // 程序输入参数的个数
@@ -77,16 +93,7 @@ int main(int argv,char* argc[]){
 	goto end;
 	printf("测试 goto ");
 
-	// 测试程序运行时间的优化　gcc -O2
-	int i, j, x;
-	x = 0;
-	for(i = 0; i < 100000; i++) {
-		for(j = i; j > 0; j--) {
-			x += j;
-		}
-	}
-
 	end:
 		printf("the end \n");
-	return 1;
+	return 0;
 }

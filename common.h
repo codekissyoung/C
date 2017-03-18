@@ -38,3 +38,5 @@ extern int print_args(int begin, ...);
 extern void pointer(void);
 extern void pp();
 extern void alter(int** p);
+extern void print_diamond(int a);
+extern void plus(int a);
