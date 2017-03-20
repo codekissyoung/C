@@ -1,5 +1,7 @@
 /* 头文件区 */
 #include <stdio.h>
+#include <stdint.h>
+#include <inttypes.h>
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <fcntl.h> /* linux系统调用的头文件 */
@@ -7,6 +9,10 @@
 #include <stdarg.h>
 #include <string.h>
 #include <errno.h> /* 错误号申明头文件 */
+
+/* 下面两个头文件定义了相关最大值和最小值的的常量 */
+#include <limits.h> /* 整数类型大小限制 */
+#include <float.h> /* 浮点类型大小限制 */
 /*全局宏*/
 #define MAX 64
 typedef struct test_struct Test;
