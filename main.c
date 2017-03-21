@@ -29,7 +29,7 @@ int main(int argv,char* argc[]){
 	printf("当前有效用户ID : %u\n",geteuid());
 	printf("当前组ID : %u\n",getgid());
 	printf("当前有效组ID : %u\n",getegid());
-	
+
 	printf("-----------------\n\n");
 
 	printf("环境变量测试: \n");
@@ -38,6 +38,40 @@ int main(int argv,char* argc[]){
 	// }
 	char* home = getenv("HOME"); // 获取环境变量HOME
 	printf("HOME : %s \n",home);
+
+	// 测试输入
+	char ch;
+	do{
+		ch = getchar();
+		if(isalpha(ch)){
+			printf("%c is alpha !\n", ch);
+		}
+		if(ch == '\n'){
+			printf("\\ n");
+		}
+		putchar(ch);
+	}while (ch != 'q');
+
+	// 测试读取文件
+	FILE* fp;
+	char fname[50];
+	printf("输入下文件的名字 \n");
+	if(scanf("%s", fname)){
+		printf("%s\n", fname);
+		fp = fopen(fname,"r");
+		if(fp == NULL){
+			printf("打开文件失败\n");
+			exit(1);
+		}
+		// 读取文件内容显示
+		while((ch = getc(fp)) != EOF){
+			putchar(ch);
+		}
+		// 关闭文件
+		fclose(fp);
+	}else{
+		printf("%s\n", fname);
+	}
 
 	/*
 	printf("输入一个值: \n");
@@ -51,7 +85,7 @@ int main(int argv,char* argc[]){
 
 	// 打印一个菱形
 	// print_diamond(11);
-	
+
 	// 打印99乘法表
 	// plus(9);
 
