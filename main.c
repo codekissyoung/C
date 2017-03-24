@@ -15,6 +15,8 @@ Test var = {{0x12345678,0x98765432},0x30};
 
 int main(int argv,char* argc[]){
 
+	printf("&PI : %p ",&PI);
+
 	// 使用预定义宏
 	printf("File :%s\n", __FILE__ );
 	printf("Date :%s\n", __DATE__ );
