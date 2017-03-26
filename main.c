@@ -110,13 +110,8 @@ int main(int argv,char* argc[]){
 		printf("argc[%d] is %s \n",i,argc[i]);// 依次打印输入的参数
 	}
 
-	share();// 测试动态库
-
-	printf("静态库add(3,5)是%d \n",add(3,5)); // 测试静态库
-
 	goto end;
 	printf("测试 goto ");
-
 	end:
 		printf("the end \n");
 	return 0;
