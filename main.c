@@ -32,54 +32,36 @@ int main(int argv,char* argc[]){
 	printf("-----------------\n\n");
 
 	printf("环境变量测试: \n");
-	// for(int i = 0;environ[i] != NULL;i++){
-	// 	printf("%s \n",environ[i]);
-	// }
+	printf("%s \n",environ[0]);
+	printf("%s \n",environ[1]);
 	printf("HOME : %s \n",getenv("HOME")); // 获取环境变量HOME
+	printf("-----------------\n\n");
 
 	// 测试输入
+	printf("输入字符测试,重复输入的字符，如果读取到q字符，就跳出输入输出\n");
 	char ch;
+	char *left_str;
+
 	do{
+		if(scanf("%s\n",left_str)){
+			printf("缓冲区读取到的q后面的字符串:%s \n",*left_str);
+		}
 		ch = getchar();
-		if(isalpha(ch)){
-			printf("%c is alpha !\n", ch);
-		}
-		if(ch == '\n'){
-			printf("\\ n");
-		}
+		if(ch == 'q') break;
 		putchar(ch);
 	}while (ch != 'q');
 
 	// 测试读取文件
-	FILE* fp;
-	char fname[50];
-	printf("输入下文件的名字 \n");
-	if(scanf("%s", fname)){
-		printf("%s\n", fname);
-		fp = fopen(fname,"r");
-		if(fp == NULL){
-			printf("打开文件失败\n");
-			exit(1);
-		}
-		// 读取文件内容显示
-		while((ch = getc(fp)) != EOF){
+	FILE* fp = fopen("test.txt","r");
+	if(fp){
+		while((ch = getc(fp)) != EOF){ // 读取文件内容显示
 			putchar(ch);
 		}
-		// 关闭文件
-		fclose(fp);
+		fclose(fp); // 关闭文件
 	}else{
-		printf("%s\n", fname);
+		printf("打开文件失败\n");
+		exit(1);
 	}
-
-	/*
-	printf("输入一个值: \n");
-	int inter;
-	if(scanf("%d",&inter) == 1){
-		printf("您输入的是:%d\n",inter);
-	}else{
-		printf("Error : you do not enter a str!");
-	}
-	*/
 
 	// 打印一个菱形
 	// print_diamond(11);
