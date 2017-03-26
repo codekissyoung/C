@@ -32,9 +32,9 @@ int main(int argv,char* argc[]){
 	printf("-----------------\n\n");
 
 	printf("环境变量测试: \n");
-	for(int i = 0;environ[i] != NULL;i++){
-		printf("%s \n",environ[i]);
-	}
+	// for(int i = 0;environ[i] != NULL;i++){
+	// 	printf("%s \n",environ[i]);
+	// }
 	printf("HOME : %s \n",getenv("HOME")); // 获取环境变量HOME
 
 	// 测试输入
@@ -87,13 +87,6 @@ int main(int argv,char* argc[]){
 	// 打印99乘法表
 	// plus(9);
 
-	debug(测试 %d,10);
-	char *cp;
-
-	cp = (char*)&var;
-	printf("*cp : %x ,cp : %p\n",*cp,cp);
-	printf("*cp : %x ,cp + 1 : %p \n",*(cp+1),cp + 1);
-
 	int* t100; // 申明一个指针
 	alter(&t100); // 改变该指针的指向
 	printf("*t100 is %d \n",*t100);
@@ -116,7 +109,6 @@ int main(int argv,char* argc[]){
 	for(int i = 0;i < argv;i++){
 		printf("argc[%d] is %s \n",i,argc[i]);// 依次打印输入的参数
 	}
-	printf(" max(4,6) : %d \n",max(4,6)); // 调用函数
 
 	share();// 测试动态库
 
