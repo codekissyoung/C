@@ -14,35 +14,6 @@ float PI = 3.14;
 Test var = {{0x12345678,0x98765432},0x30};
 
 int main(int argv,char* argc[]){
-	// const int days[] = {31,28,31,30,31,30,31,31,30,31,30,31,[13]=67};
-	// int index;
-	// for(index = 0;index < sizeof(days) / sizeof(days[0]);index++){
-	// 	printf("days[%d] : %d,地址:%p \n",index,days[index],&days[index]);
-	// }
-	// // 越界数组
-	// printf("days[-1]: %d,地址:%p \n",days[-1],&days[-1]);
-	// printf("days[14]: %d,地址:%p \n",days[14],&days[14]);
-
-	// int oxen[4] = {1,2,3,4};
-	// int yaks[4];
-	// yaks = oxen;
-	const int rain[5][12] =
-	{
-	    {4,2,2,23,3,43,42,34,23,24,23,34},
-	    {4,2,2,23,3,43,42,34,23,24,23,34},
-	    {4,2,2,23,3,43,42,34,23,24,23,34},
-	    {4,2,2,23,3,43,42,34,23,24,23,34},
-	    {4,2,2,23,3,43,42,34,23,24,23,34}
-	};
-	for(int index1 = 0;index1 < 5;index1 ++){
-		for(int index2 = 0;index2 < 12;index2++){
-			printf("rain[%d][%d] : \t%p : \t%d\n",index1,index2,&rain[index1][index2],rain[index1][index2]);
-		}
-	}
-
-
-	// printf("&PI : %p ",&PI);
-
 	// 使用预定义宏
 	printf("File :%s\n", __FILE__ );
 	printf("Date :%s\n", __DATE__ );
@@ -50,6 +21,7 @@ int main(int argv,char* argc[]){
 	printf("Line :%d\n", __LINE__ );
 	printf("ANSI :%d\n", __STDC__ );
 	printf("AUTHOR: %s \n---------------\n\n","codekissyoung");
+
 	// 进程相关
 	printf("当前进程ID : %u\n",getpid());
 	printf("当前进程父ID : %u\n",getppid());
@@ -57,15 +29,13 @@ int main(int argv,char* argc[]){
 	printf("当前有效用户ID : %u\n",geteuid());
 	printf("当前组ID : %u\n",getgid());
 	printf("当前有效组ID : %u\n",getegid());
-
 	printf("-----------------\n\n");
 
 	printf("环境变量测试: \n");
-	// for(int i = 0;environ[i] != NULL;i++){
-	// 	printf("each : %s \n",environ[i]);
-	// }
-	char* home = getenv("HOME"); // 获取环境变量HOME
-	printf("HOME : %s \n",home);
+	for(int i = 0;environ[i] != NULL;i++){
+		printf("%s \n",environ[i]);
+	}
+	printf("HOME : %s \n",getenv("HOME")); // 获取环境变量HOME
 
 	// 测试输入
 	char ch;
