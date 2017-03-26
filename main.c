@@ -40,16 +40,17 @@ int main(int argv,char* argc[]){
 	// 测试输入
 	printf("输入字符测试,重复输入的字符，如果读取到q字符，就跳出输入输出\n");
 	char ch;
-	char *left_str;
+	char left_str[10];
 
 	do{
-		if(scanf("%s\n",left_str)){
-			printf("缓冲区读取到的q后面的字符串:%s \n",*left_str);
-		}
 		ch = getchar();
 		if(ch == 'q') break;
 		putchar(ch);
 	}while (ch != 'q');
+	
+	if(scanf("%s",left_str)){
+		printf("缓冲区读取到的q后面的字符串:%s \n",left_str);
+	}
 
 	// 测试读取文件
 	FILE* fp = fopen("test.txt","r");
@@ -69,23 +70,11 @@ int main(int argv,char* argc[]){
 	// 打印99乘法表
 	// plus(9);
 
-	int* t100; // 申明一个指针
-	alter(&t100); // 改变该指针的指向
-	printf("*t100 is %d \n",*t100);
-
-	pp();
-
-	pointer();
-
 	print_args(-1,"hello","world",NULL);
 	print_args(-1,"Olympic","china","Beijing",NULL);
 
 	char *str = "hello world \n";
 	printf("%s \n",str);
-
-	f();
-	printf("a1 = %f , b1 = %d \n",a1,b1);
-	printf("打印全局变量 PI : %f \n",PI);
 
 	printf("argv is %d \n",argv); // 程序输入参数的个数
 	for(int i = 0;i < argv;i++){
