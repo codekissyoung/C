@@ -37,6 +37,12 @@ int main(int argv,char* argc[]){
 	printf("HOME : %s \n",getenv("HOME")); // 获取环境变量HOME
 	printf("-----------------\n\n");
 
+	// 测试不同类型指针赋值
+	int arr[] = {1,2,3};
+	short *st = arr;
+	printf("*st:%p : %d,arr[0]:%p:%d \n",st,*st,&arr[0],arr[0]);
+	printf("*(st+1):%p : %d,arr[1]:%p:%d \n",st+1,*(st+1),&arr[1],arr[1]);
+	
 	// 测试输入
 	printf("输入字符测试,重复输入的字符，如果读取到q字符，就跳出输入输出\n");
 	char ch;
@@ -76,7 +82,6 @@ int main(int argv,char* argc[]){
 	char *str = "hello world \n";
 	printf("%s \n",str);
 
-	printf("argv is %d \n",argv); // 程序输入参数的个数
 	for(int i = 0;i < argv;i++){
 		printf("argc[%d] is %s \n",i,argc[i]);// 依次打印输入的参数
 	}
