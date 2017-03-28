@@ -8,6 +8,8 @@
 #define debug(a,b) ;
 #endif
 
+#define MSG "I am special"
+
 // 全局变量定义
 int b1 = 14;
 float PI = 3.14;
@@ -15,11 +17,19 @@ Test var = {{0x12345678,0x98765432},0x30};
 
 int main(int argv,char* argc[]){
 
+	// 数组字符串和指针字符串的区别
+	char ar[] = MSG;
+	char *pt = MSG;
+	printf("MSG : %p \n",MSG); // 字面量存储的位置
+	printf("ar : %p \n",ar); // 数组存储的位置
+	printf("pt : %p \n",pt); // 指针指向的位置
+	printf("-----------------\n\n");
+
 	// 打印其输入的参数
 	for(int i = 0;i < argv;i++){
 		printf("argc[%d] is %s \n",i,argc[i]);// 依次打印输入的参数
 	}
-	printf("-----------------\n\n");/*}}}*/
+	printf("-----------------\n\n");
 
 	// 指向多维数组的指针
 	int zippo[3][2] =
@@ -28,7 +38,6 @@ int main(int argv,char* argc[]){
 		{4,5},
 		{6,7}
 	};
-
 	int (*pz)[2]; // 指向一个含有两个int类型值的数组
 	pz = zippo;
 	printf("pz = %p,pz + 1:%p \n",pz,pz+1);
@@ -37,7 +46,7 @@ int main(int argv,char* argc[]){
 	printf("**pz = %d,*(*pz + 1):%d \n",**pz,*(*pz+1));
 	printf("**(pz + 1) = %d,*(*(pz + 1) + 1):%d \n",**(pz + 1),*(*(pz + 1)+1));
 	printf("pz[0][0] = %d,pz[0][1]:%d \n",pz[0][0],pz[0][1]);
-	printf("-----------------\n\n");/*}}}*/
+	printf("-----------------\n\n");
 
 	// 处理多维数组的函数
 	sum_rows(zippo,3);
@@ -55,28 +64,28 @@ int main(int argv,char* argc[]){
 
 
 	// 使用预定义宏
-	printf("File :%s\n", __FILE__ );/*{{{*/
+	printf("File :%s\n", __FILE__ );
 	printf("Date :%s\n", __DATE__ );
 	printf("Time :%s\n", __TIME__ );
 	printf("Line :%d\n", __LINE__ );
 	printf("ANSI :%d\n", __STDC__ );
-	printf("AUTHOR: %s \n---------------\n\n","codekissyoung");/*}}}*/
+	printf("AUTHOR: %s \n---------------\n\n","codekissyoung");
 
 	// 进程相关
-	printf("当前进程ID : %u\n",getpid());/*{{{*/
+	printf("当前进程ID : %u\n",getpid());
 	printf("当前进程父ID : %u\n",getppid());
 	printf("当前用户ID : %u\n",getuid());
 	printf("当前有效用户ID : %u\n",geteuid());
 	printf("当前组ID : %u\n",getgid());
 	printf("当前有效组ID : %u\n",getegid());
-	printf("-----------------\n\n");/*}}}*/
+	printf("-----------------\n\n");
 
 	// 环境变量测试
-	printf("环境变量测试: \n");/*{{{*/
+	printf("环境变量测试: \n");
 	printf("%s \n",environ[0]);
 	printf("%s \n",environ[1]);
 	printf("HOME : %s \n",getenv("HOME")); // 获取环境变量HOME
-	printf("-----------------\n\n");/*}}}*/
+	printf("-----------------\n\n");
 
 	// 测试输入
 	printf("输入字符测试,重复输入的字符，如果读取到q字符，就跳出输入输出\n");/*{{{*/
@@ -92,7 +101,7 @@ int main(int argv,char* argc[]){
 	}/*}}}*/
 
 	// 测试读取文件
-	FILE* fp = fopen("test.txt","r");/*{{{*/
+	FILE* fp = fopen("test.txt","r");
 	if(fp){
 		while((ch = getc(fp)) != EOF){ // 读取文件内容显示
 			putchar(ch);
@@ -101,7 +110,7 @@ int main(int argv,char* argc[]){
 	}else{
 		printf("打开文件失败\n");
 		exit(1);
-	}/*}}}*/
+	}
 
 	// 打印一个菱形
 	// print_diamond(11);
@@ -110,8 +119,8 @@ int main(int argv,char* argc[]){
 	// plus(9);
 
 	// 不定参数
-	print_args(-1,"hello","world",NULL);/*{{{*/
-	print_args(-1,"Olympic","china","Beijing",NULL);/*}}}*/
+	print_args(-1,"hello","world",NULL);
+	print_args(-1,"Olympic","china","Beijing",NULL);
 
 	return 0;
 }
