@@ -48,6 +48,12 @@ int main(int argv,char* argc[]){
 	printf("total1 : %d \n", total1);
 	printf("---------------------\n\n");
 
+	// 复合字面量
+	int total2 = sum2d( 2 , 2 , (int [2][2]){{2,3},{4,5}});
+	printf("total2: %d \n",total2);
+	printf("---------------------\n\n");
+
+
 	// 使用预定义宏
 	printf("File :%s\n", __FILE__ );/*{{{*/
 	printf("Date :%s\n", __DATE__ );
