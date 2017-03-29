@@ -11,14 +11,20 @@
 #define MSG "I am special"
 #define STLEN 14
 
-
 // 全局变量定义
 int b1 = 14;
 float PI = 3.14;
 Test var = {{0x12345678,0x98765432},0x30};
 
-
 int main(int argv,char* argc[]){
+
+	// 测试fgets()
+	char words[STLEN];
+	if(fgets(words,STLEN,stdin)){
+		fputs(words,stdout);
+	}else{
+		printf("fgets()出错了");
+	}
 
 	// 测试下字符串数组
 	const char *pointer_str[5] = {
