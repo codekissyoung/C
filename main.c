@@ -9,11 +9,14 @@
 #endif
 
 #define MSG "I am special"
+#define STLEN 14
+
 
 // 全局变量定义
 int b1 = 14;
 float PI = 3.14;
 Test var = {{0x12345678,0x98765432},0x30};
+
 
 int main(int argv,char* argc[]){
 
@@ -31,15 +34,12 @@ int main(int argv,char* argc[]){
 		"hahah",
 		"codekissyoung"
 	};
-
 	for(int k = 0;k < 5;k++){
 		printf("pointer_str[%d] : %p : %s \n",k,pointer_str[k],pointer_str[k]);
 	}
 	for(int p = 0;p < 5;p++){
 		printf("array_str[%d] : %p : %s \n",p,array_str[p],array_str[p]);
 	}
-
-
 
 	// 数组字符串和指针字符串的区别
 	char ar[] = MSG;
