@@ -17,6 +17,30 @@ Test var = {{0x12345678,0x98765432},0x30};
 
 int main(int argv,char* argc[]){
 
+	// 测试下字符串数组
+	const char *pointer_str[5] = {
+		"string1 heheh",
+		"string2 ,sdfadf",
+		"string3 hdhdhdh",
+		"xxixixixi",
+		"codsdadfssss"
+	};
+	char array_str[5][40] = {
+		"sdfaiisisis",
+		"xixixiix sss",
+		"hahah",
+		"codekissyoung"
+	};
+
+	for(int k = 0;k < 5;k++){
+		printf("pointer_str[%d] : %p : %s \n",k,pointer_str[k],pointer_str[k]);
+	}
+	for(int p = 0;p < 5;p++){
+		printf("array_str[%d] : %p : %s \n",p,array_str[p],array_str[p]);
+	}
+
+
+
 	// 数组字符串和指针字符串的区别
 	char ar[] = MSG;
 	char *pt = MSG;
