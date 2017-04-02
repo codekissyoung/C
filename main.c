@@ -18,11 +18,35 @@ Test var = {{0x12345678,0x98765432},0x30};
 
 int main(int argv,char* argc[]){
 
+	// 指向多维数组的指针
+	int zippo[3][2] =
+	{
+		{2,3},
+		{4,5},
+		{6,7}
+	};
+	int (*pz)[2]; // 指向一个含有两个int类型值的数组
+	pz = zippo;
+	
+	printf("zippo : %p , zippo[0]: %p :zippo[0][0] : %d \n",zippo,zippo[0],zippo[0][0]);
+	printf("pz : %p , *pz: %p : **pz: %d \n",pz,*pz,**pz);
+
+
+	printf("pz = %p,pz + 1:%p \n",pz,pz+1);
+	printf("pz[0] = %p,pz[0] + 1:%p \n",pz[0],pz[0]+1);
+	printf("*pz = %p,*pz + 1:%p \n",*pz,*pz+1);
+	printf("**pz = %d,*(*pz + 1):%d \n",**pz,*(*pz+1));
+	printf("**(pz + 1) = %d,*(*(pz + 1) + 1):%d \n",**(pz + 1),*(*(pz + 1)+1));
+	printf("pz[0][0] = %d,pz[0][1]:%d \n",pz[0][0],pz[0][1]);
+	printf("-----------------\n\n");
+
 	// 测试EOF
+	/*
 	char test_eof;
 	while( (test_eof = getchar()) != EOF){
 		putchar(test_eof);
 	}
+	*/
 
 	// 测试fgets()
 	char words[STLEN];
@@ -77,22 +101,6 @@ int main(int argv,char* argc[]){
 	}
 	printf("-----------------\n\n");
 
-	// 指向多维数组的指针
-	int zippo[3][2] =
-	{
-		{2,3},
-		{4,5},
-		{6,7}
-	};
-	int (*pz)[2]; // 指向一个含有两个int类型值的数组
-	pz = zippo;
-	printf("pz = %p,pz + 1:%p \n",pz,pz+1);
-	printf("pz[0] = %p,pz[0] + 1:%p \n",pz[0],pz[0]+1);
-	printf("*pz = %p,*pz + 1:%p \n",*pz,*pz+1);
-	printf("**pz = %d,*(*pz + 1):%d \n",**pz,*(*pz+1));
-	printf("**(pz + 1) = %d,*(*(pz + 1) + 1):%d \n",**(pz + 1),*(*(pz + 1)+1));
-	printf("pz[0][0] = %d,pz[0][1]:%d \n",pz[0][0],pz[0][1]);
-	printf("-----------------\n\n");
 
 	// 处理多维数组的函数
 	sum_rows(zippo,3);
