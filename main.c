@@ -18,6 +18,12 @@ Test var = {{0x12345678,0x98765432},0x30};
 
 int main(int argv,char* argc[]){
 
+	// 测试EOF
+	char test_eof;
+	while( (test_eof = getchar()) != EOF){
+		putchar(test_eof);
+	}
+
 	// 测试fgets()
 	char words[STLEN];
 	int i;
