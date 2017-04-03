@@ -27,11 +27,8 @@ int main(int argv,char* argc[]){
 	};
 	int (*pz)[2]; // 指向一个含有两个int类型值的数组
 	pz = zippo;
-	
 	printf("zippo : %p , zippo[0]: %p :zippo[0][0] : %d \n",zippo,zippo[0],zippo[0][0]);
 	printf("pz : %p , *pz: %p : **pz: %d \n",pz,*pz,**pz);
-
-
 	printf("pz = %p,pz + 1:%p \n",pz,pz+1);
 	printf("pz[0] = %p,pz[0] + 1:%p \n",pz[0],pz[0]+1);
 	printf("*pz = %p,*pz + 1:%p \n",*pz,*pz+1);
@@ -100,7 +97,6 @@ int main(int argv,char* argc[]){
 		printf("argc[%d] is %s \n",i,argc[i]);// 依次打印输入的参数
 	}
 	printf("-----------------\n\n");
-
 
 	// 处理多维数组的函数
 	sum_rows(zippo,3);
