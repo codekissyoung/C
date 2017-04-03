@@ -17,6 +17,25 @@ float PI = 3.14;
 Test var = {{0x12345678,0x98765432},0x30};
 
 int main(int argv,char* argc[]){
+	
+	int *p;
+	int (*pa)[3];
+	int ar1[2][3];
+	int ar2[3][2];
+	int *pp;
+	
+	printf("*argc[1] : %s \n",argc[1]);
+
+	switch(*argc[1]){
+		case 'a':
+			printf("输入了a\n");
+			break;
+
+		default:
+			printf("运行　./cky n (n 为任意数字)\n");
+			break;
+	}
+
 
 	// 指向多维数组的指针
 	int zippo[3][2] =
@@ -111,7 +130,6 @@ int main(int argv,char* argc[]){
 	int total2 = sum2d( 2 , 2 , (int [2][2]){{2,3},{4,5}});
 	printf("total2: %d \n",total2);
 	printf("---------------------\n\n");
-
 
 	// 使用预定义宏
 	printf("File :%s\n", __FILE__ );
