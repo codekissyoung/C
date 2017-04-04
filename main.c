@@ -13,38 +13,38 @@ float PI = 3.14;
 Test var = {{0x12345678,0x98765432},0x30};
 
 int main(int argv,char* argc[]){
-
-	int *p;
-	int (*pa)[3];
-	int ar1[2][3];
-	int ar2[3][2];
-	int *pp;
-
-	int zippo[3][2] =
-	{
-		{2,3},
-		{4,5},
-		{6,7}
-	};
-	int (*pz)[2]; // 指向一个含有两个int类型值的数组
 	switch(*argc[1]){
-
 		case 'a':/*{{{*/
-			printf("输入了a\n");
+			{
+				int *p;
+				int (*pa)[3];
+				int ar1[2][3];
+				int ar2[3][2];
+				int *pp;
+			}
 			break;/*}}}*/
 
 		// 指向多维数组的指针
 		case 'b':/*{{{*/
-			pz = zippo;
-			printf("zippo : %p , zippo[0]: %p :zippo[0][0] : %d \n",zippo,zippo[0],zippo[0][0]);
-			printf("pz : %p , *pz: %p : **pz: %d \n",pz,*pz,**pz);
-			printf("pz = %p,pz + 1:%p \n",pz,pz+1);
-			printf("pz[0] = %p,pz[0] + 1:%p \n",pz[0],pz[0]+1);
-			printf("*pz = %p,*pz + 1:%p \n",*pz,*pz+1);
-			printf("**pz = %d,*(*pz + 1):%d \n",**pz,*(*pz+1));
-			printf("**(pz + 1) = %d,*(*(pz + 1) + 1):%d \n",**(pz + 1),*(*(pz + 1)+1));
-			printf("pz[0][0] = %d,pz[0][1]:%d \n",pz[0][0],pz[0][1]);
-			printf("-----------------\n\n");
+			{
+				int zippo[3][2] =
+				{
+					{2,3},
+					{4,5},
+					{6,7}
+				};
+				int (*pz)[2]; // 指向一个含有两个int类型值的数组
+				pz = zippo;
+				printf("zippo : %p , zippo[0]: %p :zippo[0][0] : %d \n",zippo,zippo[0],zippo[0][0]);
+				printf("pz : %p , *pz: %p : **pz: %d \n",pz,*pz,**pz);
+				printf("pz = %p,pz + 1:%p \n",pz,pz+1);
+				printf("pz[0] = %p,pz[0] + 1:%p \n",pz[0],pz[0]+1);
+				printf("*pz = %p,*pz + 1:%p \n",*pz,*pz+1);
+				printf("**pz = %d,*(*pz + 1):%d \n",**pz,*(*pz+1));
+				printf("**(pz + 1) = %d,*(*(pz + 1) + 1):%d \n",**(pz + 1),*(*(pz + 1)+1));
+				printf("pz[0][0] = %d,pz[0][1]:%d \n",pz[0][0],pz[0][1]);
+				printf("-----------------\n\n");
+			}
 			break;/*}}}*/
 
 		// 测试EOF
@@ -125,12 +125,26 @@ int main(int argv,char* argc[]){
 
 		// 处理多维数组的函数
 		case 'h':/*{{{*/
-			sum_rows(zippo,3);
+			{
+				int zippo[3][2] =
+				{
+					{2,3},
+					{4,5},
+					{6,7}
+				};
+				sum_rows(zippo,3);
+			}
 			break;/*}}}*/
 
 		// 变长数组的使用
 		case 'i':/*{{{*/
 			{
+				int zippo[3][2] =
+				{
+					{2,3},
+					{4,5},
+					{6,7}
+				};
 				int total1 = sum2d(3,2,zippo);
 				printf("total1 : %d \n", total1);
 			}
