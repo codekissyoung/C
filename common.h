@@ -18,6 +18,8 @@
 #include <ctype.h>
 /*全局宏*/
 #define MAX 64
+#define MSG "I am special"
+#define STLEN 14
 typedef struct test_struct Test;
 
 /*全局变量申明*/
