@@ -273,6 +273,14 @@ int main(int argv,char* argc[]){
 			print_args(-1,"Olympic","china","Beijing",NULL);
 			break;/*}}}*/
 
+		// 
+		case 's':
+			{
+				char *x = pr("Ho Ho Ho!");
+				printf("\nx : %p \n", x);
+			}
+			break;
+
 		default:/*{{{*/
 			printf("运行　./cky n (n 为任意数字)\n");
 			break;/*}}}*/

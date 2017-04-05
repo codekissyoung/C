@@ -50,3 +50,4 @@ extern void print_diamond(int a);
 extern void plus(int a);
 extern void sum_rows(int ar[][2],int rows);
 extern int sum2d(int rows,int cols,int ar[rows][cols]);
+extern char *pr(char *str);

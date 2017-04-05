@@ -116,7 +116,7 @@ void sum_rows(int ar[][2],int rows){
 }
 
 // 处理变长数组的函数
-int sum2d(int rows,int cols,int ar[rows][cols]){
+int sum2d(int rows,int cols,int ar[rows][cols]){/*{{{*/
     int r;
     int c;
     int tot = 0;
@@ -126,4 +126,25 @@ int sum2d(int rows,int cols,int ar[rows][cols]){
         }
     }
     return tot;
+}/*}}}*/
+
+// 习题11.5
+char *pr(char *str){
+	char *pc;
+	pc = str;
+	while(*pc){
+		printf("%p : ",pc);
+		putchar(*pc++);
+		printf("\n");
+	}
+	printf("pc : %p \n",pc);
+
+	do{
+		printf("%p : ",--pc);
+		putchar(*pc);
+		printf("\n");
+	}while(pc - str);
+
+	return pc;
 }
+
