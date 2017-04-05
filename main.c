@@ -14,13 +14,46 @@ Test var = {{0x12345678,0x98765432},0x30};
 
 int main(int argv,char* argc[]){
 	switch(*argc[1]){
+		// 排序字符串
 		case 'a':/*{{{*/
 			{
-				int *p;
-				int (*pa)[3];
-				int ar1[2][3];
-				int ar2[3][2];
-				int *pp;
+				printf("随便输入字符串\n");
+				char input[5][100];
+				char *sort[5];
+				int i = 0;
+				while(i < 5 && fgets(input[i],100,stdin) != NULL){
+					sort[i] = input[i];
+					++i;
+				}
+
+				// 将指针指向的数组输出
+				printf("before sort : \n");
+				i = 0;
+				while(i < 5){
+					printf("sort[%d] : %s", i ,sort[i]);
+					i++;
+				}
+
+				// 排序
+				int j = 0;
+				char *temp;
+				for(i = 0;i < 5;i++){
+					for(j = 0;j < 5 - i -1;j++){
+						if(strncmp(sort[j],sort[j + 1],100) > 0 ){
+							temp = sort[j];
+							sort[j] = sort[j + 1];
+							sort[j + 1] = temp;
+						}
+					}
+				}
+				
+				// 将指针指向的数组输出
+				printf("after sort :\n");
+				i = 0;
+				while(i < 5){
+					printf("sort[%d] : %s", i ,sort[i]);
+					i++;
+				}
 			}
 			break;/*}}}*/
 
@@ -118,8 +151,10 @@ int main(int argv,char* argc[]){
 
 		// 打印其输入的参数
 		case 'g':/*{{{*/
-			for(int i = 0;i < argv;i++){
-				printf("argc[%d] is %s \n",i,argc[i]);// 依次打印输入的参数
+			{
+				for(int i = 0;i < argv;i++){
+					printf("argc[%d] is %s \n",i,argc[i]);// 依次打印输入的参数
+				}
 			}
 			break;/*}}}*/
 
@@ -243,5 +278,6 @@ int main(int argv,char* argc[]){
 			break;/*}}}*/
 
 	} // end of switch
+	printf("------------------------------end----------------------------\n");
 	return 0;
 }
