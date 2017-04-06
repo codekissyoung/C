@@ -12,6 +12,15 @@ int b1 = 14;
 float PI = 3.14;
 Test var = {{0x12345678,0x98765432},0x30};
 
+// 结构化数据
+struct book{
+	char title[40];
+	char author[40];
+	float value;
+
+};
+
+
 int main(int argv,char* argc[]){
 	switch(*argc[1]){
 		// 排序字符串
@@ -273,13 +282,20 @@ int main(int argv,char* argc[]){
 			print_args(-1,"Olympic","china","Beijing",NULL);
 			break;/*}}}*/
 
-		// 
 		case 's':
 			{
 				char *x = pr("Ho Ho Ho!");
 				printf("\nx : %p \n", x);
 			}
 			break;
+
+		case 't':
+			{
+				struct book library; // 变量
+
+			}
+			break;
+
 
 		default:/*{{{*/
 			printf("运行　./cky n (n 为任意数字)\n");
