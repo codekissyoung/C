@@ -20,8 +20,13 @@ struct book{
 
 };
 
+int foo(char **p);
+int foo(char **p){
+	return 0;
+}
 
 int main(int argv,char* argc[]){
+	foo(argc);
 	switch(*argc[1]){
 		// 排序字符串
 		case 'a':/*{{{*/
