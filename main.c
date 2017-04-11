@@ -26,7 +26,10 @@ int foo(char **p){
 }
 
 int main(int argv,char* argc[]){
+
+	printf("----------------------------start----------------------------\n");
 	foo(argc);
+
 	switch(*argc[1]){
 		// 排序字符串
 		case 'a':/*{{{*/
@@ -287,26 +290,35 @@ int main(int argv,char* argc[]){
 			print_args(-1,"Olympic","china","Beijing",NULL);
 			break;/*}}}*/
 
-		case 's':
+		case 's':/*{{{*/
 			{
 				char *x = pr("Ho Ho Ho!");
 				printf("\nx : %p \n", x);
 			}
-			break;
+			break;/*}}}*/
 
-		case 't':
+		case 't':/*{{{*/
 			{
-				struct book library; // 变量
+				// struct book library; // 变量
 
 			}
-			break;
-
+			break;/*}}}*/
+		
+		// 快速排序的实现
+		case 'u':/*{{{*/
+			{
+				int arr[] = {1,4,5,2,4,5,8,9,10,28,18,90,78,56,84,33,20};
+				for(int i = 0; i < sizeof(arr)/sizeof(int);i++){
+					printf("%d  ",arr[i]);
+				}
+			}
+			break;/*}}}*/
 
 		default:/*{{{*/
 			printf("运行　./cky n (n 为任意数字)\n");
 			break;/*}}}*/
 
 	} // end of switch
-	printf("------------------------------end----------------------------\n");
+	printf("\n------------------------------end----------------------------\n");
 	return 0;
 }
