@@ -51,4 +51,12 @@ extern void plus(int a);
 extern void sum_rows(int ar[][2],int rows);
 extern int sum2d(int rows,int cols,int ar[rows][cols]);
 extern char *pr(char *str);
-extern void quick_sort(int arr[]);
+extern void quick_sort(int arr[],int num);
+
+
+
+
+
+
+
+

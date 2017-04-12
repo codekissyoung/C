@@ -1,26 +1,27 @@
 #include "common.h"
 float a1 = 23.29; // a1 变量定义
-int max(int a, int b){
+
+int max(int a, int b){/*{{{*/
 	if(a > b)
 		return a;
 	else
 		return b;
-}
+}/*}}}*/
 
-int swap(int *a,int *b){
+int swap(int *a,int *b){/*{{{*/
 	int temp;
 	temp = *a;
 	*a = *b;
 	*b = temp;
 	return *a + *b;
-}
+}/*}}}*/
 
-void f(){
+void f(){/*{{{*/
 	printf("b1 in f() : %d \n", b1);
-}
+}/*}}}*/
 
 // 不定参数
-int print_args(int begin, ...){
+int print_args(int begin, ...){/*{{{*/
 	va_list ap;
 	char *p;
 	int n = 0;
@@ -35,49 +36,50 @@ int print_args(int begin, ...){
 	}
 	va_end(ap);
 	return n;
-}
+}/*}}}*/
 
 // 指针
-void pointer(void){
+void pointer(void){/*{{{*/
 	int a[5] = {1,2,3,4,5};
 	int (*p)[5];
 	int *ptr;
 	p = &a;
 	ptr = (int *)(p + 1);
 	printf("the result is : %d \n",*(ptr - 1));
-}
+}/*}}}*/
 
 // 指针的指针
-void pp(){
+void pp(){/*{{{*/
 	int a = 100;
 	int *p = &a;
 	int **q = &p;
 	printf("*p : %d \n",*p);
 	printf("p : %p \n",p);
 	printf("*q : %p \n",*q);
-}
+}/*}}}*/
 
 // 改变指针的指向
-void alter(int** p){
+void alter(int** p){/*{{{*/
 	int *q;
 	q = (int *)malloc(sizeof(int));
 	*q = 100;
 	*p = q;
-}
+}/*}}}*/
 
-void _print_space(int a){
+void _print_space(int a){/*{{{*/
 	for(int i = 0;i < a;i++){
 		printf(" ");
 	}
-}
-void _print_star(int a){
+}/*}}}*/
+
+void _print_star(int a){/*{{{*/
 	for(int i = 0;i < a;i++){
 		printf("*");
 	}
-}
+}/*}}}*/
 
 // 打印一个菱形
-void print_diamond(int a){
+void print_diamond(int a){/*{{{*/
 	printf("菱形长度: %d \n",a);
 	int i;
 	for(i = 0;i < a;i++){
@@ -93,27 +95,27 @@ void print_diamond(int a){
 		_print_star((2 * i) - 1);
 		printf("\n");
 	}
-}
+}/*}}}*/
 
 // 乘法表
-void plus(int a){
+void plus(int a){/*{{{*/
 	for(int row = 1; row <= a;row++){
 		for(int col = 1;col <= row;col ++){
 			printf("%d x %d = %d\t",col,row,col * row);
 		}
 		printf("\n");
 	}
-}
+}/*}}}*/
 
 // 处理二维数组的函数
-void sum_rows(int ar[][2],int rows){
+void sum_rows(int ar[][2],int rows){/*{{{*/
 	for(int i = 0;i < rows;i++){
 		for(int j = 0;j < 2;j++){
 			printf("ar[%d][%d] :%d \t",i,j,ar[i][j]);
 		}
 		printf("\n");
 	}
-}
+}/*}}}*/
 
 // 处理变长数组的函数
 int sum2d(int rows,int cols,int ar[rows][cols]){/*{{{*/
@@ -129,7 +131,7 @@ int sum2d(int rows,int cols,int ar[rows][cols]){/*{{{*/
 }/*}}}*/
 
 // 习题11.5
-char *pr(char *str){
+char *pr(char *str){/*{{{*/
 	char *pc;
 	pc = str;
 	while(*pc){
@@ -146,5 +148,13 @@ char *pr(char *str){
 	}while(pc - str);
 
 	return pc;
+}/*}}}*/
+
+void quick_sort(int arr[],int num){
+	printf("arr[] : %d",num);
 }
+
+
+
+
 

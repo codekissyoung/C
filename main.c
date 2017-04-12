@@ -311,6 +311,7 @@ int main(int argv,char* argc[]){
 				for(int i = 0; i < sizeof(arr)/sizeof(int);i++){
 					printf("%d  ",arr[i]);
 				}
+				quick_sort(arr,sizeof(arr)/sizeof(arr[0]));
 			}
 			break;/*}}}*/
 
