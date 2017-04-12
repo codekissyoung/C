@@ -150,11 +150,57 @@ char *pr(char *str){/*{{{*/
 	return pc;
 }/*}}}*/
 
-void quick_sort(int arr[],int num){
-	printf("arr[] : %d",num);
+// 快速排序的划分函数
+// arr 该数组
+// low 低下标
+// high 高下标
+void divide(int *arr,int low,int high){
+	if(low >= high){
+		return ;
+	}
+
+	// 需要交换的情况
+	int base      = arr[low]; // 找基准点
+	int low_mark  = low; // 低下标
+	int high_mark = high; // 高下标
+	int temp;
+	
+	printf("b:");
+	for(int i = low;i <= high;i++){
+		printf("%d\t",arr[i]);
+	}
+	printf("\n");
+
+	while(low_mark != high_mark && low_mark < high_mark){
+		while(arr[high_mark] >= base && low_mark < high_mark){
+			high_mark--;
+		}
+		while(arr[low_mark] <= base && low_mark < high_mark){
+			low_mark++;
+		}
+		swap(&arr[low_mark],&arr[high_mark]);
+	}
+	swap(&arr[low],&arr[high_mark]);
+	printf("middle index : %d , base : %d\n",high_mark,base);
+	printf("a:");
+	for(int i = low;i <= high;i++){
+		printf("%d\t",arr[i]);
+	}
+	printf("\n\n");
+
+	divide(arr, low , high_mark - 1);
+	divide(arr, high_mark + 1, high);
 }
 
+void quick_sort(int arr[],int num){
+}
 
+void show_arr(int arr[],int num){
+	for(int i = 0;i < num;i++){
+		printf("%d\t",arr[i]);
+	}
+	printf("\n");
+}
 
 
 

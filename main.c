@@ -307,11 +307,12 @@ int main(int argv,char* argc[]){
 		// 快速排序的实现
 		case 'u':/*{{{*/
 			{
-				int arr[] = {1,4,5,2,4,5,8,9,10,28,18,90,78,56,84,33,20};
-				for(int i = 0; i < sizeof(arr)/sizeof(int);i++){
-					printf("%d  ",arr[i]);
-				}
-				quick_sort(arr,sizeof(arr)/sizeof(arr[0]));
+				int arr[] = {30,1,34,53,2,46,5,30,8,9,100,30,28,18,90,78,30,56,84,33,30,20};
+				int arr_size = sizeof(arr)/sizeof(arr[0]);
+				// show_arr(arr,arr_size);
+				divide(arr,0,arr_size -1);
+				// printf("\n after quick sort \n");
+				// show_arr(arr,arr_size);
 			}
 			break;/*}}}*/
 
