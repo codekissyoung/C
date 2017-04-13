@@ -154,7 +154,7 @@ char *pr(char *str){/*{{{*/
 // arr 该数组
 // low 低下标
 // high 高下标
-void divide(int *arr,int low,int high){
+void divide(int *arr,int low,int high){/*{{{*/
 	if(low >= high){
 		return ;
 	}
@@ -190,17 +190,58 @@ void divide(int *arr,int low,int high){
 
 	divide(arr, low , high_mark - 1);
 	divide(arr, high_mark + 1, high);
-}
+}/*}}}*/
 
-void quick_sort(int arr[],int num){
-}
-
-void show_arr(int arr[],int num){
+void show_arr(int arr[],int num){/*{{{*/
 	for(int i = 0;i < num;i++){
 		printf("%d\t",arr[i]);
 	}
 	printf("\n");
+}/*}}}*/
+
+// 打印队列
+void show_queue(const struct queue *q){/*{{{*/
+	for(int i = q->head;i < q->tail;i++){
+		printf("%d\t",q->data[i]);
+	}
+}/*}}}*/
+
+// 打印栈
+void show_stack(const struct stack *s){/*{{{*/
+	for(int i = 0;i < s->top;i++){
+		printf("%d\t",s->data[i]);
+	}
+}/*}}}*/
+
+// 玩家的一次出牌过程(队列数据添加到栈)
+void card_out(struct queue *q,struct stack *s){
+	// 出牌
+	s->data[s->top] = q->data[q->head];
+	s->top++;
+	q->head++;
+	card_eat(q,s);
 }
+
+// 判断吃牌
+void card_eat(struct queue *q,struct stack *s){
+	int num = s->data[s->top-1]; // 要比较的数
+	int mark = s->top - 2; // 比较到哪一位才相等
+
+	// 判断是否吃牌
+	for(;0 <= mark;mark--){
+		if(s->data[mark] == num ){
+			// printf(" (吃到:%d位) ",mark);
+			// 吃牌
+			for(;s->top > mark;s->top--){
+				q->data[q->tail] = s->data[s->top-1];
+				q->tail++;
+			}
+			break;
+		}
+	}
+}
+
+
 
 
 

@@ -303,7 +303,7 @@ int main(int argv,char* argc[]){
 
 			}
 			break;/*}}}*/
-		
+
 		// 快速排序的实现
 		case 'u':/*{{{*/
 			{
@@ -313,6 +313,57 @@ int main(int argv,char* argc[]){
 				divide(arr,0,arr_size -1);
 				// printf("\n after quick sort \n");
 				// show_arr(arr,arr_size);
+			}
+			break;/*}}}*/
+
+		// 扑克牌游戏
+		case 'v':/*{{{*/
+			{
+				struct stack desk;// 桌面
+				struct queue player1 = {{2,4,1,2,5,6},0,6}; //玩家1
+				struct queue player2 = {{3,1,3,5,6,4},0,6}; //玩家2
+				
+				// 输出下玩家的手牌
+				
+				// start game
+					/*
+					if(player1.head == player1.tail){
+						printf("palyer2 win!!!");
+						break;
+					}
+					*/
+				
+				while(player1.head < player1.tail && player2.head < player2.tail){
+					
+					card_out(&player1,&desk);
+					printf("玩家1出牌后:\n");
+					printf("玩家1: \t");
+					show_queue(&player1);
+					printf("\n玩家2: \t");
+					show_queue(&player2);
+					
+					printf("\n桌面:\t");show_stack(&desk);
+					printf("\n-----------------------------------------\n");
+
+					card_out(&player2,&desk);
+					
+					printf("玩家2出牌后:\n");
+					printf("玩家1: \t");
+					show_queue(&player1);
+					printf("\n玩家2: \t");
+					show_queue(&player2);
+					
+					printf("\n桌面:\t");show_stack(&desk);
+					printf("\n-----------------------------------------\n");
+				}
+
+				// 判断胜负
+				if(player1.head == player1.tail){
+					printf("\n------------------------------玩家2胜利-------------------------\n");
+				}else{
+					printf("\n------------------------------玩家1胜利-------------------------\n");
+				}
+
 			}
 			break;/*}}}*/
 

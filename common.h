@@ -22,6 +22,25 @@
 #define STLEN 14
 typedef struct test_struct Test;
 
+/* 队列 */
+struct queue {
+	int data[1000];
+	int head;
+	int tail;
+};
+// 打印队列
+extern void show_queue(const struct queue *q);
+
+
+/* 栈 */
+struct stack{
+	int data[1000];
+	int top;
+};
+// 打印栈
+extern void show_stack(const struct stack *s);
+
+
 /*全局变量申明*/
 extern float a1;
 extern int b1;
@@ -56,6 +75,9 @@ extern void divide(int *arr,int low,int high);
 extern void show_arr(int arr[],int num);
 
 
+// 出牌过程
+extern void card_out(struct queue *q,struct stack *s);
+extern void card_eat(struct queue *q,struct stack *s);
 
 
 
