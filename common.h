@@ -31,7 +31,6 @@ struct queue {
 // 打印队列
 extern void show_queue(const struct queue *q);
 
-
 /* 栈 */
 struct stack{
 	int data[1000];
