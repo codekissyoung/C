@@ -20,15 +20,9 @@ struct book{
 
 };
 
-int foo(char **p);
-int foo(char **p){
-	return 0;
-}
-
 int main(int argv,char* argc[]){
 
 	printf("----------------------------start----------------------------\n");
-	foo(argc);
 
 	switch(*argc[1]){
 		// 排序字符串
@@ -324,15 +318,6 @@ int main(int argv,char* argc[]){
 				struct queue player2 = {{3,1,3,5,6,4},0,6}; //玩家2
 				
 				// 输出下玩家的手牌
-				
-				// start game
-					/*
-					if(player1.head == player1.tail){
-						printf("palyer2 win!!!");
-						break;
-					}
-					*/
-				
 				while(player1.head < player1.tail && player2.head < player2.tail){
 					
 					card_out(&player1,&desk);
@@ -366,6 +351,19 @@ int main(int argv,char* argc[]){
 
 			}
 			break;/*}}}*/
+
+		// 链表
+		case 'w':
+			{
+				// 创建链表的第一个元素
+				struct node p;
+				p.data = 11;
+				p.next = NULL;
+				struct node *a = init(15);
+				printf("p.data : %d\n",p.data);
+				printf("a->data : %d\n",a->data);
+				break;
+			}
 
 		default:/*{{{*/
 			printf("运行　./cky n (n 为任意数字)\n");

@@ -214,16 +214,16 @@ void show_stack(const struct stack *s){/*{{{*/
 }/*}}}*/
 
 // 玩家的一次出牌过程(队列数据添加到栈)
-void card_out(struct queue *q,struct stack *s){
+void card_out(struct queue *q,struct stack *s){/*{{{*/
 	// 出牌
 	s->data[s->top] = q->data[q->head];
 	s->top++;
 	q->head++;
 	card_eat(q,s);
-}
+}/*}}}*/
 
 // 判断吃牌
-void card_eat(struct queue *q,struct stack *s){
+void card_eat(struct queue *q,struct stack *s){/*{{{*/
 	int num = s->data[s->top-1]; // 要比较的数
 	int mark = s->top - 2; // 比较到哪一位才相等
 
@@ -239,7 +239,7 @@ void card_eat(struct queue *q,struct stack *s){
 			break;
 		}
 	}
-}
+}/*}}}*/
 
 
 

@@ -39,6 +39,13 @@ struct stack{
 // 打印栈
 extern void show_stack(const struct stack *s);
 
+/* 链表 */
+struct node{
+	int data;
+	struct node *next;
+};
+// 链表
+extern struct node* init(int num);
 
 /*全局变量申明*/
 extern float a1;
@@ -77,9 +84,5 @@ extern void show_arr(int arr[],int num);
 // 出牌过程
 extern void card_out(struct queue *q,struct stack *s);
 extern void card_eat(struct queue *q,struct stack *s);
-
-
-
-
 
 
