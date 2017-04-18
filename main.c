@@ -17,7 +17,6 @@ struct book{
 	char title[40];
 	char author[40];
 	float value;
-
 };
 
 int main(int argv,char* argc[]){
@@ -57,7 +56,7 @@ int main(int argv,char* argc[]){
 						}
 					}
 				}
-				
+
 				// 将指针指向的数组输出
 				printf("after sort :\n");
 				i = 0;
@@ -316,28 +315,28 @@ int main(int argv,char* argc[]){
 				struct stack desk;// 桌面
 				struct queue player1 = {{2,4,1,2,5,6},0,6}; //玩家1
 				struct queue player2 = {{3,1,3,5,6,4},0,6}; //玩家2
-				
+
 				// 输出下玩家的手牌
 				while(player1.head < player1.tail && player2.head < player2.tail){
-					
+
 					card_out(&player1,&desk);
 					printf("玩家1出牌后:\n");
 					printf("玩家1: \t");
 					show_queue(&player1);
 					printf("\n玩家2: \t");
 					show_queue(&player2);
-					
+
 					printf("\n桌面:\t");show_stack(&desk);
 					printf("\n-----------------------------------------\n");
 
 					card_out(&player2,&desk);
-					
+
 					printf("玩家2出牌后:\n");
 					printf("玩家1: \t");
 					show_queue(&player1);
 					printf("\n玩家2: \t");
 					show_queue(&player2);
-					
+
 					printf("\n桌面:\t");show_stack(&desk);
 					printf("\n-----------------------------------------\n");
 				}
