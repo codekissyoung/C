@@ -352,7 +352,7 @@ int main(int argv,char* argc[]){
 			break;/*}}}*/
 
 		// 链表
-		case 'w':
+		case 'w':/*{{{*/
 			{
 				// 创建链表的第一个元素
 				struct node p;
@@ -361,8 +361,8 @@ int main(int argv,char* argc[]){
 				struct node *a = init(15);
 				printf("p.data : %d\n",p.data);
 				printf("a->data : %d\n",a->data);
-				break;
 			}
+			break;/*}}}*/
 
 		default:/*{{{*/
 			printf("运行　./cky n (n 为任意数字)\n");
