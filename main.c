@@ -19,7 +19,7 @@ struct book{
 	float value;
 };
 
-int main(int argv,char* argc[]){
+int main(int argv,const char* argc[]){
 
 	printf("----------------------------start----------------------------\n");
 
