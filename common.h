@@ -85,4 +85,5 @@ extern void show_arr(int arr[],int num);
 extern void card_out(struct queue *q,struct stack *s);
 extern void card_eat(struct queue *q,struct stack *s);
 
-
+// 测试gdb
+extern int factorial(int n);

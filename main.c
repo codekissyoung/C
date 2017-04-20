@@ -22,6 +22,15 @@ struct book{
 int main(int argv,const char* argc[]){
 
 	printf("----------------------------start----------------------------\n");
+	
+	int sum = 0;
+	int i = 0;
+	for(;i < 100;i++){
+		sum = sum + i;
+	}
+	
+	printf("[1-100] : %d\n",sum);
+	printf("[1-500] : %d\n",factorial(500));
 
 	switch(*argc[1]){
 		// 排序字符串
