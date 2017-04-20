@@ -1,17 +1,4 @@
 #include "common.h"
-
-// 全局变量定义
-int b1 = 14;
-float PI = 3.14;
-Test var = {{0x12345678,0x98765432},0x30};
-
-// 结构化数据
-struct book{
-	char title[40];
-	char author[40];
-	float value;
-};
-
 int main(int argv,const char* argc[]){
 
 	printf("----------------------------start----------------------------\n");
