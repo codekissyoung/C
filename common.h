@@ -16,6 +16,18 @@
 
 /* 专门处理字符的函数*/
 #include <ctype.h>
+/* 调试代码 */
+#ifndef ONLY
+	#define ONLY 1
+
+	#define DEBUG 1
+	#ifdef DEBUG
+		#define debug(a, b) printf(#a"\n",b)
+	#else
+		#define debug(a,b) ;
+	#endif
+#endif
+
 /*全局宏*/
 #define MAX 64
 #define MSG "I am special"
