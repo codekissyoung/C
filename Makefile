@@ -1,6 +1,6 @@
 # makefile for cky
 cky:func.o node.o main.o share.so libstatic_lib.a
-	gcc -L. -g -std=c11 -O2 -Wall func.o node.o main.c ./share.so -lstatic_lib  -o cky
+	gcc -L. -g -std=c11 -Wall func.o node.o main.c ./share.so -lstatic_lib  -o cky
 
 main.o:main.c
 static_lib.o:static_lib.c

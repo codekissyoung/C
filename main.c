@@ -1,4 +1,5 @@
 #include "common.h"
+#include "global.c"
 int main(int argv,const char* argc[]){
 
 	printf("----------------------------start----------------------------\n");
@@ -8,8 +9,6 @@ int main(int argv,const char* argc[]){
 	for(;i < 100;i++){
 		sum = sum + i;
 	}
-	
-	double d1 = 3.14;
 
 	printf("[1-100] : %d\n",sum);
 	printf("[1-500] : %d\n",factorial(500));
