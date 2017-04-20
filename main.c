@@ -1,10 +1,15 @@
 /* 调试代码 */
-#define DEBUG 1
-#ifdef DEBUG
-#define debug(a, b) printf(#a"\n",b)
-#else
-#define debug(a,b) ;
+#ifndef ONLY
+	#define ONLY 1
+
+	#define DEBUG 1
+	#ifdef DEBUG
+		#define debug(a, b) printf(#a"\n",b)
+	#else
+		#define debug(a,b) ;
+	#endif
 #endif
+
 #include "common.h"
 
 // 全局变量定义
