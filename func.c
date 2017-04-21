@@ -242,21 +242,15 @@ void card_eat(struct queue *q,struct stack *s){/*{{{*/
 }/*}}}*/
 
 // 测试下gdb
-int factorial(int n){
+int factorial(int n){/*{{{*/
 	int i = 1;
 	int sum = 0;
 	for(;i<n;i++){
 		sum = sum + i;
 	}
 	return sum;
-}
+}/*}}}*/
 
-
-
-
-
-
-
-
+// 
 
 
