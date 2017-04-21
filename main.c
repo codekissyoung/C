@@ -13,6 +13,10 @@ int main(int argv,const char* argc[]){
 	printf("[1-100] : %d\n",sum);
 	printf("[1-500] : %d\n",factorial(500));
 
+	if(atexit(when_exit)){
+		printf("\nfail to set exit handler!\n");
+	}
+
 	switch(*argc[1]){
 		// 排序字符串
 		case 'a':/*{{{*/

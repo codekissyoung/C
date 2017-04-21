@@ -95,4 +95,4 @@ extern void card_eat(struct queue *q,struct stack *s);
 // 测试gdb
 extern int factorial(int n);
 
-
+extern void when_exit(void);

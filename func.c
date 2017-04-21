@@ -1,5 +1,4 @@
 #include "common.h"
-float a1 = 23.29; // a1 变量定义
 
 int max(int a, int b){/*{{{*/
 	if(a > b)
@@ -251,6 +250,14 @@ int factorial(int n){/*{{{*/
 	return sum;
 }/*}}}*/
 
-// 
+// 进程中止处理函数
+void when_exit(void){/*{{{*/
+	printf("\n进程退出了\n");
+}/*}}}*/
+
+
+
+
+
 
 
