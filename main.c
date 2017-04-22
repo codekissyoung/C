@@ -358,6 +358,22 @@ int main(int argv,const char* argc[]){
 			}
 			break;/*}}}*/
 
+		// 测试下进程相关的内容 fork
+		case 'x':
+			{
+				pid_t pid;
+				pid = fork();
+				if( pid < 0){
+					printf("\nfail to fork\n");
+					exit(1);
+				}else if(pid == 0){
+					printf("this is child , pid is : %u\n",getpid());
+				}else{
+					printf("this is parent , pid is : %u,child-pid is : %u\n",getpid(),pid);
+				}
+			}
+			break;
+
 		default:/*{{{*/
 			printf("运行　./cky n (n 为任意数字)\n");
 			break;/*}}}*/
