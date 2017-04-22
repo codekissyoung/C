@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <fcntl.h> /* linux系统调用的头文件 */
+#include <sys/types.h>
 #include <unistd.h> /* 进程相关函数头文件 */
 #include <stdarg.h>
 #include <string.h>
@@ -92,6 +93,10 @@ extern void show_arr(int arr[],int num);
 // 出牌过程
 extern void card_out(struct queue *q,struct stack *s);
 extern void card_eat(struct queue *q,struct stack *s);
+
+// 为了避免出现implicit declaration of function vfork ,warning,所以自己加个声明
+extern pid_t vfork(void);
+
 
 // 测试gdb
 extern int factorial(int n);

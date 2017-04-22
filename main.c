@@ -360,7 +360,7 @@ int main(int argv,const char* argc[]){
 
 		// 测试下进程相关的内容 fork
 		case 'x':
-			{
+			{/*{{{*/
 				int stack = 1;
 				int *heap;
 				heap = (int *)malloc(sizeof(int));
@@ -383,7 +383,34 @@ int main(int argv,const char* argc[]){
 					printf("this is parent , pid is : %u,child-pid is : %u\n",getpid(),pid);
 				}
 			}
+			break;/*}}}*/
+
+		// 测试共享进程 vfork()
+		case 'y':
+			{
+				pid_t pid;
+				int stack = 100;
+				int *heap;
+				heap = (int *)malloc(sizeof(int));
+				*heap = 200;
+
+				pid = vfork();
+				if(pid < 0){
+					printf("vfork fail!!!!!\n");
+					exit(1);
+				}else if(pid == 0){
+					global ++;
+					stack ++;
+					(*heap) ++;
+					printf("stack : %d ,*heap : %d, global : %d",stack,*heap,global);
+					exit(0);
+				}else {
+					sleep(2); // 保证子进程先运行
+					printf("stack : %d ,*heap : %d, global : %d",stack,*heap,global);
+				}
+			}
 			break;
+
 
 		default:/*{{{*/
 			printf("运行　./cky n (n 为任意数字)\n");
