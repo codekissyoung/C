@@ -38,6 +38,7 @@ extern float a1;
 extern int b1;
 extern float PI;
 extern char ** environ;
+extern int global;
 /* 队列 */
 struct queue {
 	int data[1000];

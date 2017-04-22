@@ -361,14 +361,25 @@ int main(int argv,const char* argc[]){
 		// 测试下进程相关的内容 fork
 		case 'x':
 			{
+				int stack = 1;
+				int *heap;
+				heap = (int *)malloc(sizeof(int));
+				*heap = 2;
 				pid_t pid;
 				pid = fork();
+
 				if( pid < 0){
 					printf("\nfail to fork\n");
 					exit(1);
 				}else if(pid == 0){
+					stack ++;
+					(*heap)++;
+					global++;
+					printf("stack : %d , *heap :%d,global:%d\n",stack,*heap,global);
 					printf("this is child , pid is : %u\n",getpid());
 				}else{
+					sleep(2);
+					printf("stack : %d , *heap :%d,global:%d\n",stack,*heap,global);
 					printf("this is parent , pid is : %u,child-pid is : %u\n",getpid(),pid);
 				}
 			}

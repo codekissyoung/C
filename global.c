@@ -14,7 +14,7 @@
 #endif
 
 float a1 = 23.29; // a1 变量定义
-
+int global = 2;
 
 
 
