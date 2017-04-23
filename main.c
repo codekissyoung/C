@@ -359,8 +359,8 @@ int main(int argv,const char* argc[]){
 			break;/*}}}*/
 
 		// 测试下进程相关的内容 fork
-		case 'x':
-			{/*{{{*/
+		case 'x':/*{{{*/
+			{
 				int stack = 1;
 				int *heap;
 				heap = (int *)malloc(sizeof(int));
@@ -386,7 +386,7 @@ int main(int argv,const char* argc[]){
 			break;/*}}}*/
 
 		// 测试共享进程 vfork()
-		case 'y':
+		case 'y':/*{{{*/
 			{
 				pid_t pid;
 				int stack = 100;
@@ -409,8 +409,27 @@ int main(int argv,const char* argc[]){
 					printf("stack : %d ,*heap : %d, global : %d",stack,*heap,global);
 				}
 			}
-			break;
+			break;/*}}}*/
+		
+		// 测试exec()
+		case 'z':/*{{{*/
+				{
+					pid_t pid;
+					pid = fork();
 
+					if(pid < 0){
+						printf("fail to fork \n");
+						exit(1);
+					}else if(pid == 0){
+						if(execl("hello",NULL)){
+							printf("fail to exec \n");
+							exit(0);
+						}
+					}else{
+						printf("parent!");
+					}
+				}
+				break;/*}}}*/
 
 		default:/*{{{*/
 			printf("运行　./cky n (n 为任意数字)\n");
