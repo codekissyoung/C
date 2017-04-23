@@ -415,16 +415,14 @@ int main(int argv,const char* argc[]){
 		case 'z':/*{{{*/
 				{
 					pid_t pid;
+					char *argv[] = {"hello"};
 					pid = fork();
 
 					if(pid < 0){
 						printf("fail to fork \n");
 						exit(1);
 					}else if(pid == 0){
-						if(execl("hello",NULL)){
-							printf("fail to exec \n");
-							exit(0);
-						}
+						execvp("./hello",argv);
 					}else{
 						printf("parent!");
 					}
