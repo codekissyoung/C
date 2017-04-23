@@ -429,6 +429,13 @@ int main(int argv,const char* argc[]){
 				}
 				break;/*}}}*/
 
+		// 测试system()
+		case '1':
+			{
+				system("ls -alh");
+			}
+			break;
+
 		default:/*{{{*/
 			printf("运行　./cky n (n 为任意数字)\n");
 			break;/*}}}*/
