@@ -432,16 +432,17 @@ int main(int argv,const char* argc[]){
 				break;/*}}}*/
 
 		// 测试system()
-		case '1':
+		case '1':/*{{{*/
 			{
 				system("ls -alh");
 			}
-			break;
-		
-		case '2':
+			break;/*}}}*/
+
+		// 测试wait()
+		case '2':/*{{{*/
 			{
 				pid_t pid;
-				int num,status;
+				int status;
 				
 				// 创建第一个子进程
 				pid = fork();
@@ -465,7 +466,7 @@ int main(int argv,const char* argc[]){
 				pid_t pid2 = fork();
 				if(pid2 == 0){
 					printf("the second ,exit abnormally!!!!\n");
-					num = 1 / 0;
+					printf("1 / 0 is %d \n",1 / 0);;
 				}else if(pid2 < 0){
 					printf("创建进程错误\n");
 					exit(1);
@@ -479,7 +480,60 @@ int main(int argv,const char* argc[]){
 					}
 				}
 			}
+			break;/*}}}*/
+
+		// 测试僵尸进程
+		case '3':/*{{{*/
+			{
+				pid_t pid;
+				pid = fork();
+
+				if(pid == 0){
+					printf("i am child process!\n");
+					sleep(10);
+					printf("child process done!\n");
+					exit(0);
+				}
+				printf("the parent process!\n");
+				sleep(30);
+				if(wait(NULL) == -1){ // wait child process over
+					perror("fail to wait!\n");
+					exit(1);
+				}
+			}
+			break;/*}}}*/
+
+		// 测试wait3函数，用于对子进程进行进程统计
+		case '4':
+			{
+				pid_t pid;
+				int status;
+				struct rusage rusage;
+
+				pid = fork();
+				if(pid < 0){
+					exit(1);
+				}else if(pid == 0){
+					printf("the child \n");
+					exit(0);
+				}else{
+					printf("the parent \n");
+					if(wait3(&status,0,&rusage) == -1){
+						perror("fail to wait!\n");
+						exit(1);
+					}
+					
+					int ru_utime = rusage.ru_utime.tv_sec;
+					int ru_stime = rusage.ru_stime.tv_sec;
+					printf("utime is %d \n",ru_utime);
+					printf("stime is %d \n",ru_stime);
+					printf("msgsnd is %ld\n",rusage.ru_msgsnd);
+					printf("maxrss is %ld\n",rusage.ru_maxrss);
+				}
+			}
 			break;
+
+
 
 		default:/*{{{*/
 			printf("运行　./cky n (n 为任意数字)\n");
