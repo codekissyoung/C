@@ -3,19 +3,21 @@
 int main(int argv,const char* argc[]){
 
 	printf("----------------------------start----------------------------\n");
-	
+
+	/*{{{*/
 	int sum = 0;
 	int i = 0;
 	for(;i < 100;i++){
 		sum = sum + i;
 	}
 
-	printf("[1-100] : %d\n",sum);
-	printf("[1-500] : %d\n",factorial(500));
+	// printf("[1-100] : %d\n",sum);
+	// printf("[1-500] : %d\n",factorial(500));
 
 	if(atexit(when_exit)){
 		printf("\nfail to set exit handler!\n");
 	}
+/*}}}*/
 
 	switch(*argc[1]){
 		// 排序字符串
@@ -433,6 +435,49 @@ int main(int argv,const char* argc[]){
 		case '1':
 			{
 				system("ls -alh");
+			}
+			break;
+		
+		case '2':
+			{
+				pid_t pid;
+				int num,status;
+				
+				// 创建第一个子进程
+				pid = fork();
+				if(pid < 0){
+					printf("创建进程失败!\n");
+					exit(1);
+				}else if(pid == 0){
+					printf("the first ,exit normally !\n");
+					exit(0);
+				}else{
+					if(wait(&status) == -1){
+						perror("fail to wait!!!\n");
+						exit(1);
+					}
+					if(WIFEXITED(status) == 1){
+						printf("the status of first is : %d\n",WEXITSTATUS(status));
+					}
+				}
+
+				// 创建第二个子进程
+				pid_t pid2 = fork();
+				if(pid2 == 0){
+					printf("the second ,exit abnormally!!!!\n");
+					num = 1 / 0;
+				}else if(pid2 < 0){
+					printf("创建进程错误\n");
+					exit(1);
+				}else {
+					if(wait(&status) == -1){ // 父进程等待子进程退出
+						perror("fail to wait!!!\n");
+						exit(1);
+					}
+					if(WIFSIGNALED(status) == 1){
+						printf("the teminated signal is : %d\n",WTERMSIG(status));
+					}
+				}
 			}
 			break;
 

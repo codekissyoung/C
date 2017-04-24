@@ -3,13 +3,14 @@
 #include <stdint.h>
 #include <inttypes.h>
 #include <stdlib.h>
-#include <sys/stat.h>
-#include <fcntl.h> /* linux系统调用的头文件 */
-#include <sys/types.h>
 #include <unistd.h> /* 进程相关函数头文件 */
+#include <fcntl.h> /* linux系统调用的头文件 */
 #include <stdarg.h>
 #include <string.h>
 #include <errno.h> /* 错误号申明头文件 */
+#include <sys/stat.h>
+#include <sys/wait.h>
+#include <sys/types.h>
 
 /* 下面两个头文件定义了相关最大值和最小值的的常量 */
 #include <limits.h> /* 整数类型大小限制 */
