@@ -8,6 +8,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <errno.h> /* 错误号申明头文件 */
+#include <time.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>

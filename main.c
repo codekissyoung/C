@@ -279,10 +279,15 @@ int main(int argv,const char* argc[]){
 			print_args(-1,"Olympic","china","Beijing",NULL);
 			break;/*}}}*/
 
+		// 测试time.h
 		case 's':/*{{{*/
 			{
-				char *x = pr("Ho Ho Ho!");
-				printf("\nx : %p \n", x);
+				time_t cur_time;
+				if((cur_time = time(NULL)) == -1){
+					perror("time");
+					exit(0);
+				}
+				printf("the current time : %d \n",(int)cur_time);
 			}
 			break;/*}}}*/
 
