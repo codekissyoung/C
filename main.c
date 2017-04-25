@@ -1,25 +1,12 @@
 #include "common.h"
 #include "global.c"
-int main(int argv,const char* argc[]){
+int main(int argc,const char* argv[]){
 
 	printf("----------------------------start----------------------------\n");
 
-	/*{{{*/
-	int sum = 0;
-	int i = 0;
-	for(;i < 100;i++){
-		sum = sum + i;
-	}
+	atexit(when_exit); // 注册退出函数
 
-	// printf("[1-100] : %d\n",sum);
-	// printf("[1-500] : %d\n",factorial(500));
-
-	if(atexit(when_exit)){
-		printf("\nfail to set exit handler!\n");
-	}
-/*}}}*/
-
-	switch(*argc[1]){
+	switch(*argv[1]){
 		// 排序字符串
 		case 'a':/*{{{*/
 			{
@@ -152,15 +139,6 @@ int main(int argv,const char* argc[]){
 				printf("ar : %p \n",ar); // 数组存储的位置
 				printf("pt : %p \n",pt); // 指针指向的位置
 				printf("-----------------\n\n");
-			}
-			break;/*}}}*/
-
-		// 打印其输入的参数
-		case 'g':/*{{{*/
-			{
-				for(int i = 0;i < argv;i++){
-					printf("argc[%d] is %s \n",i,argc[i]);// 依次打印输入的参数
-				}
 			}
 			break;/*}}}*/
 
@@ -509,7 +487,7 @@ int main(int argv,const char* argc[]){
 			break;/*}}}*/
 
 		// 测试wait3函数，用于对子进程进行进程统计
-		case '4':
+		case '4':/*{{{*/
 			{
 				pid_t pid;
 				int status;
@@ -536,15 +514,23 @@ int main(int argv,const char* argc[]){
 					printf("maxrss is %ld\n",rusage.ru_maxrss);
 				}
 			}
-			break;
-
-
+			break;/*}}}*/
 
 		default:/*{{{*/
 			printf("运行　./cky n (n 为任意数字)\n");
 			break;/*}}}*/
 
 	} // end of switch
+
+	printf("argv[1]: %s",argv[1]);
+	if(strncmp(argv[1],"test",4) == 0){
+//		while(1);
+		printf("test!!\n");
+	}
+
+
+
+
 	printf("\n------------------------------end----------------------------\n");
 	return 0;
 }
