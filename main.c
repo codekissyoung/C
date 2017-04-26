@@ -524,12 +524,9 @@ int main(int argc,const char* argv[]){
 
 	printf("argv[1]: %s",argv[1]);
 	if(strncmp(argv[1],"test",4) == 0){
-//		while(1);
+		while(1);
 		printf("test!!\n");
 	}
-
-
-
 
 	printf("\n------------------------------end----------------------------\n");
 	return 0;
