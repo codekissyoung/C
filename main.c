@@ -3,8 +3,14 @@
 int main(int argc,const char* argv[]){
 
 	printf("----------------------------start----------------------------\n");
-
 	atexit(when_exit); // 注册退出函数
+
+	
+	if(strcmp("shift",argv[1]) == 0){
+		int a = 12;
+		a = a >> 2;
+		printf("a : %d \n",a);
+	}
 
 	switch(*argv[1]){
 		// 排序字符串
@@ -449,7 +455,7 @@ int main(int argc,const char* argv[]){
 				pid_t pid2 = fork();
 				if(pid2 == 0){
 					printf("the second ,exit abnormally!!!!\n");
-					printf("1 / 0 is %d \n",1 / 0);;
+					// printf("1 / 0 is %d \n",1 / 0);;
 				}else if(pid2 < 0){
 					printf("创建进程错误\n");
 					exit(1);
@@ -516,17 +522,10 @@ int main(int argc,const char* argv[]){
 			}
 			break;/*}}}*/
 
-		default:/*{{{*/
+		default:
 			printf("运行　./cky n (n 为任意数字)\n");
-			break;/*}}}*/
 
 	} // end of switch
-
-	printf("argv[1]: %s",argv[1]);
-	if(strncmp(argv[1],"test",4) == 0){
-		while(1);
-		printf("test!!\n");
-	}
 
 	printf("\n------------------------------end----------------------------\n");
 	return 0;
