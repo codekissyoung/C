@@ -101,8 +101,6 @@ extern void card_eat(struct queue *q,struct stack *s);
 extern pid_t vfork(void);
 extern pid_t wait3(int *statloc,int options,struct rusage *r);
 
-
-
 // 测试gdb
 extern int factorial(int n);
 

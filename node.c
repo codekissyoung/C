@@ -1,4 +1,4 @@
-#include "common.h"
+#include "include/common.h"
 struct node* init(int num){
 	struct node *p;
 	p = (struct node *)malloc(sizeof(struct node));
