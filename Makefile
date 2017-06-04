@@ -1,21 +1,28 @@
 # makefile for cky
-cky:func.o node.o main.o share.so libstatic_lib.a
-	gcc -L. -g -std=c11 -Wall func.o node.o main.c ./share.so -lstatic_lib  -o cky
+cky:lib/func.o lib/node.o lib/main.o lib/share.so lib/libstatic_lib.a
+	gcc -Llib -g -std=c11 -Wall lib/func.o lib/node.o lib/share.so -lstatic_lib lib/main.o -o cky
 
-main.o:main.c
-static_lib.o:static_lib.c
-node.o:node.c
-func.o:func.c
+lib/main.o:main.c
+	gcc -c main.c -o lib/main.o
+
+lib/static_lib.o:src/static_lib.c
+	gcc -c src/static_lib.c -o lib/static_lib.o
+
+lib/node.o:src/node.c
+	gcc -c src/node.c -o lib/node.o
+
+lib/func.o:src/func.c
+	gcc -c src/func.c -o lib/func.o
 
 # 静态库的编译
-libstatic_lib.a:static_lib.o
-	ar rcs libstatic_lib.a static_lib.o
+lib/libstatic_lib.a:lib/static_lib.o
+	ar rcs lib/libstatic_lib.a lib/static_lib.o
 
 # 动态库的编译
-share.so:share.c
-	gcc -shared -fPIC share.c -o share.so
+lib/share.so:src/share.c
+	gcc -shared -fPIC src/share.c -o lib/share.so
 
 clean:
-	rm *.o
-	rm *.so
-	rm *.a
+	rm lib/*.o
+	rm lib/*.so
+	rm lib/*.a
