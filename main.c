@@ -9,13 +9,39 @@ int main(int argc,const char* argv[]){
 
 	atexit(when_exit); // 注册退出函数
 	
+	// wait
+	if(strcmp("wait",argv[1]) == 0){
+		pid_t pid = fork();
+		int num,status;
+		if(pid < 0){
+			perror("fail to fork");
+			exit(1);
+		}else if(pid == 0){
+			printf("the first , exit normally \n");
+			sleep(3);
+			exit(0);
+		}else{
+			if( wait(&status) == -1 ){
+				printf("fail to error");
+				exit(1);
+			}
+			
+			printf("阻断了？\n");
+
+			if( WIFEXITED(status) == 1){
+				printf("the status of first is : %d \n",WEXITSTATUS(status));
+			}
+		}
+	}
+	
 	// 多进程操作
 	if(strcmp("proc",argv[1]) == 0){
 		pid_t pid = fork();
 		if(pid < 0){
 			printf("fork 出错");
 		}else if(pid == 0){
-			printf("子进程");
+			// printf("子进程");
+			execl("hello","a",NULL);
 		}else {
 			printf(" 父进程 ");
 			sleep(3);
@@ -381,6 +407,7 @@ int main(int argc,const char* argv[]){
 
 		// 链表
 		case 'w':/*{{{*/
+			/*
 			{
 				// 创建链表的第一个元素
 				struct node p;
@@ -390,6 +417,7 @@ int main(int argc,const char* argv[]){
 				printf("p.data : %d\n",p.data);
 				printf("a->data : %d\n",a->data);
 			}
+			*/
 			break;/*}}}*/
 
 		// 测试下进程相关的内容 fork
