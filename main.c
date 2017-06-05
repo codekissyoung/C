@@ -2,15 +2,13 @@
 #include "global.c"
 int main(int argc,const char* argv[]){
 
-	printf("----------------------------start----------------------------\n");
-	
+	printf("----------------------------process %d start----------------------------\n",getpid());
+
 	// 程序自身的详细信息
 	self_info();
 
-	atexit(when_exit); // 注册退出函数
-	
 	// wait
-	if(strcmp("wait",argv[1]) == 0){
+	if(strcmp("wait",argv[1]) == 0){/*{{{*/
 		pid_t pid = fork();
 		int num,status;
 		if(pid < 0){
@@ -32,10 +30,10 @@ int main(int argc,const char* argv[]){
 				printf("the status of first is : %d \n",WEXITSTATUS(status));
 			}
 		}
-	}
+	}/*}}}*/
 	
 	// 多进程操作
-	if(strcmp("proc",argv[1]) == 0){
+	if(strcmp("proc",argv[1]) == 0){/*{{{*/
 		pid_t pid = fork();
 		if(pid < 0){
 			printf("fork 出错");
@@ -46,10 +44,10 @@ int main(int argc,const char* argv[]){
 			printf(" 父进程 ");
 			sleep(3);
 		}
-	}
+	}/*}}}*/
 
 	// 线程操作
-	if(strcmp("vfork",argv[1]) == 0){
+	if(strcmp("vfork",argv[1]) == 0){/*{{{*/
 		int stack = 1;
 		int *heap = (int *) malloc(sizeof(int));
 		*heap = 100;
@@ -68,16 +66,16 @@ int main(int argc,const char* argv[]){
 			printf("in process : global : %d , stack : %d , *heap : %d \n",global ,stack ,*heap);
 			
 		}
-	}
+	}/*}}}*/
 
 	// simple_print_int(10,20,30);
 	
 	// 移位操作
-	if(strcmp("shift",argv[1]) == 0){
+	if(strcmp("shift",argv[1]) == 0){/*{{{*/
 		int a = 12;
 		a = a >> 2;
 		printf("a : %d \n",a);
-	}
+	}/*}}}*/
 
 	switch(*argv[1]){
 		// 排序字符串
@@ -598,6 +596,7 @@ int main(int argc,const char* argv[]){
 
 	} // end of switch
 
-	printf("\n------------------------------end----------------------------\n");
+	// atexit(when_exit); // 注册退出函数
+	printf("\n------------------------------process %d end----------------------------\n",getpid());
 	return 0;
 }
