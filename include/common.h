@@ -93,6 +93,15 @@ extern void quick_sort(int arr[],int num);
 extern void divide(int *arr,int low,int high);
 extern void show_arr(int arr[],int num);
 
+
+// 测试不定参数
+extern void simple_print_int(int i ,...);
+
+// 程序信息
+extern void self_info();
+
+
+
 // 出牌过程
 extern void card_out(struct queue *q,struct stack *s);
 extern void card_eat(struct queue *q,struct stack *s);

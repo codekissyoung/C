@@ -3,9 +3,50 @@
 int main(int argc,const char* argv[]){
 
 	printf("----------------------------start----------------------------\n");
-	atexit(when_exit); // 注册退出函数
-
 	
+	// 程序自身的详细信息
+	self_info();
+
+	atexit(when_exit); // 注册退出函数
+	
+	// 多进程操作
+	if(strcmp("proc",argv[1]) == 0){
+		pid_t pid = fork();
+		if(pid < 0){
+			printf("fork 出错");
+		}else if(pid == 0){
+			printf("子进程");
+		}else {
+			printf(" 父进程 ");
+			sleep(3);
+		}
+	}
+
+	// 线程操作
+	if(strcmp("vfork",argv[1]) == 0){
+		int stack = 1;
+		int *heap = (int *) malloc(sizeof(int));
+		*heap = 100;
+		// 进程中数据
+		printf("before vfork : global : %d , stack : %d , *heap : %d \n",global ,stack ,*heap);
+		pid_t pid = vfork();
+		if(pid < 0){
+			printf("vfork error");
+		}else if(pid == 0){
+			global ++ ;
+			stack ++;
+			(*heap) ++ ;
+			printf("after vfork in thread : global : %d , stack : %d , *heap : %d \n",global ,stack ,*heap);
+			exit(0);
+		}else {
+			printf("in process : global : %d , stack : %d , *heap : %d \n",global ,stack ,*heap);
+			
+		}
+	}
+
+	// simple_print_int(10,20,30);
+	
+	// 移位操作
 	if(strcmp("shift",argv[1]) == 0){
 		int a = 12;
 		a = a >> 2;
@@ -249,7 +290,7 @@ int main(int argc,const char* argv[]){
 
 		// 打印一个菱形
 		case 'p':/*{{{*/
-			print_diamond(11);
+			// print_diamond(11);
 			break;/*}}}*/
 
 		// 打印99乘法表
@@ -296,6 +337,7 @@ int main(int argc,const char* argv[]){
 
 		// 扑克牌游戏
 		case 'v':/*{{{*/
+			/*
 			{
 				struct stack desk;// 桌面
 				struct queue player1 = {{2,4,1,2,5,6},0,6}; //玩家1
@@ -334,6 +376,7 @@ int main(int argc,const char* argv[]){
 				}
 
 			}
+			*/
 			break;/*}}}*/
 
 		// 链表
