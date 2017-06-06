@@ -8,7 +8,63 @@ int main(int argc,const char* argv[]){
 	// printf("address : %p \n",&a);
 	// 程序自身的详细信息
 	self_info();
-	
+
+	// 信号
+	if(strcmp("signal",argv[1]) == 0){
+		// 1. 异步的
+		// 2. 信号 = 软件中断, 中断就是会打断原来的执行流程，来处理该信号
+		// 3. kill -l 查看信号, signal.h 文件定义信号
+	}
+
+
+	// no-zombie
+	if(strcmp("no-zombie",argv[1]) == 0){
+		pid_t pid = fork();
+
+		if(pid < 0){
+
+		}else if(pid == 0){
+			pid_t pid = fork();
+			if(pid < 0 ){
+
+			}else if(pid == 0){
+				printf("child's child!!!\n");
+				exit(0);
+			}else{
+				exit(0);
+			}
+			exit(0);
+		}else{
+			if(waitpid(pid,NULL,0) > 0){
+				printf("child process exit!!!\n");
+			}
+			sleep(30);
+
+		}
+	}
+
+
+
+
+	// 僵尸进程的产生
+	if(strcmp("zombie",argv[1]) == 0){
+		pid_t pid = fork();
+		if(pid < 0){
+		}else if(pid == 0){
+			printf("the child process %d start \n", getpid());
+			sleep(3);
+			printf("the child process %d end \n", getpid());
+			// 子进程退出了，父进程还在运行，并且没有调用 wait 清理子进程，则子进程就成了zombie
+			exit(0);
+		}else{
+			sleep(30);
+			if(wait(NULL) == -1){
+				perror("fail to wait");
+			}
+			printf("the parent process %d end \n", getpid());
+			exit(0);
+		}
+	}
 
 	// wait
 	if(strcmp("wait",argv[1]) == 0){/*{{{*/
@@ -33,7 +89,7 @@ int main(int argc,const char* argv[]){
 			if(waitpid(pid,NULL,WNOHANG) == 0){
 				printf("the child is not available now \n");
 			}
-			
+
 			printf("no waiting , parent done \n");
 
 			/*
@@ -41,7 +97,7 @@ int main(int argc,const char* argv[]){
 				printf("fail to error");
 				exit(1);
 			}
-			
+
 			printf("阻断了？\n");
 
 			if( WIFEXITED(status) == 1){
@@ -50,18 +106,18 @@ int main(int argc,const char* argv[]){
 			*/
 		}
 	}/*}}}*/
-	
+
 	// 多进程操作
 	if(strcmp("proc",argv[1]) == 0){/*{{{*/
 		pid_t pid = fork();
 		if(pid < 0){
 			printf("fork 出错");
 		}else if(pid == 0){
-			// printf("子进程");
-			execl("hello","a",NULL);
+			printf("-------child porcess %d start ----------\n",getpid());
+		    execl("hello","a",NULL);
+		    printf("-------child porcess %d end ----------\n",getpid());
 		}else {
 			printf(" 父进程 ");
-			sleep(3);
 		}
 	}/*}}}*/
 
@@ -76,19 +132,21 @@ int main(int argc,const char* argv[]){
 		if(pid < 0){
 			printf("vfork error");
 		}else if(pid == 0){
+			printf("thread process %d start\n",getpid());
 			global ++ ;
 			stack ++;
 			(*heap) ++ ;
 			printf("after vfork in thread : global : %d , stack : %d , *heap : %d \n",global ,stack ,*heap);
+			printf("thread process %d end\n",getpid());
 			exit(0);
 		}else {
 			printf("in process : global : %d , stack : %d , *heap : %d \n",global ,stack ,*heap);
-			
+
 		}
 	}/*}}}*/
 
 	// simple_print_int(10,20,30);
-	
+
 	// 移位操作
 	if(strcmp("shift",argv[1]) == 0){/*{{{*/
 		int a = 12;
@@ -489,7 +547,7 @@ int main(int argc,const char* argv[]){
 				}
 			}
 			break;/*}}}*/
-		
+
 		// 测试exec()
 		case 'z':/*{{{*/
 				{
@@ -520,7 +578,7 @@ int main(int argc,const char* argv[]){
 			{
 				pid_t pid;
 				int status;
-				
+
 				// 创建第一个子进程
 				pid = fork();
 				if(pid < 0){
@@ -599,7 +657,7 @@ int main(int argc,const char* argv[]){
 						perror("fail to wait!\n");
 						exit(1);
 					}
-					
+
 					int ru_utime = rusage.ru_utime.tv_sec;
 					int ru_stime = rusage.ru_stime.tv_sec;
 					printf("utime is %d \n",ru_utime);
