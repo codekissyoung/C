@@ -4,8 +4,11 @@ int main(int argc,const char* argv[]){
 
 	printf("----------------------------process %d start----------------------------\n",getpid());
 
+	// int a = 12;
+	// printf("address : %p \n",&a);
 	// 程序自身的详细信息
 	self_info();
+	
 
 	// wait
 	if(strcmp("wait",argv[1]) == 0){/*{{{*/
@@ -15,10 +18,25 @@ int main(int argc,const char* argv[]){
 			perror("fail to fork");
 			exit(1);
 		}else if(pid == 0){
+			/*
+			if(execl("./shell" , "first" , NULL) < 0){
+				printf("execl fault");
+			}
+			*/
 			printf("the first , exit normally \n");
 			sleep(3);
 			exit(0);
 		}else{
+			// waitpid 不阻塞等待进程
+			printf("\n----------parent process %d  ----------\n",getpid());
+
+			if(waitpid(pid,NULL,WNOHANG) == 0){
+				printf("the child is not available now \n");
+			}
+			
+			printf("no waiting , parent done \n");
+
+			/*
 			if( wait(&status) == -1 ){
 				printf("fail to error");
 				exit(1);
@@ -29,6 +47,7 @@ int main(int argc,const char* argv[]){
 			if( WIFEXITED(status) == 1){
 				printf("the status of first is : %d \n",WEXITSTATUS(status));
 			}
+			*/
 		}
 	}/*}}}*/
 	
