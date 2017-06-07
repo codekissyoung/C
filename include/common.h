@@ -92,7 +92,8 @@ extern char *pr(char *str);
 extern void quick_sort(int arr[],int num);
 extern void divide(int *arr,int low,int high);
 extern void show_arr(int arr[],int num);
-
+extern void pro_start();
+extern void pro_end();
 
 // 测试不定参数
 extern void simple_print_int(int i ,...);

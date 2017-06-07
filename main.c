@@ -1,24 +1,49 @@
 #include "include/common.h"
 #include "global.c"
 int main(int argc,const char* argv[]){
-
-	printf("----------------------------process %d start----------------------------\n",getpid());
-
-	// int a = 12;
-	// printf("address : %p \n",&a);
-	// 程序自身的详细信息
-	self_info();
+	
+	if(!argv[1]){
+		argv[1] = "default";
+	}
+	
+	// 管道
+	if(strcmp("pipe",argv[1]) == 0){/*{{{*/
+		pro_start();
+		int fd[2];
+		char buf[PIPE_BUF];
+		ssize_t len;
+		char str[256];
+		if( pipe(fd) < 0){
+			printf("pipe error\n");
+			exit(1);
+		}
+		pid_t pid = fork();
+		if(pid < 0){
+			printf("error fork \n");
+			exit(1);
+		}else if(pid == 0){
+			pro_start();
+			close(fd[1]);
+			len = read(fd[0],buf,PIPE_BUF);
+			write(STDOUT_FILENO,buf,len);
+			pro_end();
+		}else {
+			close(fd[0]);
+			write(fd[1],"hello my son! \n",15);
+			sleep(10);
+			pro_end();
+		}
+	}/*}}}*/
 
 	// 信号
-	if(strcmp("signal",argv[1]) == 0){
+	if(strcmp("signal",argv[1]) == 0){/*{{{*/
 		// 1. 异步的
 		// 2. 信号 = 软件中断, 中断就是会打断原来的执行流程，来处理该信号
 		// 3. kill -l 查看信号, signal.h 文件定义信号
-	}
-
+	}/*}}}*/
 
 	// no-zombie
-	if(strcmp("no-zombie",argv[1]) == 0){
+	if(strcmp("no-zombie",argv[1]) == 0){/*{{{*/
 		pid_t pid = fork();
 
 		if(pid < 0){
@@ -26,7 +51,6 @@ int main(int argc,const char* argv[]){
 		}else if(pid == 0){
 			pid_t pid = fork();
 			if(pid < 0 ){
-
 			}else if(pid == 0){
 				printf("child's child!!!\n");
 				exit(0);
@@ -39,15 +63,11 @@ int main(int argc,const char* argv[]){
 				printf("child process exit!!!\n");
 			}
 			sleep(30);
-
 		}
-	}
-
-
-
+	}/*}}}*/
 
 	// 僵尸进程的产生
-	if(strcmp("zombie",argv[1]) == 0){
+	if(strcmp("zombie",argv[1]) == 0){/*{{{*/
 		pid_t pid = fork();
 		if(pid < 0){
 		}else if(pid == 0){
@@ -64,7 +84,7 @@ int main(int argc,const char* argv[]){
 			printf("the parent process %d end \n", getpid());
 			exit(0);
 		}
-	}
+	}/*}}}*/
 
 	// wait
 	if(strcmp("wait",argv[1]) == 0){/*{{{*/
@@ -668,12 +688,11 @@ int main(int argc,const char* argv[]){
 			}
 			break;/*}}}*/
 
-		default:
-			printf("运行　./cky n (n 为任意数字)\n");
-
 	} // end of switch
-
-	// atexit(when_exit); // 注册退出函数
-	printf("\n------------------------------process %d end----------------------------\n",getpid());
+	
+	if(strcmp("default",argv[1]) == 0){
+		printf("输入 cky 参数 运行特定程序 \n");
+	}
+	
 	return 0;
 }

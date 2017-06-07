@@ -1,5 +1,14 @@
 #include "../include/common.h"
 
+void pro_start(){
+	printf("-----------------process %d start -------------------- \n",getpid());
+	self_info();
+}
+
+void pro_end(){
+	printf("-----------------process %d end ---------------------- \n\n\n",getpid());
+}
+
 int max(int a, int b){/*{{{*/
 	if(a > b)
 		return a;
