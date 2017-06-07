@@ -6,6 +6,11 @@ int main(int argc,const char* argv[]){
 		argv[1] = "default";
 	}
 
+	// 进程间的通信 - 消息队列
+	if(strcmp("ipc-queue",argv[1]) == 0){
+		
+	}
+
 	// 两个子进程之间的通信
 	if(strcmp("brother-pipe",argv[1]) == 0){
 		pro_start();

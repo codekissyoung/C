@@ -14,6 +14,10 @@
 #include <sys/wait.h>
 #include <sys/resource.h>
 
+/*消息队列*/
+#include <sys/msg.h>
+#include <sys/ipc.h>
+
 /* 下面两个头文件定义了相关最大值和最小值的的常量 */
 #include <limits.h> /* 整数类型大小限制 */
 #include <float.h> /* 浮点类型大小限制 */
