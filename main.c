@@ -5,7 +5,56 @@ int main(int argc,const char* argv[]){
 	if(!argv[1]){
 		argv[1] = "default";
 	}
-	
+
+	// 两个子进程之间的通信
+	if(strcmp("brother-pipe",argv[1]) == 0){
+		pro_start();
+		
+		int fd[2];
+
+		char buf[PIPE_BUF];
+
+		pid_t pid,pid2;
+
+		int len;
+
+		if( pipe(fd) < 0  ) {
+			printf("error pipe");
+			exit(1);
+		}
+
+		if( ( pid = fork()) < 0 ){
+			printf("error ");
+			exit(1);
+		}else if(pid == 0){
+			pro_start();
+			sleep(1);
+			close(fd[0]);
+			write(fd[1],"hello brother!\n", 15);
+			printf("子进程\n");
+			pro_end();
+			exit(0);
+		}else{
+			if( (pid = fork()) < 0 ){
+				printf("error fork!");
+				exit(1);
+			}else if( pid == 0 ){
+				pro_start();
+				sleep(2);
+				close(fd[1]);
+				len = read(fd[0],buf,PIPE_BUF);
+				write(STDOUT_FILENO,buf,len);
+				printf("子进程2\n");
+				pro_end();
+				exit(0);
+			}
+		}
+		pro_end();
+		exit(0);
+	}
+
+
+
 	// 管道
 	if(strcmp("pipe",argv[1]) == 0){/*{{{*/
 		pro_start();
