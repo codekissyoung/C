@@ -6,10 +6,20 @@ int main(int argc,const char* argv[]){
 	}
 	
 	// 线程与进程
-	if(strcmp("thread",argv[1]) == 0){
-
+	if(strcmp("thread",argv[1]) == 0){/*{{{*/
+		pid_t pid = getpid();
+		pthread_t tid;
+		pthread_t mtid = pthread_self();
+		int err = pthread_create(&mtid,NULL,print_pro_thread_id,NULL);
 		
-	}
+		if(err != 0){
+			printf("create thread fail \n");
+			exit(1);
+		}
+
+		printf("thre main thread : pid is %u ,tid is : %u \n",(unsigned int)pid,(unsigned int)mtid);
+		return 0;
+	}/*}}}*/
 	
 	// 从指定的消息队列中读出数据
 	if( strcmp("ipc-queue-rcv",argv[1]) == 0){/*{{{*/

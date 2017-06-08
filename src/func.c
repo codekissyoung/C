@@ -1,13 +1,13 @@
 #include "../include/common.h"
 
-void pro_start(){
+void pro_start(){/*{{{*/
 	printf("-----------------process %d start -------------------- \n",getpid());
 	self_info();
-}
+}/*}}}*/
 
-void pro_end(){
+void pro_end(){/*{{{*/
 	printf("-----------------process %d end ---------------------- \n\n\n",getpid());
-}
+}/*}}}*/
 
 int max(int a, int b){/*{{{*/
 	if(a > b)
@@ -264,11 +264,17 @@ void when_exit(void){/*{{{*/
 	printf("\n进程 %d 退出了\n",getpid());
 }/*}}}*/
 
-void self_info(){
+void self_info(){/*{{{*/
 	printf("PID: %d  PPID:%d  UID: %d  EUID:%d  GID: %d  EGID: %d\n",getpid(),getppid(),getuid(),geteuid(),getgid(),getegid());
+}/*}}}*/
+
+// 打印进程 ID 和 线程ID
+void* print_pro_thread_id(void * arg){
+	pid_t pid = getpid();
+	pthread_t tid = pthread_self();
+	printf("pid : %u , thread id : %u \n ",(unsigned int)pid, (unsigned  int)tid);
+	return NULL;
 }
-
-
 
 
 

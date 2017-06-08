@@ -1,6 +1,6 @@
 # makefile for cky
 cky:lib/func.o lib/node.o lib/stdarg.o lib/main.o lib/share.so lib/libstatic_lib.a
-	gcc -Llib -g -std=c11 -Wall lib/func.o lib/node.o lib/stdarg.o lib/share.so -lstatic_lib lib/main.o -o cky
+	gcc -Llib -g -std=c11 -Wall lib/func.o lib/node.o lib/stdarg.o lib/share.so -lstatic_lib -lpthread lib/main.o -o cky
 
 lib/main.o:main.c
 	gcc -c main.c -o lib/main.o
@@ -16,9 +16,6 @@ lib/func.o:src/func.c
 
 lib/stdarg.o:src/stdarg.c
 	gcc -c src/stdarg.c -o lib/stdarg.o
-
-
-
 
 # 静态库的编译
 lib/libstatic_lib.a:lib/static_lib.o

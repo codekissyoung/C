@@ -9,6 +9,7 @@
 #include <string.h>
 #include <errno.h> /* 错误号申明头文件 */
 #include <time.h>
+#include <pthread.h> /* 线程 */
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
@@ -119,3 +120,7 @@ extern pid_t wait3(int *statloc,int options,struct rusage *r);
 extern int factorial(int n);
 
 extern void when_exit(void);
+
+extern void* print_pro_thread_id(void *arg);
+
+extern int pthread_create(pthread_t* restrict tidp,const pthread_attr_t* restrict attr ,void *(*start_rtn)(void *),void *restrict arg);
