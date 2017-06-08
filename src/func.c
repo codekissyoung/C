@@ -269,12 +269,15 @@ void self_info(){/*{{{*/
 }/*}}}*/
 
 // 打印进程 ID 和 线程ID
-void* print_pro_thread_id(void * arg){
+void* print_pro_thread_id(void * arg){/*{{{*/
 	pid_t pid = getpid();
 	pthread_t tid = pthread_self();
-	printf("pid : %u , thread id : %u \n ",(unsigned int)pid, (unsigned  int)tid);
+	printf("pid : %u , thread id : %u \n",(unsigned int)pid, (unsigned  int)tid);
+	
+	ARG* p = (ARG*) arg;
+	printf("the args : %s , %d ,%f \n",p->arg1 , p->arg2 , p->arg3 );
 	return NULL;
-}
+}/*}}}*/
 
 
 

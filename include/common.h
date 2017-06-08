@@ -54,6 +54,16 @@ struct queue {
 	int head;
 	int tail;
 };
+
+
+struct arg_struct{
+	char arg1[10];
+	int arg2;
+	float arg3;
+};
+
+typedef struct arg_struct ARG;
+
 // 打印队列
 extern void show_queue(const struct queue *q);
 /* 栈 */

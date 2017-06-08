@@ -7,17 +7,22 @@ int main(int argc,const char* argv[]){
 	
 	// 线程与进程
 	if(strcmp("thread",argv[1]) == 0){/*{{{*/
-		pid_t pid = getpid();
-		pthread_t tid;
-		pthread_t mtid = pthread_self();
-		int err = pthread_create(&mtid,NULL,print_pro_thread_id,NULL);
-		
+		// 需要传递给线程的参数
+		ARG arg;
+		strcpy(arg.arg1,argv[2]);
+		arg.arg2 = atoi(argv[3]);
+		arg.arg3 = atof(argv[4]);
+
+		pthread_t tid = pthread_self();
+		int err = pthread_create(&tid,NULL,print_pro_thread_id,(void *)&arg);
+
 		if(err != 0){
 			printf("create thread fail \n");
 			exit(1);
 		}
-
-		printf("thre main thread : pid is %u ,tid is : %u \n",(unsigned int)pid,(unsigned int)mtid);
+		
+		sleep(2);
+		printf("the main thread pid is %u ,tid is : %u \n",(unsigned int)getpid(),(unsigned int)tid);
 		return 0;
 	}/*}}}*/
 	
