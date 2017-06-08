@@ -5,9 +5,14 @@ int main(int argc,const char* argv[]){
 		argv[1] = "default";
 	}
 	
+	// 线程与进程
+	if(strcmp("thread",argv[1]) == 0){
+
+		
+	}
 	
 	// 从指定的消息队列中读出数据
-	if( strcmp("ipc-queue-rcv",argv[1]) == 0){
+	if( strcmp("ipc-queue-rcv",argv[1]) == 0){/*{{{*/
 		// argv[2] 存在
 
 		int qid = atoi( argv[2] );
@@ -27,7 +32,7 @@ int main(int argc,const char* argv[]){
 		}
 		system("ipcs -q");
 		exit(0);
-	}
+	}/*}}}*/
 
 	// 进程间的通信 - 消息队列
 	if(strcmp("ipc-queue",argv[1]) == 0){/*{{{*/
