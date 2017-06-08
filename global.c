@@ -11,7 +11,17 @@
 		char author[40];
 		float value;
 	};
+
+	struct msg{
+		long msg_types;
+		char msg_buf[511];
+	};
+
+	#define BUFSZ 4096
 #endif
+
+
+
 
 float a1 = 23.29; // a1 变量定义
 int global = 2;

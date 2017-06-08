@@ -1,26 +1,71 @@
 #include "include/common.h"
 #include "global.c"
 int main(int argc,const char* argv[]){
-	
 	if(!argv[1]){
 		argv[1] = "default";
 	}
+	
+	
+	// 从指定的消息队列中读出数据
+	if( strcmp("ipc-queue-rcv",argv[1]) == 0){
+		// argv[2] 存在
 
-	// 进程间的通信 - 消息队列
-	if(strcmp("ipc-queue",argv[1]) == 0){
-		
+		int qid = atoi( argv[2] );
+		struct msg pmsg;
+		int len = msgrcv( qid , &pmsg , BUFSZ , 0 , 0 );
+		if( len > 0 ){
+			pmsg.msg_buf[len] = '\0';
+			printf("reading queue id : %d \n", qid);
+			printf("message type : %05ld \n",pmsg.msg_types);
+			printf("msssage length : %d \n",len);
+			printf("message text : %s \n",pmsg.msg_buf);
+		}else if (len == 0 ){
+			printf("have no message : %d \n",qid);
+		}else{
+			perror("msgrcv");
+			exit(1);
+		}
+		system("ipcs -q");
+		exit(0);
 	}
 
+	// 进程间的通信 - 消息队列
+	if(strcmp("ipc-queue",argv[1]) == 0){/*{{{*/
+		key_t key = 113;
+		struct msg pmsg; // 消息的结构体变量
+		pmsg.msg_types = getpid();
+		sprintf(pmsg.msg_buf , "hello! this is : %d \n",getpid());
+		int len = strlen(pmsg.msg_buf);
+
+		int qid = msgget( key ,IPC_CREAT | 0666);
+		if( qid < 0){
+			perror("msgget error!");
+			exit(1);
+		}else{
+			printf("created queue id : %d \n",qid);
+			// 向消息队列中发送消息
+			if( (msgsnd(qid , &pmsg ,len ,0)) < 0 ){
+				printf(" msgsn");
+				exit(1);
+			}
+			printf("successfully send a message to the queue : %d \n",qid);
+			system("ipcs -q");
+			/*
+			if(msgctl(qid , IPC_RMID ,NULL) < 0){
+				perror("删除队列失败");
+				exit(1);
+			}
+			*/
+			exit(0);
+		}
+	}/*}}}*/
+
 	// 两个子进程之间的通信
-	if(strcmp("brother-pipe",argv[1]) == 0){
+	if(strcmp("brother-pipe",argv[1]) == 0){/*{{{*/
 		pro_start();
-		
 		int fd[2];
-
 		char buf[PIPE_BUF];
-
 		pid_t pid,pid2;
-
 		int len;
 
 		if( pipe(fd) < 0  ) {
@@ -56,9 +101,7 @@ int main(int argc,const char* argv[]){
 		}
 		pro_end();
 		exit(0);
-	}
-
-
+	}/*}}}*/
 
 	// 管道
 	if(strcmp("pipe",argv[1]) == 0){/*{{{*/
