@@ -5,6 +5,47 @@ int main(int argc,const char* argv[]){
 		argv[1] = "default";
 	}
 	
+	// thread access
+	if(strcmp("thread_access",argv[1]) == 0){
+		pthread_t tid , tid2;
+
+		HS arg;
+
+		int stack = 3;
+
+		arg.heap = (int *)malloc(sizeof(int));
+
+		*(arg.heap) = 2;
+
+		arg.stack = &stack;
+
+
+		// 打开文件
+		
+		FILE *file_point = NULL;
+		if( (file_point = fopen("text.txt","wb")) == NULL ){
+			printf("打开文件失败");
+			exit(1);
+		}
+		
+		if( (pthread_create(&tid,NULL,thread_callback,(void *)&arg)) != 0){
+			printf("创建线程失败");
+			exit(1);
+		}
+
+		sleep(10);
+
+		printf("线程返回后，主进程中的数据: %d ,%d \n",(int)*(arg.heap),(int)*(arg.stack));
+
+		// 释放资源
+		fclose(file_point);
+		return 0;
+		
+		
+	}
+
+
+
 	// 线程与进程
 	if(strcmp("thread",argv[1]) == 0){/*{{{*/
 		// 需要传递给线程的参数

@@ -1,4 +1,18 @@
 #include "../include/common.h"
+// 线程回调函数
+void *thread_callback(void *arg){
+	HS *hs = (HS *)arg;
+
+	printf("传入线程的数据: %d , %d \n",*hs->heap,*hs->stack);
+	
+	// 改变数据
+
+	*hs->heap *= 10;
+	*hs->stack *= 10;
+
+	return NULL;
+}
+
 
 void pro_start(){/*{{{*/
 	printf("-----------------process %d start -------------------- \n",getpid());
