@@ -7,7 +7,18 @@ int main(int argc,const char* argv[]){
 	
 	// 线程退出
 	if(strcmp("thread_exit",argv[1]) == 0){
-		
+		pthread_t tid1 , tid2 , tid3;
+
+		void *res;
+
+		if( pthread_create(&tid1,NULL,first_thread,NULL) != 0 ){
+			perror("create thread fail \n");
+			exit(0);
+		}
+
+		pthread_join( tid1 , &res ); // 获取进程退出资源
+
+		printf("退出资源 : %d \n",(unsigned int)(res));
 	}
 
 	// thread access
