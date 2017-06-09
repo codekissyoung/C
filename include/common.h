@@ -23,6 +23,8 @@
 #include <limits.h> /* 整数类型大小限制 */
 #include <float.h> /* 浮点类型大小限制 */
 
+#include "thread.h"
+
 /* 专门处理字符的函数*/
 #include <ctype.h>
 /* 调试代码 */

@@ -5,8 +5,13 @@ int main(int argc,const char* argv[]){
 		argv[1] = "default";
 	}
 	
+	// 线程退出
+	if(strcmp("thread_exit",argv[1]) == 0){
+		
+	}
+
 	// thread access
-	if(strcmp("thread_access",argv[1]) == 0){
+	if(strcmp("thread_access",argv[1]) == 0){/*{{{*/
 		pthread_t tid , tid2;
 
 		HS arg;
@@ -40,11 +45,7 @@ int main(int argc,const char* argv[]){
 		// 释放资源
 		fclose(file_point);
 		return 0;
-		
-		
-	}
-
-
+	}/*}}}*/
 
 	// 线程与进程
 	if(strcmp("thread",argv[1]) == 0){/*{{{*/
