@@ -9,16 +9,18 @@ int main(int argc,const char* argv[]){
 	if(strcmp("thread_exit",argv[1]) == 0){
 		pthread_t tid1 , tid2 , tid3;
 
-		void *res;
+		void **res;
 
-		if( pthread_create(&tid1,NULL,first_thread,NULL) != 0 ){
-			perror("create thread fail \n");
-			exit(0);
-		}
-
-		pthread_join( tid1 , &res ); // 获取进程退出资源
-
-		printf("退出资源 : %d \n",(unsigned int)(res));
+		pthread_create(&tid1,NULL,first_thread,NULL);
+		pthread_create(&tid2,NULL,second_thread,NULL);
+		pthread_create(&tid3,NULL,third_thread,NULL);
+		
+		
+		pthread_join( tid1 , res ); // 获取进程退出资源
+		
+		sleep(10);
+		printf("退出资源 : %ld \n",(long unsigned int)(*res));
+		
 	}
 
 	// thread access

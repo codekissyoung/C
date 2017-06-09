@@ -8,10 +8,12 @@ void *first_thread(void *arg){
 
 void *second_thread(void *arg){
 	printf("second thread ! \n");
+	pthread_exit((void *)3);
 	return (void *)1;
 }
 
 void *third_thread(void *arg){
-	printf("third thread ! \n");
-	return (void *)1;
+	printf("third thread ! sleep 5s \n");
+	sleep(5);
+	return NULL;
 }
