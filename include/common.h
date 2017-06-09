@@ -64,6 +64,12 @@ struct arg_struct{
 
 typedef struct arg_struct ARG;
 
+typedef struct heap_stack{
+	int *heap;
+	int *stack;
+} HS;
+
+
 // 打印队列
 extern void show_queue(const struct queue *q);
 /* 栈 */
