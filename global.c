@@ -16,7 +16,9 @@
 		long msg_types;
 		char msg_buf[511];
 	};
-
+	
+	// 最大线程数
+	#define MAX_THREAD 3
 	#define BUFSZ 4096
 #endif
 float a1 = 23.29; // a1 变量定义

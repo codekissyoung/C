@@ -5,8 +5,14 @@ int main(int argc,const char* argv[]){
 		argv[1] = "default";
 	}
 	
+	// 线程互斥
+	if(strcmp("thread_mutex") == 0){
+		
+	}
+
+
 	// 线程退出
-	if(strcmp("thread_exit",argv[1]) == 0){
+	if(strcmp("thread_exit",argv[1]) == 0){/*{{{*/
 		pthread_t tid1 , tid2 , tid3;
 
 		void **res;
@@ -19,9 +25,8 @@ int main(int argc,const char* argv[]){
 		pthread_join( tid1 , res ); // 获取进程退出资源
 		
 		sleep(10);
-		printf("退出资源 : %ld \n",(long unsigned int)(*res));
 		
-	}
+	}/*}}}*/
 
 	// thread access
 	if(strcmp("thread_access",argv[1]) == 0){/*{{{*/
