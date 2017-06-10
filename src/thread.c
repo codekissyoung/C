@@ -2,14 +2,6 @@
 
 pthread_t tid;
 
-struct job{
-	pthread_t tid;
-	Job next;
-	int val;
-};
-
-typedef struct job *Job;
-
 // 第一个线程函数
 void *first_thread(void *arg){
 	printf("first thread ! \n");
