@@ -1,4 +1,3 @@
-/* 头文件区 */
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -14,29 +13,29 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <sys/resource.h>
-
-/*消息队列*/
-#include <sys/msg.h>
-#include <sys/ipc.h>
-
-/* 下面两个头文件定义了相关最大值和最小值的的常量 */
-#include <limits.h> /* 整数类型大小限制 */
+#include <sys/msg.h> /*消息队列*/
+#include <sys/ipc.h> /*消息队列*/
+#include <limits.h> /* 整数类型大小限制 */ /* 下面两个头文件定义了相关最大值和最小值的的常量 */
 #include <float.h> /* 浮点类型大小限制 */
-
+#include <ctype.h> /* 专门处理字符的函数*/
 #include "thread.h"
 
-/* 专门处理字符的函数*/
-#include <ctype.h>
-/* 调试代码 */
-#ifndef ONLY
-	#define ONLY 1
-	#define DEBUG 1
-	#ifdef DEBUG
-		#define debug(a, b) printf(#a"\n",b)
-	#else
-		#define debug(a,b) ;
-	#endif
-#endif
+/* 栈 */
+struct stack{
+	int data[1000];
+	int top;
+};
+
+/* 链表 */
+struct node{
+	int data;
+	struct node *next;
+};
+// 链表
+struct test_struct{
+	int array[2];
+	char ch;
+};
 
 /*全局宏*/
 #define MAX 64
@@ -55,8 +54,6 @@ struct queue {
 	int head;
 	int tail;
 };
-
-
 struct arg_struct{
 	char arg1[10];
 	int arg2;
@@ -70,28 +67,40 @@ typedef struct heap_stack{
 	int *stack;
 } HS;
 
+// 结构化数据
+struct book{
+	char title[40];
+	char author[40];
+	float value;
+};
+
+struct msg{
+	long msg_types;
+	char msg_buf[511];
+};
+
+// 最大线程数
+#define MAX_THREAD 3
+#define BUFSZ 4096
+
+/* 调试代码 */
+#ifndef ONLY
+	#define ONLY 1
+	#define DEBUG 1
+	#ifdef DEBUG
+		#define debug(a, b) printf(#a"\n",b)
+	#else
+		#define debug(a,b) ;
+	#endif
+#endif
+
+
+// 初始化链表
+extern struct node* init(int num);
 // 打印队列
 extern void show_queue(const struct queue *q);
-/* 栈 */
-struct stack{
-	int data[1000];
-	int top;
-};
 // 打印栈
 extern void show_stack(const struct stack *s);
-/* 链表 */
-struct node{
-	int data;
-	struct node *next;
-};
-// 链表
-struct node* init(int num);
-
-struct test_struct{
-	int array[2];
-	char ch;
-};
-
 /*全局接口函数*/
 extern int max(int a, int b);
 extern int swap(int *a,int *b);
@@ -115,57 +124,19 @@ extern void divide(int *arr,int low,int high);
 extern void show_arr(int arr[],int num);
 extern void pro_start();
 extern void pro_end();
-
 // 测试不定参数
 extern void simple_print_int(int i ,...);
-
 // 程序信息
 extern void self_info();
-
 // 出牌过程
 extern void card_out(struct queue *q,struct stack *s);
 extern void card_eat(struct queue *q,struct stack *s);
-
 // 为了避免出现implicit declaration of function vfork ,warning,所以自己加个声明
 extern pid_t vfork(void);
 extern pid_t wait3(int *statloc,int options,struct rusage *r);
-
 // 测试gdb
 extern int factorial(int n);
-
 extern void when_exit(void);
-
 extern void* print_pro_thread_id(void *arg);
-
 extern int pthread_create(pthread_t* restrict tidp,const pthread_attr_t* restrict attr ,void *(*start_rtn)(void *),void *restrict arg);
-
 extern void *thread_callback(void *arg);
-
-// 全局变量定义
-#ifndef GLOBAL
-	#define GLOBAL 1
-	int b1 = 14;
-	float PI = 3.14;
-	Test var = {{0x12345678,0x98765432},0x30};
-
-	float a1 = 23.29; // a1 变量定义
-	int global = 2;
-
-	// 结构化数据
-	struct book{
-		char title[40];
-		char author[40];
-		float value;
-	};
-
-	struct msg{
-		long msg_types;
-		char msg_buf[511];
-	};
-	
-	// 最大线程数
-	#define MAX_THREAD 3
-	#define BUFSZ 4096
-#endif
-
-
