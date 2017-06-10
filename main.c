@@ -6,7 +6,7 @@ int main(int argc,const char* argv[]){
 	}
 	
 	// 线程互斥
-	if(strcmp("thread_mutex") == 0){
+	if(strcmp("thread_mutex",argv[1]) == 0){
 		
 	}
 
