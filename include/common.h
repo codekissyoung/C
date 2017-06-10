@@ -30,7 +30,6 @@
 /* 调试代码 */
 #ifndef ONLY
 	#define ONLY 1
-
 	#define DEBUG 1
 	#ifdef DEBUG
 		#define debug(a, b) printf(#a"\n",b)
@@ -123,8 +122,6 @@ extern void simple_print_int(int i ,...);
 // 程序信息
 extern void self_info();
 
-
-
 // 出牌过程
 extern void card_out(struct queue *q,struct stack *s);
 extern void card_eat(struct queue *q,struct stack *s);
@@ -144,10 +141,31 @@ extern int pthread_create(pthread_t* restrict tidp,const pthread_attr_t* restric
 
 extern void *thread_callback(void *arg);
 
+// 全局变量定义
+#ifndef GLOBAL
+	#define GLOBAL 1
+	int b1 = 14;
+	float PI = 3.14;
+	Test var = {{0x12345678,0x98765432},0x30};
 
+	float a1 = 23.29; // a1 变量定义
+	int global = 2;
 
+	// 结构化数据
+	struct book{
+		char title[40];
+		char author[40];
+		float value;
+	};
 
-
-
+	struct msg{
+		long msg_types;
+		char msg_buf[511];
+	};
+	
+	// 最大线程数
+	#define MAX_THREAD 3
+	#define BUFSZ 4096
+#endif
 
 

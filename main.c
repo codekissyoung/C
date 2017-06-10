@@ -1,5 +1,4 @@
 #include "include/common.h"
-#include "global.c"
 int main(int argc,const char* argv[]){
 	if(!argv[1]){
 		argv[1] = "default";
@@ -9,7 +8,6 @@ int main(int argc,const char* argv[]){
 	if(strcmp("thread_mutex",argv[1]) == 0){
 		
 	}
-
 
 	// 线程退出
 	if(strcmp("thread_exit",argv[1]) == 0){/*{{{*/
