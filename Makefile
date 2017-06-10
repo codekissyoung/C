@@ -1,7 +1,10 @@
 # makefile for cky
 cky:lib/func.o lib/node.o lib/stdarg.o lib/main.o lib/thread.o lib/share.so lib/libstatic_lib.a
-	gcc -Llib -g -std=c11 -Wall lib/func.o lib/node.o lib/stdarg.o \
-	lib/thread.o lib/share.so -lstatic_lib -pthread lib/main.o -o cky
+	gcc -Llib -g -std=c11 -Wall \
+	lib/func.o lib/node.o lib/stdarg.o lib/thread.o lib/main.o \
+	lib/share.so \
+	-lstatic_lib \
+	-pthread -o cky
 
 lib/main.o:main.c
 	gcc -c main.c -o lib/main.o
