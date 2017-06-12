@@ -5,9 +5,9 @@ int main(int argc,const char* argv[]){
 	}
 	
 	// 线程互斥
-	if(strcmp("thread_mutex",argv[1]) == 0){
+	if(strcmp("thread_mutex",argv[1]) == 0){/*{{{*/
 		
-	}
+	}/*}}}*/
 
 	// 线程退出
 	if(strcmp("thread_exit",argv[1]) == 0){/*{{{*/
@@ -339,8 +339,6 @@ int main(int argc,const char* argv[]){
 
 		}
 	}/*}}}*/
-
-	// simple_print_int(10,20,30);
 
 	// 移位操作
 	if(strcmp("shift",argv[1]) == 0){/*{{{*/
@@ -864,10 +862,11 @@ int main(int argc,const char* argv[]){
 			break;/*}}}*/
 
 	} // end of switch
-	
-	if(strcmp("default",argv[1]) == 0){
+
+	if(strcmp("default",argv[1]) == 0){/*{{{*/
 		printf("输入 cky 参数 运行特定程序 \n");
-	}
-	
+	}/*}}}*/
+
 	return 0;
 }
+
