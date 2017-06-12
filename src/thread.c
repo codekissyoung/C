@@ -1,4 +1,4 @@
-#include "../include/thread.h"
+#include "../include/common.h"
 
 pthread_t tid;
 
