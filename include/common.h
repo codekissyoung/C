@@ -19,70 +19,13 @@
 #include <float.h> /* 浮点类型大小限制 */
 #include <ctype.h> /* 专门处理字符的函数*/
 #include "thread.h"
-
-/* 栈 */
-struct stack{
-	int data[1000];
-	int top;
-};
-
-/* 链表 */
-struct node{
-	int data;
-	struct node *next;
-};
-// 链表
-struct test_struct{
-	int array[2];
-	char ch;
-};
-
+#include "struct.h"
 /*全局宏*/
 #define MAX 64
 #define MSG "I am special"
 #define STLEN 14
-typedef struct test_struct Test;
-/*全局变量申明*/
-extern float a1;
-extern int b1;
-extern float PI;
-extern char ** environ;
-extern int global;
-/* 队列 */
-struct queue {
-	int data[1000];
-	int head;
-	int tail;
-};
-struct arg_struct{
-	char arg1[10];
-	int arg2;
-	float arg3;
-};
-
-typedef struct arg_struct ARG;
-
-typedef struct heap_stack{
-	int *heap;
-	int *stack;
-} HS;
-
-// 结构化数据
-struct book{
-	char title[40];
-	char author[40];
-	float value;
-};
-
-struct msg{
-	long msg_types;
-	char msg_buf[511];
-};
-
-// 最大线程数
-#define MAX_THREAD 3
+#define MAX_THREAD 3  // 最大线程数
 #define BUFSZ 4096
-
 /* 调试代码 */
 #ifndef ONLY
 	#define ONLY 1
@@ -94,13 +37,13 @@ struct msg{
 	#endif
 #endif
 
+/*全局变量申明*/
+extern float a1;
+extern int b1;
+extern float PI;
+extern char ** environ;
+extern int global;
 
-// 初始化链表
-extern struct node* init(int num);
-// 打印队列
-extern void show_queue(const struct queue *q);
-// 打印栈
-extern void show_stack(const struct stack *s);
 /*全局接口函数*/
 extern int max(int a, int b);
 extern int swap(int *a,int *b);
@@ -140,3 +83,10 @@ extern void when_exit(void);
 extern void* print_pro_thread_id(void *arg);
 extern int pthread_create(pthread_t* restrict tidp,const pthread_attr_t* restrict attr ,void *(*start_rtn)(void *),void *restrict arg);
 extern void *thread_callback(void *arg);
+// 初始化链表
+extern struct node* init(int num);
+// 打印队列
+extern void show_queue(const struct queue *q);
+// 打印栈
+extern void show_stack(const struct stack *s);
+
