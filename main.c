@@ -4,6 +4,9 @@ int main(int argc,const char* argv[]){
 		argv[1] = "default";
 	}
 	
+	const char *glibc_version = gnu_get_libc_version();
+	printf("glibc version : %s \n",glibc_version);
+
 	// 线程互斥
 	if(strcmp("thread_mutex",argv[1]) == 0){/*{{{*/
 		
