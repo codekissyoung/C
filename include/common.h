@@ -27,6 +27,9 @@
 #define STLEN 14
 #define MAX_THREAD 3  // 最大线程数
 #define BUFSZ 4096
+#define min(m,n) ((m) < (n) ? (m) : (n))
+#define max(m,n) ((m) > (n) ? (m) : (n))
+
 /* 调试代码 */
 #ifndef ONLY
 	#define ONLY 1
@@ -38,6 +41,7 @@
 	#endif
 #endif
 
+
 /*全局变量申明*/
 extern float a1;
 extern int b1;
@@ -46,7 +50,6 @@ extern char ** environ;
 extern int global;
 
 /*全局接口函数*/
-extern int max(int a, int b);
 extern int swap(int *a,int *b);
 extern void f();
 extern int add(int a ,int b);

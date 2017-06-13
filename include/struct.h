@@ -47,4 +47,5 @@ typedef struct heap_stack{/*{{{*/
 
 typedef struct arg_struct ARG;
 typedef struct test_struct Test;
+typedef enum {FALSE,TRUE} Boolean;
 
