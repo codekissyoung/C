@@ -286,8 +286,47 @@ void* print_pro_thread_id(void * arg){/*{{{*/
 	return NULL;
 }/*}}}*/
 
+void sort_in_quick(int arr[] , int s, int e){
+	// 先选取一个基准 默认左边第一个
+	int base = arr[s];
+	int left = s; // 设置左边标兵
+	int right = e; // 设置右边标兵
+	
+	if(left > right) return ;
+	while ( left != right){
+		// 向左移动 e
+		while( arr[right] > base && left < right ){
+			right --;
+		}
 
+		// 向右移动s
+		while( arr[left] <= base && left < right ){
+			left ++;
+		}
 
+		if( left < right ){
+			printf("交换: [%d] : %d , [%d] : %d \n",left,arr[left],right,arr[right]);
+			int temp = arr[left];
+			arr[left] = arr[right];
+			arr[right] = temp;
+		}
+	}
+
+	arr[s] = arr[right];
+	arr[right] = base;
+	
+	// printf("right: %d \n",right);
+	for(int i = 0; i <= 15; i++){
+		printf("%d\t",arr[i]);
+	}
+	printf("\n");
+	
+	// printf("s_sort_in_quick(arr,%d,%d) \n",s,right - 1);
+	// printf("e_sort_in_quick(arr,%d,%d) \n",right + 1,e);
+	sort_in_quick(arr,s,right - 1);
+	sort_in_quick(arr,right + 1,e);
+	return ;
+}
 
 
 

@@ -7,6 +7,22 @@ int main(int argc,const char* argv[]){
 	const char *glibc_version = gnu_get_libc_version();
 	printf("glibc version : %s \n",glibc_version);
 
+	if(strcmp("quick_sort",argv[1]) == 0){
+		// int test_data[] = {10,1,2,6,8,7,5,9,3,16,15,12,4,14,11,13};
+		int test_data[] = {2,1,3,5,4};
+		int lenth = sizeof(test_data) / sizeof(int);
+		printf("快排演示 %d \n",lenth);
+		
+		for(int i = 0; i < sizeof(test_data) / sizeof(int); i++){
+			printf("%d\t",test_data[i]);
+		}
+		printf("\n");
+		
+		sort_in_quick(test_data,0,lenth - 1);
+		
+		return 0;
+	}
+
 	// 线程互斥
 	if(strcmp("thread_mutex",argv[1]) == 0){/*{{{*/
 		
@@ -15,18 +31,12 @@ int main(int argc,const char* argv[]){
 	// 线程退出
 	if(strcmp("thread_exit",argv[1]) == 0){/*{{{*/
 		pthread_t tid1 , tid2 , tid3;
-
 		void **res;
-
 		pthread_create(&tid1,NULL,first_thread,NULL);
 		pthread_create(&tid2,NULL,second_thread,NULL);
 		pthread_create(&tid3,NULL,third_thread,NULL);
-		
-		
 		pthread_join( tid1 , res ); // 获取进程退出资源
-		
 		sleep(10);
-		
 	}/*}}}*/
 
 	// thread access
