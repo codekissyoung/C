@@ -7,7 +7,43 @@ int main(int argc,const char* argv[]){
 	const char *glibc_version = gnu_get_libc_version();
 	printf("glibc version : %s \n",glibc_version);
 
-	if(strcmp("quick_sort",argv[1]) == 0){
+	// 队列
+	if (strcmp("queue",argv[1]) == 0) {
+		struct queue q;
+		q.head = 1;
+		q.tail = 1;
+		for ( int i = 1; i <= 5; i++){
+			printf("向队列存一个数 : ");
+			scanf("%d",&q.data[q.tail]);
+			q.tail ++; //队尾向后加1
+		}
+		
+		while( q.head < q.tail ){
+			printf("出队列中的值: %d \n",q.data[q.head]);
+			q.head++;
+		}
+		return 0;
+	}
+
+	// 队列
+	if (strcmp("queue-qq",argv[1]) == 0) {
+		int q[102] = {0,6,3,1,7,5,8,9,2,4} , head , tail;
+		head = 1;
+		tail = 10;
+
+		while( head < tail ){
+			printf("%d",q[head]);
+			head ++;
+
+			q[tail] = q[head];
+			head ++; // 队首出队
+			tail ++; // 队尾+1
+		}
+		return 0;
+	}
+
+	// 快速排序
+	if(strcmp("quick_sort",argv[1]) == 0){/*{{{*/
 		// int test_data[] = {10,1,2,6,8,7,5,9,3,16,15,12,4,14,11,13};
 		int test_data[] = {2,1,3,5,4};
 		int lenth = sizeof(test_data) / sizeof(int);
@@ -21,7 +57,7 @@ int main(int argc,const char* argv[]){
 		sort_in_quick(test_data,0,lenth - 1);
 		
 		return 0;
-	}
+	}/*}}}*/
 
 	// 线程互斥
 	if(strcmp("thread_mutex",argv[1]) == 0){/*{{{*/
