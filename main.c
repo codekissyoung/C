@@ -7,8 +7,22 @@ int main(int argc,const char* argv[]){
 	const char *glibc_version = gnu_get_libc_version();
 	printf("glibc version : %s \n",glibc_version);
 
+	// node 链表操作
+	if(strcmp("node",argv[1]) == 0){/*{{{*/
+		// 创建链表的第一个元素
+		struct node p;
+		p.data = 11;
+		p.next = NULL;
+		struct node *a = init(15);
+		p.next = init(16);
+		printf("p.data : %d\n",p.data);
+		printf("a->data : %d\n",a->data);
+		printf("p.next->data%d \n", p.next->data);
+		return 0;
+	}/*}}}*/
+
 	// 队列
-	if (strcmp("queue",argv[1]) == 0) {
+	if (strcmp("queue",argv[1]) == 0) {/*{{{*/
 		struct queue q;
 		q.head = 1;
 		q.tail = 1;
@@ -23,10 +37,10 @@ int main(int argc,const char* argv[]){
 			q.head++;
 		}
 		return 0;
-	}
+	}/*}}}*/
 
 	// 队列
-	if (strcmp("queue-qq",argv[1]) == 0) {
+	if (strcmp("queue-qq",argv[1]) == 0) {/*{{{*/
 		int q[102] = {0,6,3,1,7,5,8,9,2,4} , head , tail;
 		head = 1;
 		tail = 10;
@@ -40,7 +54,7 @@ int main(int argc,const char* argv[]){
 			tail ++; // 队尾+1
 		}
 		return 0;
-	}
+	}/*}}}*/
 
 	// 快速排序
 	if(strcmp("quick_sort",argv[1]) == 0){/*{{{*/
@@ -725,16 +739,7 @@ int main(int argc,const char* argv[]){
 		// 链表
 		case 'w':/*{{{*/
 			/*
-			{
-				// 创建链表的第一个元素
-				struct node p;
-				p.data = 11;
-				p.next = NULL;
-				struct node *a = init(15);
-				printf("p.data : %d\n",p.data);
-				printf("a->data : %d\n",a->data);
-			}
-			*/
+						*/
 			break;/*}}}*/
 
 		// 测试下进程相关的内容 fork

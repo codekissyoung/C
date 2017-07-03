@@ -21,6 +21,7 @@
 #include <gnu/libc-version.h> // gnu glibc version
 #include "thread.h"
 #include "struct.h"
+
 /*全局宏*/
 #define MAX 64
 #define MSG "I am special"
@@ -40,7 +41,6 @@
 		#define debug(a,b) ;
 	#endif
 #endif
-
 
 /*全局变量申明*/
 extern float a1;
@@ -67,6 +67,8 @@ extern void sum_rows(int ar[][2],int rows);
 extern int sum2d(int rows,int cols,int ar[rows][cols]);
 extern char *pr(char *str);
 extern void quick_sort(int arr[],int num);
+// 快速排序
+extern void sort_in_quick(int arr[] , int s, int e);
 extern void divide(int *arr,int low,int high);
 extern void show_arr(int arr[],int num);
 extern void pro_start();
@@ -93,5 +95,3 @@ extern struct node* init(int num);
 extern void show_queue(const struct queue *q);
 // 打印栈
 extern void show_stack(const struct stack *s);
-// 快速排序
-extern void sort_in_quick(int arr[] , int s, int e);
