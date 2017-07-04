@@ -9,15 +9,37 @@ int main(int argc,const char* argv[]){
 
 	// node 链表操作
 	if(strcmp("node",argv[1]) == 0){/*{{{*/
-		// 创建链表的第一个元素
-		struct node p;
-		p.data = 11;
-		p.next = NULL;
-		struct node *a = init(15);
-		p.next = init(16);
-		printf("p.data : %d\n",p.data);
-		printf("a->data : %d\n",a->data);
-		printf("p.next->data%d \n", p.next->data);
+		// 给定一个数字，创建链表存储数据，然后遍历打印出来
+		printf("How much number you want to save : ");
+		int num;
+		scanf("%d",&num);
+		
+		struct node Head; // 链表的头部
+		Head.next = NULL; // 链表的头部
+		Head.data = 0;    // 链表头部的数据存0
+		struct node *now; // 当前节点
+
+		for ( int i = 0; i < num ; i++) {
+			if( Head.next == NULL){
+				now = &Head;
+			}
+			printf("Enter number your want save : ");
+			int save;
+			scanf("%d",&save);
+			struct node *s = init(save);
+			now -> next = s;
+			now = s;
+			printf("you enter %d \n",s -> data );
+		}
+		
+		// 遍历存进去的链表
+		now = &Head;
+		while( now != NULL ){
+			printf("your data : %d \n",now -> data);
+			now = now -> next; // 继续下一个节点
+		}
+
+
 		return 0;
 	}/*}}}*/
 
