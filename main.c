@@ -3,9 +3,15 @@ int main(int argc,const char* argv[]){
 	if(!argv[1]){
 		argv[1] = "default";
 	}
-	
-	const char *glibc_version = gnu_get_libc_version();
-	printf("glibc version : %s \n",glibc_version);
+
+	// 打印程序的版本
+	if( (strcmp("-v",argv[1]) == 0) || (strcmp("--version",argv[1]) == 0) ){
+		debug(%d,45);
+		const char *glibc_version = gnu_get_libc_version();
+		printf("cky version : %.2f \n",0.01);
+		printf("glibc version : %s \n",glibc_version);
+	}
+
 
 	// node 链表操作
 	if(strcmp("node",argv[1]) == 0){/*{{{*/
