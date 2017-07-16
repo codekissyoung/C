@@ -5,9 +5,18 @@ int main(int argc,const char* argv[]){
 		argv[1] = "default";
 	}/*}}}*/
 
-	
-
-
+	// 测试缓冲区
+	// 1.碰见 \n
+	// 2.缓冲区满
+	// 3.碰见输出
+	if( strcmp("io-cache",argv[1]) == 0 ){
+		printf("test io-cache !");
+		printf("test io-cache !");
+		int input;
+		scanf("%d",&input);
+		sleep(2);
+		return 0;
+	}
 
 	// 打印程序的版本
 	if( (strcmp("-v",argv[1]) == 0) || (strcmp("--version",argv[1]) == 0) ){/*{{{*/
