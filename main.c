@@ -1,17 +1,20 @@
 #include "include/common.h"
 int main(int argc,const char* argv[]){
-	if(!argv[1]){
+
+	if( !argv[1] ){/*{{{*/
 		argv[1] = "default";
-	}
+	}/*}}}*/
+
+	
+
+
 
 	// 打印程序的版本
-	if( (strcmp("-v",argv[1]) == 0) || (strcmp("--version",argv[1]) == 0) ){
-		debug(%d,45);
+	if( (strcmp("-v",argv[1]) == 0) || (strcmp("--version",argv[1]) == 0) ){/*{{{*/
 		const char *glibc_version = gnu_get_libc_version();
 		printf("cky version : %.2f \n",0.01);
 		printf("glibc version : %s \n",glibc_version);
-	}
-
+	}/*}}}*/
 
 	// node 链表操作
 	if(strcmp("node",argv[1]) == 0){/*{{{*/
@@ -37,16 +40,15 @@ int main(int argc,const char* argv[]){
 			now = s;
 			printf("you enter %d \n",s -> data );
 		}
-		
+
 		// 遍历存进去的链表
 		now = &Head;
 		while( now != NULL ){
 			printf("your data : %d \n",now -> data);
 			now = now -> next; // 继续下一个节点
 		}
-
-
 		return 0;
+	
 	}/*}}}*/
 
 	// 队列
@@ -951,4 +953,19 @@ int main(int argc,const char* argv[]){
 
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
