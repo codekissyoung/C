@@ -1,4 +1,5 @@
 # makefile for cky
+# 使用 C11 标准编译
 cky:lib/func.o lib/node.o lib/stdarg.o lib/main.o lib/thread.o lib/global_variables.o \
 lib/libstatic_lib.a lib/share.so
 	gcc -Llib -g -std=c11 -Wall \
