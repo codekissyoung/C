@@ -5,6 +5,15 @@ int main(int argc,const char* argv[]){
 		argv[1] = "default";
 	}/*}}}*/
 
+	// sizeof 和 strlen()区别
+	if(strcmp("sizeof-strlen",argv[1]) == 0){
+		char str[15] = {'H','e','l','l','o','\0','w','o','r','l','d','!'};
+		printf("str : %s \n",str);
+		printf("sizeof(str): %d \n",(int)sizeof(str));
+		printf("strlen(str): %d \n",(int)strlen(str));
+	}
+
+
 	// 测试缓冲区
 	// 1.碰见 \n
 	// 2.缓冲区满
