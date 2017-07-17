@@ -419,6 +419,44 @@ int main(int argc,const char* argv[]){
 			}
 			*/
 		}
+
+		pid_t pid;
+		int status;
+		// 创建第一个子进程
+		pid = fork();
+		if(pid < 0){
+			printf("创建进程失败!\n");
+			exit(1);
+		}else if(pid == 0){
+			printf("the first ,exit normally !\n");
+			exit(0);
+		}else{
+			if(wait(&status) == -1){
+				perror("fail to wait!!!\n");
+				exit(1);
+			}
+			if(WIFEXITED(status) == 1){
+				printf("the status of first is : %d\n",WEXITSTATUS(status));
+			}
+		}
+
+		// 创建第二个子进程
+		pid_t pid2 = fork();
+		if(pid2 == 0){
+			printf("the second ,exit abnormally!!!!\n");
+			// printf("1 / 0 is %d \n",1 / 0);;
+		}else if(pid2 < 0){
+			printf("创建进程错误\n");
+			exit(1);
+		}else {
+			if(wait(&status) == -1){ // 父进程等待子进程退出
+				perror("fail to wait!!!\n");
+				exit(1);
+			}
+			if(WIFSIGNALED(status) == 1){
+				printf("the teminated signal is : %d\n",WTERMSIG(status));
+			}
+		}
 	}/*}}}*/
 
 	// 多进程操作
@@ -455,7 +493,27 @@ int main(int argc,const char* argv[]){
 			exit(0);
 		}else {
 			printf("in process : global : %d , stack : %d , *heap : %d \n",global ,stack ,*heap);
+		}
+		// --------
+		pid_t pid;
+		int stack = 100;
+		int *heap;
+		heap = (int *)malloc(sizeof(int));
+		*heap = 200;
 
+		pid = vfork();
+		if(pid < 0){
+			printf("vfork fail!!!!!\n");
+			exit(1);
+		}else if(pid == 0){
+			global ++;
+			stack ++;
+			(*heap) ++;
+			printf("stack : %d ,*heap : %d, global : %d",stack,*heap,global);
+			exit(0);
+		}else {
+			sleep(2); // 保证子进程先运行
+			printf("stack : %d ,*heap : %d, global : %d",stack,*heap,global);
 		}
 	}/*}}}*/
 
@@ -580,9 +638,6 @@ int main(int argc,const char* argv[]){
 		}	
 	}/*}}}*/
 
-	// print_diamond(11); // 打印一个菱形
-	// plus(9); // 打印99乘法表
-	
 	// 不定参数
 	if(strcmp("uncertain-var",argv[1]) == 0){/*{{{*/
 		print_args(-1,"hello","world",NULL);
@@ -629,7 +684,7 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// 进程
-	if(strcmp("fork",argv[1]) == 0){
+	if( strcmp("fork",argv[1]) == 0 ){/*{{{*/
 		int stack = 1;
 		int *heap;
 		heap = (int *)malloc(sizeof(int));
@@ -651,168 +706,59 @@ int main(int argc,const char* argv[]){
 			printf("stack : %d , *heap :%d,global:%d\n",stack,*heap,global);
 			printf("this is parent , pid is : %u,child-pid is : %u\n",getpid(),pid);
 		}
-	}
+	}/*}}}*/
 
-	switch(*argv[1]){
+	// exec 函数
+	if( strcmp("exec",argv) == 0 ){/*{{{*/
+		pid_t pid;
+		char *argv[] = {"hello"};
+		pid = fork();
 
-		// 测试下进程相关的内容 fork
-		case 'x':/*{{{*/
-			{
-					}
-			break;/*}}}*/
+		if(pid < 0){
+			printf("fail to fork \n");
+			exit(1);
+		}else if(pid == 0){
+			execvp("./hello",argv);
+		}else{
+			printf("parent!");
+		}
+		system("ls -alh");
+	}/*}}}*/
 
-		// 测试共享进程 vfork()
-		case 'y':/*{{{*/
-			{
-				pid_t pid;
-				int stack = 100;
-				int *heap;
-				heap = (int *)malloc(sizeof(int));
-				*heap = 200;
+	// wait3 函数
+	if( strcmp("wait3",argv[1]) == 0){/*{{{*/
+		pid_t pid;
+		int status;
+		struct rusage rusage;
 
-				pid = vfork();
-				if(pid < 0){
-					printf("vfork fail!!!!!\n");
-					exit(1);
-				}else if(pid == 0){
-					global ++;
-					stack ++;
-					(*heap) ++;
-					printf("stack : %d ,*heap : %d, global : %d",stack,*heap,global);
-					exit(0);
-				}else {
-					sleep(2); // 保证子进程先运行
-					printf("stack : %d ,*heap : %d, global : %d",stack,*heap,global);
-				}
+		pid = fork();
+		if(pid < 0){
+			exit(1);
+		}else if(pid == 0){
+			printf("the child \n");
+			exit(0);
+		}else{
+			printf("the parent \n");
+			if(wait3(&status,0,&rusage) == -1){
+				perror("fail to wait!\n");
+				exit(1);
 			}
-			break;/*}}}*/
 
-		// 测试exec()
-		case 'z':/*{{{*/
-				{
-					pid_t pid;
-					char *argv[] = {"hello"};
-					pid = fork();
-
-					if(pid < 0){
-						printf("fail to fork \n");
-						exit(1);
-					}else if(pid == 0){
-						execvp("./hello",argv);
-					}else{
-						printf("parent!");
-					}
-				}
-				break;/*}}}*/
-
-		// 测试system()
-		case '1':/*{{{*/
-			{
-				system("ls -alh");
-			}
-			break;/*}}}*/
-
-		// 测试wait()
-		case '2':/*{{{*/
-			{
-				pid_t pid;
-				int status;
-
-				// 创建第一个子进程
-				pid = fork();
-				if(pid < 0){
-					printf("创建进程失败!\n");
-					exit(1);
-				}else if(pid == 0){
-					printf("the first ,exit normally !\n");
-					exit(0);
-				}else{
-					if(wait(&status) == -1){
-						perror("fail to wait!!!\n");
-						exit(1);
-					}
-					if(WIFEXITED(status) == 1){
-						printf("the status of first is : %d\n",WEXITSTATUS(status));
-					}
-				}
-
-				// 创建第二个子进程
-				pid_t pid2 = fork();
-				if(pid2 == 0){
-					printf("the second ,exit abnormally!!!!\n");
-					// printf("1 / 0 is %d \n",1 / 0);;
-				}else if(pid2 < 0){
-					printf("创建进程错误\n");
-					exit(1);
-				}else {
-					if(wait(&status) == -1){ // 父进程等待子进程退出
-						perror("fail to wait!!!\n");
-						exit(1);
-					}
-					if(WIFSIGNALED(status) == 1){
-						printf("the teminated signal is : %d\n",WTERMSIG(status));
-					}
-				}
-			}
-			break;/*}}}*/
-
-		// 测试僵尸进程
-		case '3':/*{{{*/
-			{
-				pid_t pid;
-				pid = fork();
-
-				if(pid == 0){
-					printf("i am child process!\n");
-					sleep(10);
-					printf("child process done!\n");
-					exit(0);
-				}
-				printf("the parent process!\n");
-				sleep(30);
-				if(wait(NULL) == -1){ // wait child process over
-					perror("fail to wait!\n");
-					exit(1);
-				}
-			}
-			break;/*}}}*/
-
-		// 测试wait3函数，用于对子进程进行进程统计
-		case '4':/*{{{*/
-			{
-				pid_t pid;
-				int status;
-				struct rusage rusage;
-
-				pid = fork();
-				if(pid < 0){
-					exit(1);
-				}else if(pid == 0){
-					printf("the child \n");
-					exit(0);
-				}else{
-					printf("the parent \n");
-					if(wait3(&status,0,&rusage) == -1){
-						perror("fail to wait!\n");
-						exit(1);
-					}
-
-					int ru_utime = rusage.ru_utime.tv_sec;
-					int ru_stime = rusage.ru_stime.tv_sec;
-					printf("utime is %d \n",ru_utime);
-					printf("stime is %d \n",ru_stime);
-					printf("msgsnd is %ld\n",rusage.ru_msgsnd);
-					printf("maxrss is %ld\n",rusage.ru_maxrss);
-				}
-			}
-			break;/*}}}*/
-
-	} // end of switch
+			int ru_utime = rusage.ru_utime.tv_sec;
+			int ru_stime = rusage.ru_stime.tv_sec;
+			printf("utime is %d \n",ru_utime);
+			printf("stime is %d \n",ru_stime);
+			printf("msgsnd is %ld\n",rusage.ru_msgsnd);
+			printf("maxrss is %ld\n",rusage.ru_maxrss);
+		}	
+	}/*}}}*/
 
 	if(strcmp("default",argv[1]) == 0){/*{{{*/
 		printf("输入 cky 参数 运行特定程序 \n");
 	}/*}}}*/
 
+	// print_diamond(11); // 打印一个菱形
+	// plus(9); // 打印99乘法表
 	return 0;
 }
 
