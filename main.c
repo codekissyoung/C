@@ -9,14 +9,14 @@ int main(int argc,const char* argv[]){
 	// 1.碰见 \n
 	// 2.缓冲区满
 	// 3.碰见输出
-	if( strcmp("io-cache",argv[1]) == 0 ){
+	if( strcmp("io-cache",argv[1]) == 0 ){/*{{{*/
 		printf("test io-cache !");
 		printf("test io-cache !");
 		int input;
 		scanf("%d",&input);
 		sleep(2);
 		return 0;
-	}
+	}/*}}}*/
 
 	// 打印程序的版本
 	if( (strcmp("-v",argv[1]) == 0) || (strcmp("--version",argv[1]) == 0) ){/*{{{*/
@@ -449,129 +449,79 @@ int main(int argc,const char* argv[]){
 		printf("a : %d \n",a);
 	}/*}}}*/
 
+	// 测试EOF
+	if(strcmp("eof",argv[1]) == 0){/*{{{*/
+		char test_eof;
+		while( (test_eof = getchar()) != EOF){
+			putchar(test_eof);
+		}
+	}/*}}}*/
+	
+	// 测试fgets()
+	if("fgets",argv[1]){/*{{{*/
+		char words[STLEN];
+		int i;
+		while(fgets(words,STLEN,stdin) != NULL && words[0] != '\n'){
+			i = 0;
+			while(words[i] != '\n' && words[i] != '\0'){
+				i++;
+			}
+			if(words[i] == '\n'){
+				words[i] = '\0';
+			}else{
+				while(getchar() != '\n'){
+					continue;
+				}
+			}
+			fputs(words,stdout);
+		}
+	}/*}}}*/
+	
+	// 指向多维数组的指针
+	if( strcmp("multi-array",argv[1]) == 0 ){/*{{{*/
+		int zippo[3][2] = {
+			{2,3},
+			{4,5},
+			{6,7}
+		};
+		int (*pz)[2]; // 指向一个含有两个int类型值的数组
+		pz = zippo;
+		
+		printf("zippo : %p , zippo[0]: %p :zippo[0][0] : %d \n",zippo,zippo[0],zippo[0][0]);
+		
+		printf("pz : %p , *pz: %p : **pz: %d \n",pz,*pz,**pz);
+		printf("pz = %p,pz + 1:%p \n",pz,pz+1);
+		printf("pz[0] = %p,pz[0] + 1:%p \n",pz[0],pz[0]+1);
+		printf("*pz = %p,*pz + 1:%p \n",*pz,*pz+1);
+		printf("**pz = %d,*(*pz + 1):%d \n",**pz,*(*pz+1));
+		printf("**(pz + 1) = %d,*(*(pz + 1) + 1):%d \n",**(pz + 1),*(*(pz + 1)+1));
+		printf("pz[0][0] = %d,pz[0][1]:%d \n",pz[0][0],pz[0][1]);
+	}/*}}}*/
+
+	// 测试下字符串数组
+	if(strcmp("str-array",argv[1]) == 0){/*{{{*/
+		const char *pointer_str[5] = {
+			"string1 heheh",
+			"string2 ,sdfadf",
+			"string3 hdhdhdh",
+			"xxixixixi",
+			"codsdadfssss"
+		};
+		char array_str[5][40] = {
+			"sdfaiisisis",
+			"xixixiix sss",
+			"hahah",
+			"codekissyoung"
+		};
+		for(int k = 0;k < 5;k++){
+			printf("pointer_str[%d] : %p : %s \n",k,pointer_str[k],pointer_str[k]);
+		}
+		for(int p = 0;p < 5;p++){
+			printf("array_str[%d] : %p : %s \n",p,array_str[p],array_str[p]);
+		}
+	}/*}}}*/
+
 	switch(*argv[1]){
-		// 排序字符串
-		case 'a':/*{{{*/
-			{
-				printf("随便输入字符串\n");
-				char input[5][100];
-				char *sort[5];
-				int i = 0;
-				while(i < 5 && fgets(input[i],100,stdin) != NULL){
-					sort[i] = input[i];
-					++i;
-				}
-
-				// 将指针指向的数组输出
-				printf("before sort : \n");
-				i = 0;
-				while(i < 5){
-					printf("sort[%d] : %s", i ,sort[i]);
-					i++;
-				}
-
-				// 排序
-				int j = 0;
-				char *temp;
-				for(i = 0;i < 5;i++){
-					for(j = 0;j < 5 - i -1;j++){
-						if(strncmp(sort[j],sort[j + 1],100) > 0 ){
-							temp = sort[j];
-							sort[j] = sort[j + 1];
-							sort[j + 1] = temp;
-						}
-					}
-				}
-
-				// 将指针指向的数组输出
-				printf("after sort :\n");
-				i = 0;
-				while(i < 5){
-					printf("sort[%d] : %s", i ,sort[i]);
-					i++;
-				}
-			}
-			break;/*}}}*/
-
-		// 指向多维数组的指针
-		case 'b':/*{{{*/
-			{
-				int zippo[3][2] =
-				{
-					{2,3},
-					{4,5},
-					{6,7}
-				};
-				int (*pz)[2]; // 指向一个含有两个int类型值的数组
-				pz = zippo;
-				printf("zippo : %p , zippo[0]: %p :zippo[0][0] : %d \n",zippo,zippo[0],zippo[0][0]);
-				printf("pz : %p , *pz: %p : **pz: %d \n",pz,*pz,**pz);
-				printf("pz = %p,pz + 1:%p \n",pz,pz+1);
-				printf("pz[0] = %p,pz[0] + 1:%p \n",pz[0],pz[0]+1);
-				printf("*pz = %p,*pz + 1:%p \n",*pz,*pz+1);
-				printf("**pz = %d,*(*pz + 1):%d \n",**pz,*(*pz+1));
-				printf("**(pz + 1) = %d,*(*(pz + 1) + 1):%d \n",**(pz + 1),*(*(pz + 1)+1));
-				printf("pz[0][0] = %d,pz[0][1]:%d \n",pz[0][0],pz[0][1]);
-				printf("-----------------\n\n");
-			}
-			break;/*}}}*/
-
-		// 测试EOF
-		case 'c':/*{{{*/
-			{
-				char test_eof;
-				while( (test_eof = getchar()) != EOF){
-					putchar(test_eof);
-				}
-			}
-			break;/*}}}*/
-
-		// 测试fgets()
-		case 'd':/*{{{*/
-			{
-				char words[STLEN];
-				int i;
-				while(fgets(words,STLEN,stdin) != NULL && words[0] != '\n'){
-					i = 0;
-					while(words[i] != '\n' && words[i] != '\0'){
-						i++;
-					}
-					if(words[i] == '\n'){
-						words[i] = '\0';
-					}else{
-						while(getchar() != '\n'){
-							continue;
-						}
-					}
-					fputs(words,stdout);
-				}
-			}
-			break;/*}}}*/
-
-		// 测试下字符串数组
-		case 'e':/*{{{*/
-			{
-				const char *pointer_str[5] = {
-					"string1 heheh",
-					"string2 ,sdfadf",
-					"string3 hdhdhdh",
-					"xxixixixi",
-					"codsdadfssss"
-				};
-				char array_str[5][40] = {
-					"sdfaiisisis",
-					"xixixiix sss",
-					"hahah",
-					"codekissyoung"
-				};
-				for(int k = 0;k < 5;k++){
-					printf("pointer_str[%d] : %p : %s \n",k,pointer_str[k],pointer_str[k]);
-				}
-				for(int p = 0;p < 5;p++){
-					printf("array_str[%d] : %p : %s \n",p,array_str[p],array_str[p]);
-				}
-			}
-			break;/*}}}*/
 
 		// 数组字符串和指针字符串的区别
 		case 'f':/*{{{*/
