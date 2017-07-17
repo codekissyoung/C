@@ -420,8 +420,6 @@ int main(int argc,const char* argv[]){
 			*/
 		}
 
-		pid_t pid;
-		int status;
 		// 创建第一个子进程
 		pid = fork();
 		if(pid < 0){
@@ -495,9 +493,6 @@ int main(int argc,const char* argv[]){
 			printf("in process : global : %d , stack : %d , *heap : %d \n",global ,stack ,*heap);
 		}
 		// --------
-		pid_t pid;
-		int stack = 100;
-		int *heap;
 		heap = (int *)malloc(sizeof(int));
 		*heap = 200;
 
@@ -709,7 +704,7 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// exec 函数
-	if( strcmp("exec",argv) == 0 ){/*{{{*/
+	if( strcmp("exec",argv[1]) == 0 ){/*{{{*/
 		pid_t pid;
 		char *argv[] = {"hello"};
 		pid = fork();
