@@ -6,13 +6,12 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// sizeof 和 strlen()区别
-	if(strcmp("sizeof-strlen",argv[1]) == 0){
+	if(strcmp("sizeof-strlen",argv[1]) == 0){/*{{{*/
 		char str[15] = {'H','e','l','l','o','\0','w','o','r','l','d','!'};
 		printf("str : %s \n",str);
 		printf("sizeof(str): %d \n",(int)sizeof(str));
 		printf("strlen(str): %d \n",(int)strlen(str));
-	}
-
+	}/*}}}*/
 
 	// 测试缓冲区
 	// 1.碰见 \n
@@ -215,7 +214,6 @@ int main(int argc,const char* argv[]){
 	// 从指定的消息队列中读出数据
 	if( strcmp("ipc-queue-rcv",argv[1]) == 0){/*{{{*/
 		// argv[2] 存在
-
 		int qid = atoi( argv[2] );
 		struct msg pmsg;
 		int len = msgrcv( qid , &pmsg , BUFSZ , 0 , 0 );
@@ -763,8 +761,20 @@ int main(int argc,const char* argv[]){
 
 	// print_diamond(11); // 打印一个菱形
 	// plus(9); // 打印99乘法表
+
+	// ------------------------------------------ end --------------------------------------------- //
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
