@@ -1,6 +1,10 @@
 #include "include/common.h"
 int main(int argc,const char* argv[]){
 
+	int a = 3;
+	printf("a address : %p \n",&a);
+
+
 	if( !argv[1] ){/*{{{*/
 		argv[1] = "default";
 	}/*}}}*/
@@ -761,33 +765,7 @@ int main(int argc,const char* argv[]){
 
 	// print_diamond(11); // 打印一个菱形
 	// plus(9); // 打印99乘法表
-
 	// ------------------------------------------ end --------------------------------------------- //
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
