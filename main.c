@@ -3,10 +3,6 @@ int main(int argc,const char* argv[]){
 
 #include "src/struct.c"
 
-	if( !argv[1] ){/*{{{*/
-		argv[1] = "default";
-	}/*}}}*/
-
 	// 函数指针
 	if(strcmp("func_point",argv[1]) == 0){/*{{{*/
 		typedef int (*fun_ptr)(int,int); // 定义一种函数指针类型
