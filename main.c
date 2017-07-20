@@ -1,9 +1,19 @@
 #include "include/common.h"
 int main(int argc,const char* argv[]){
 
-	int a = 3;
-	printf("a address : %p \n",&a);
+	// 函数指针
+	if(strcmp("func_point",argv[1]) == 0){/*{{{*/
+		typedef int (*fun_ptr)(int,int); // 定义一种函数指针类型
+		fun_ptr f = max; // 用该类型声明一个函数指针，并将该函数指针指向函数
+		int b = f(10,29);
+		printf("%d\n",b);
+		
+		int (*f2)(int,int) = max; // 也可以直接声明一个函数指针，指向函数
+		printf("%d\n",f2(4,65));
 
+		// 测试下回掉函数
+		printf("%d\n",call_func(max)); // 将max函数作为参数传进去
+	}/*}}}*/
 
 	if( !argv[1] ){/*{{{*/
 		argv[1] = "default";

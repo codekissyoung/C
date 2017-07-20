@@ -285,7 +285,7 @@ void* print_pro_thread_id(void * arg){/*{{{*/
 	return NULL;
 }/*}}}*/
 
-void sort_in_quick(int arr[] , int s, int e){
+void sort_in_quick(int arr[] , int s, int e){/*{{{*/
 	// 先选取一个基准 默认左边第一个
 	int base = arr[s];
 	int left = s; // 设置左边标兵
@@ -325,10 +325,16 @@ void sort_in_quick(int arr[] , int s, int e){
 	sort_in_quick(arr,s,right - 1);
 	sort_in_quick(arr,right + 1,e);
 	return ;
+}/*}}}*/
+
+// 返回最大值
+int max(int x ,int y){
+	return x > y ? x : y;
 }
 
-
-
-
+// 设计一个参数是函数的函数，即实现回掉函数功能
+int call_func(fp1 call){
+	return call(23,45);
+}
 
 

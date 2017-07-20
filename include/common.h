@@ -29,7 +29,6 @@
 #define MAX_THREAD 3  // 最大线程数
 #define BUFSZ 4096
 #define min(m,n) ((m) < (n) ? (m) : (n))
-#define max(m,n) ((m) > (n) ? (m) : (n))
 
 /* 调试代码 */
 #ifndef ONLY
@@ -42,6 +41,9 @@
 	#endif
 #endif
 
+/* 新类型定义 */
+typedef int (*fp1)(int,int);  // 新增一种函数类型指针
+
 /*全局变量申明*/
 extern float a1;
 extern int b1;
@@ -52,6 +54,7 @@ extern int global;
 /*全局接口函数*/
 extern int swap(int *a,int *b);
 extern void f();
+extern int max(int,int);
 extern int add(int a ,int b);
 extern int sub(int a ,int b);
 extern int mul(int a ,int b);
@@ -67,6 +70,10 @@ extern void sum_rows(int ar[][2],int rows);
 extern int sum2d(int rows,int cols,int ar[rows][cols]);
 extern char *pr(char *str);
 extern void quick_sort(int arr[],int num);
+
+// 设计一个调用回调函数的函数
+extern int call_func(fp1);
+
 // 快速排序
 extern void sort_in_quick(int arr[] , int s, int e);
 extern void divide(int *arr,int low,int high);
@@ -87,8 +94,15 @@ extern pid_t wait3(int *statloc,int options,struct rusage *r);
 extern int factorial(int n);
 extern void when_exit(void);
 extern void* print_pro_thread_id(void *arg);
-extern int pthread_create(pthread_t* restrict tidp,const pthread_attr_t* restrict attr ,void *(*start_rtn)(void *),void *restrict arg);
+
+extern int pthread_create(
+	pthread_t* restrict tidp,
+	const pthread_attr_t* restrict attr ,
+	void *(*start_rtn)(void *),
+	void *restrict arg);
+
 extern void *thread_callback(void *arg);
+
 // 初始化链表
 extern struct node* init(int num);
 // 打印队列
