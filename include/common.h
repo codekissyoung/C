@@ -70,7 +70,7 @@ extern void sum_rows(int ar[][2],int rows);
 extern int sum2d(int rows,int cols,int ar[rows][cols]);
 extern char *pr(char *str);
 extern void quick_sort(int arr[],int num);
-
+extern void printBook(struct Books *);
 // 设计一个调用回调函数的函数
 extern int call_func(fp1);
 

@@ -337,4 +337,10 @@ int call_func(fp1 call){
 	return call(23,45);
 }
 
-
+// 打印结构体Books
+void printBook(struct Books *b){
+	printf("Book title : %s \n",b->title);
+	printf("Book author : %s \n",b->author);
+	printf("Book subject : %s \n",b->subject);
+	printf("Book id : %d \n",b->id);
+}
