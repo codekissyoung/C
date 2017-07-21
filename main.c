@@ -1,7 +1,19 @@
 #include "include/common.h"
 int main(int argc,const char* argv[]){
 
-#include "src/struct.c"
+	#include "src/struct.c"
+	
+	char *str = "codekissyoung";
+	if( * str ){
+		printf("%s \n",str);
+	}
+
+	typedef struct Book{
+		char name[30];
+	} Book;
+	
+	Book bk1 = {"codekissyoung"};
+	printf("%s \n",bk1.name);
 
 	// 函数指针
 	if(strcmp("func_point",argv[1]) == 0){/*{{{*/
