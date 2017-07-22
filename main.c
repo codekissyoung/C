@@ -1,6 +1,7 @@
 #include "include/common.h"
 int main(int argc,const char* argv[]){
 
+	// always use english
 	#include "src/struct.c"
 
 	char *str = "codekissyoung";
