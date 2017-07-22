@@ -2,7 +2,7 @@
 int main(int argc,const char* argv[]){
 
 	#include "src/struct.c"
-	
+
 	char *str = "codekissyoung";
 	if( * str ){
 		printf("%s \n",str);
@@ -11,7 +11,6 @@ int main(int argc,const char* argv[]){
 	typedef struct Book{
 		char name[30];
 	} Book;
-	
 	Book bk1 = {"codekissyoung"};
 	printf("%s \n",bk1.name);
 
@@ -21,7 +20,7 @@ int main(int argc,const char* argv[]){
 		fun_ptr f = max; // 用该类型声明一个函数指针，并将该函数指针指向函数
 		int b = f(10,29);
 		printf("%d\n",b);
-		
+
 		int (*f2)(int,int) = max; // 也可以直接声明一个函数指针，指向函数
 		printf("%d\n",f2(4,65));
 
@@ -55,7 +54,7 @@ int main(int argc,const char* argv[]){
 		const char *glibc_version = gnu_get_libc_version();
 		printf("cky version : %.2f \n",0.01);
 		printf("glibc version : %s \n",glibc_version);
-		
+
 		printf("环境变量测试: \n");
 		printf("%s \n",environ[0]); //第一个环境变量
 		printf("%s \n",environ[1]);
@@ -69,7 +68,7 @@ int main(int argc,const char* argv[]){
 		printf("How much number you want to save : ");
 		int num;
 		scanf("%d",&num);
-		
+
 		struct node Head; // 链表的头部
 		Head.next = NULL; // 链表的头部
 		Head.data = 0;    // 链表头部的数据存0
@@ -95,7 +94,7 @@ int main(int argc,const char* argv[]){
 			now = now -> next; // 继续下一个节点
 		}
 		return 0;
-	
+
 	}/*}}}*/
 
 	// 队列
@@ -108,7 +107,7 @@ int main(int argc,const char* argv[]){
 			scanf("%d",&q.data[q.tail]);
 			q.tail ++; //队尾向后加1
 		}
-		
+
 		while( q.head < q.tail ){
 			printf("出队列中的值: %d \n",q.data[q.head]);
 			q.head++;
@@ -139,7 +138,7 @@ int main(int argc,const char* argv[]){
 		int test_data[] = {2,1,3,5,4};
 		int lenth = sizeof(test_data) / sizeof(int);
 		printf("快排演示 %d \n",lenth);
-		
+
 		for(int i = 0; i < sizeof(test_data) / sizeof(int); i++){
 			printf("%d\t",test_data[i]);
 		}
@@ -155,7 +154,7 @@ int main(int argc,const char* argv[]){
 
 	// 线程互斥
 	if(strcmp("thread_mutex",argv[1]) == 0){/*{{{*/
-		
+
 	}/*}}}*/
 
 	// 线程退出
@@ -185,13 +184,13 @@ int main(int argc,const char* argv[]){
 
 
 		// 打开文件
-		
+
 		FILE *file_point = NULL;
 		if( (file_point = fopen("text.txt","wb")) == NULL ){
 			printf("打开文件失败");
 			exit(1);
 		}
-		
+
 		if( (pthread_create(&tid,NULL,thread_callback,(void *)&arg)) != 0){
 			printf("创建线程失败");
 			exit(1);
@@ -229,12 +228,12 @@ int main(int argc,const char* argv[]){
 			printf("create thread fail \n");
 			exit(1);
 		}
-		
+
 		sleep(2);
 		printf("the main thread pid is %u ,tid is : %u \n",(unsigned int)getpid(),(unsigned int)tid);
 		return 0;
 	}/*}}}*/
-	
+
 	// 从指定的消息队列中读出数据
 	if( strcmp("ipc-queue-rcv",argv[1]) == 0){/*{{{*/
 		// argv[2] 存在
@@ -557,7 +556,7 @@ int main(int argc,const char* argv[]){
 			putchar(test_eof);
 		}
 	}/*}}}*/
-	
+
 	// 测试fgets()
 	if(strcmp("fgets",argv[1]) == 0){/*{{{*/
 		char words[STLEN];
@@ -577,7 +576,7 @@ int main(int argc,const char* argv[]){
 			fputs(words,stdout);
 		}
 	}/*}}}*/
-	
+
 	// 指向多维数组的指针
 	if( strcmp("multi-array",argv[1]) == 0 ){/*{{{*/
 		int zippo[3][2] = {
@@ -587,9 +586,9 @@ int main(int argc,const char* argv[]){
 		};
 		int (*pz)[2]; // 指向一个含有两个int类型值的数组
 		pz = zippo;
-		
+
 		printf("zippo : %p , zippo[0]: %p :zippo[0][0] : %d \n",zippo,zippo[0],zippo[0][0]);
-		
+
 		printf("pz : %p , *pz: %p : **pz: %d \n",pz,*pz,**pz);
 		printf("pz = %p,pz + 1:%p \n",pz,pz+1);
 		printf("pz[0] = %p,pz[0] + 1:%p \n",pz[0],pz[0]+1);
@@ -627,7 +626,7 @@ int main(int argc,const char* argv[]){
 		printf("ar : %p \n",ar); // 数组存储的位置
 		printf("pt : %p \n",pt); // 指针指向的位置
 		printf("-----------------\n\n");
-		
+
 		// 处理多维数组的函数
 		int zippo[3][2] =
 		{
@@ -636,7 +635,7 @@ int main(int argc,const char* argv[]){
 			{6,7}
 		};
 		sum_rows(zippo,3);
-	
+
 	}/*}}}*/
 
 	// 使用预定义宏
@@ -661,7 +660,7 @@ int main(int argc,const char* argv[]){
 		}else{
 			printf("打开文件失败\n");
 			exit(1);
-		}	
+		}
 	}/*}}}*/
 
 	// 不定参数
@@ -776,7 +775,7 @@ int main(int argc,const char* argv[]){
 			printf("stime is %d \n",ru_stime);
 			printf("msgsnd is %ld\n",rusage.ru_msgsnd);
 			printf("maxrss is %ld\n",rusage.ru_maxrss);
-		}	
+		}
 	}/*}}}*/
 
 	if(strcmp("default",argv[1]) == 0){/*{{{*/
