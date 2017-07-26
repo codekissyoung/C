@@ -3,7 +3,7 @@ int main(int argc,const char* argv[]){
 
 	// always use english
 	#include "src/struct.c"
-
+	// 测试下中文
 	char *str = "codekissyoung";
 	if( * str ){
 		printf("%s \n",str);
