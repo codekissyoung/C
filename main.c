@@ -5,9 +5,9 @@ int main(int argc,const char* argv[]){
 	#include "src/struct.c"
 	// 测试下中文
 	char *str = "codekissyoung";
-	if( * str ){
+	if( * str ){/*{{{*/
 		printf("%s \n",str);
-	}
+	}/*}}}*/
 
 	typedef struct Book{
 		char name[30];
