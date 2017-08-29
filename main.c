@@ -1,8 +1,12 @@
 #include "include/common.h"
 int main(int argc,const char* argv[]){
 
-	// always use english
-	#include "src/struct.c"
+	if( 1 == argc ){
+		printf("cky程序用法\n");
+		return 0;
+	}
+
+	#include "src/struct.c" // 相当于直接把src/struct.c文件里所有的代码拷贝到这里，所谓的预处理嘛
 	// 测试下中文
 	char *str = "codekissyoung";
 	if( *str ){/*{{{*/
@@ -12,6 +16,7 @@ int main(int argc,const char* argv[]){
 	typedef struct Book{
 		char name[30];
 	} Book;
+
 	Book bk1 = {"codekissyoung"};
 	printf("%s \n",bk1.name);
 
