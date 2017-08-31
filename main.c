@@ -2,17 +2,34 @@
 int main(int argc,const char* argv[]){
 
 	// 打印程序的版本
-	if( 1 == argc || (strcmp("-v",argv[1]) == 0) || (strcmp("--version",argv[1]) == 0) ){/*{{{*/
-		printf("cky程序用法\n");
+	if( 1 == argc || (strcmp("-v",argv[1]) == 0) || (strcmp("--version",argv[1]) == 0) ){
 		const char *glibc_version = gnu_get_libc_version();
-		printf("cky version : %.2f \n",0.01);
-		printf("glibc version : %s \n",glibc_version);
-		printf("环境变量测试: \n");
-		printf("%s \n",environ[0]); //第一个环境变量
-		printf("%s \n",environ[1]);
-		printf("HOME : %s \n",getenv("HOME")); // 获取环境变量HOME
-		return 0;
-	}/*}}}*/
+		printf("cky version : %.2f\n",0.01);
+		printf("glibc version : %s\n",glibc_version);
+		printf("环境变量测试:\n");
+		printf("%s\n",environ[0]); //第一个环境变量
+		printf("%s\n",environ[1]);
+		printf("HOME : %s\n",getenv("HOME")); // 获取环境变量HOME
+		printf("cky程序用法\n");
+		printf("当前进程PID : %d\n",getpid());
+		printf("当前进程父PID : %d\n",getppid());
+		printf("用户的uid : %d\n",getuid());
+		printf("有效用户的uid : %d \n",geteuid());
+		printf("当前用户组gid : %d\n",getgid());
+		printf("有效用户组gid : %d\n",getegid());
+		struct passwd *my_info;
+
+		if(my_info=getpwuid(my_uid))   //   是否获得info信息  
+	{  
+   printf("My Login Name:%s/n" ,my_info->pw_name);  
+   printf("My Password :%s/n" ,my_info->pw_passwd);  
+   printf("My User ID :%ld/n",my_info->pw_uid);  
+   printf("My Group ID :%ld/n",my_info->pw_gid);  
+   printf("My Real Name:%s/n" ,my_info->pw_gecos);  
+   printf("My Home Dir :%s/n", my_info->pw_dir);  
+   printf("My Work Shell:%s/n", my_info->pw_shell);  
+	}  eturn 0;
+	}
 	
 	#include "src/struct.c" // 相当于直接把src/struct.c文件里所有的代码拷贝到这里，所谓的预处理嘛
 

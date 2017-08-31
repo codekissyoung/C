@@ -10,6 +10,7 @@
 #include <time.h>
 #include <math.h> /* 数学库 */
 #include <pthread.h> /* 线程 */
+#include <pwd.h> /*用户详细信息*/
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
