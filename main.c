@@ -17,20 +17,19 @@ int main(int argc,const char* argv[]){
 		printf("有效用户的uid : %d \n",geteuid());
 		printf("当前用户组gid : %d\n",getgid());
 		printf("有效用户组gid : %d\n",getegid());
-		struct passwd *my_info;
-
-		if(my_info=getpwuid(my_uid))   //   是否获得info信息  
-	{  
-   printf("My Login Name:%s/n" ,my_info->pw_name);  
-   printf("My Password :%s/n" ,my_info->pw_passwd);  
-   printf("My User ID :%ld/n",my_info->pw_uid);  
-   printf("My Group ID :%ld/n",my_info->pw_gid);  
-   printf("My Real Name:%s/n" ,my_info->pw_gecos);  
-   printf("My Home Dir :%s/n", my_info->pw_dir);  
-   printf("My Work Shell:%s/n", my_info->pw_shell);  
-	}  eturn 0;
+		struct passwd *my_info = getpwuid(getuid());
+		if(my_info)   //   是否获得info信息
+		{
+			printf("My Login Name:%s\n" ,my_info->pw_name);
+			printf("My Password :%s\n" ,my_info->pw_passwd);
+			printf("My User ID :%d\n",my_info->pw_uid);
+			printf("My Group ID :%d\n",my_info->pw_gid);
+			printf("My Real Name:%s\n" ,my_info->pw_gecos);
+			printf("My Home Dir :%s\n", my_info->pw_dir);
+			printf("My Work Shell:%s\n", my_info->pw_shell);
+		}
+		return 0;
 	}
-	
 	#include "src/struct.c" // 相当于直接把src/struct.c文件里所有的代码拷贝到这里，所谓的预处理嘛
 
 	// 函数指针
