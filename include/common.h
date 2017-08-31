@@ -8,6 +8,7 @@
 #include <string.h>
 #include <errno.h> /* 错误号申明头文件 */
 #include <time.h>
+#include <math.h> /* 数学库 */
 #include <pthread.h> /* 线程 */
 #include <sys/types.h>
 #include <sys/stat.h>

@@ -1,12 +1,8 @@
 # makefile for cky
 # 使用 C11 标准编译
-cky:lib/func.o lib/node.o lib/stdarg.o lib/main.o lib/thread.o lib/global_variables.o lib/libstatic_lib.a lib/share.so
-	gcc -Llib -g -std=c11 -Wall -Werror \
-		lib/func.o lib/node.o lib/stdarg.o lib/thread.o lib/global_variables.o lib/main.o \
-		lib/share.so \
-		-lstatic_lib \
-		-pthread \
-		-o cky
+# -Llib 指定当前目录下的lib目录,系统的缺省库的路径/lib /usr/lib /usr/local/lib 在这三个路径下面的库,我们可以不指定路径
+cky:lib/func.o lib/node.o lib/stdarg.o lib/main.o lib/thread.o lib/global_variables.o lib/share.so lib/libstatic_lib.a
+	gcc -g -std=c11 -Wall -Werror -Llib -lstatic_lib -pthread lib/func.o lib/node.o lib/stdarg.o lib/thread.o lib/global_variables.o lib/main.o lib/share.so  -o cky
 
 # $< 表示依赖的第一个文件
 # $^ 表示依赖的所有文件
@@ -46,4 +42,12 @@ clean:
 	rm lib/*.so
 	rm lib/*.a
 	rm cky
+
+
+
+
+
+
+
+
 
