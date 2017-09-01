@@ -1,16 +1,14 @@
 #include "include/common.h"
 int main(int argc,const char* argv[]){
 
-	// 打印程序的版本
-	if( 1 == argc || (strcmp("-v",argv[1]) == 0) || (strcmp("--version",argv[1]) == 0) ){
+	// 程序版本
+	if( 1 == argc || (strcmp("-v",argv[1]) == 0) || (strcmp("--version",argv[1]) == 0) )
+	{
 		const char *glibc_version = gnu_get_libc_version();
-		printf("cky version : %.2f\n",0.01);
-		printf("glibc version : %s\n",glibc_version);
-		printf("环境变量测试:\n");
-		printf("%s\n",environ[0]); //第一个环境变量
-		printf("%s\n",environ[1]);
-		printf("HOME : %s\n",getenv("HOME")); // 获取环境变量HOME
 		printf("cky程序用法\n");
+		printf("cky version : %.2f\n",0.01);
+		printf("glibc version : %s\n" , glibc_version);
+		printf("获取环境变量HOME : %s\n",getenv("HOME")); // 获取环境变量HOME
 		printf("当前进程PID : %d\n",getpid());
 		printf("当前进程父PID : %d\n",getppid());
 		printf("用户的uid : %d\n",getuid());
@@ -18,8 +16,9 @@ int main(int argc,const char* argv[]){
 		printf("当前用户组gid : %d\n",getgid());
 		printf("有效用户组gid : %d\n",getegid());
 		struct passwd *my_info = getpwuid(getuid());
+
 		if(my_info)   //   是否获得info信息
-		{
+		{/*{{{*/
 			printf("My Login Name:%s\n" ,my_info->pw_name);
 			printf("My Password :%s\n" ,my_info->pw_passwd);
 			printf("My User ID :%d\n",my_info->pw_uid);
@@ -27,13 +26,15 @@ int main(int argc,const char* argv[]){
 			printf("My Real Name:%s\n" ,my_info->pw_gecos);
 			printf("My Home Dir :%s\n", my_info->pw_dir);
 			printf("My Work Shell:%s\n", my_info->pw_shell);
-		}
+		}/*}}}*/
+
 		return 0;
 	}
 	#include "src/struct.c" // 相当于直接把src/struct.c文件里所有的代码拷贝到这里，所谓的预处理嘛
 
 	// 函数指针
-	if(strcmp("func_point",argv[1]) == 0){/*{{{*/
+	if(strcmp("func_point",argv[1]) == 0)
+	{/*{{{*/
 		typedef int (*fun_ptr)(int,int); // 定义一种函数指针类型
 		fun_ptr f = max; // 用该类型声明一个函数指针，并将该函数指针指向函数
 		int b = f(10,29);
