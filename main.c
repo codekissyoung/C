@@ -70,7 +70,8 @@ int main(int argc,const char* argv[]){
 
 
 	// node 链表操作
-	if(strcmp("node",argv[1]) == 0){/*{{{*/
+	if(strcmp("node",argv[1]) == 0)
+	{/*{{{*/
 		// 给定一个数字，创建链表存储数据，然后遍历打印出来
 		printf("How much number you want to save : ");
 		int num;
@@ -758,7 +759,8 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// wait3 函数
-	if( strcmp("wait3",argv[1]) == 0){/*{{{*/
+	if( strcmp("wait3",argv[1]) == 0)
+	{/*{{{*/
 		pid_t pid;
 		int status;
 		struct rusage rusage;
@@ -783,10 +785,6 @@ int main(int argc,const char* argv[]){
 			printf("msgsnd is %ld\n",rusage.ru_msgsnd);
 			printf("maxrss is %ld\n",rusage.ru_maxrss);
 		}
-	}/*}}}*/
-
-	if(strcmp("default",argv[1]) == 0){/*{{{*/
-		printf("输入 cky 参数 运行特定程序 \n");
 	}/*}}}*/
 
 	// print_diamond(11); // 打印一个菱形
