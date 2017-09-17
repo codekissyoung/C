@@ -56,8 +56,8 @@ int main(int argc,const char* argv[])
 		printf("strlen(str): %d \n",(int)strlen(str));
 	}/*}}}*/
 
-	// 测试缓冲区
-	// 1.碰见 \n
+    // 测试缓冲区
+    // 1.碰见 \n
 	// 2.缓冲区满
 	// 3.碰见输出
 	if( strcmp("io-cache",argv[1]) == 0 )
@@ -109,14 +109,14 @@ int main(int argc,const char* argv[])
 	// 队列
 	if (strcmp("queue",argv[1]) == 0)
 	{/*{{{*/
-		struct queue q;
-		q.head = 1;
-		q.tail = 1;
-		for ( int i = 1; i <= 5; i++){
-			printf("向队列存一个数 : ");
-			scanf("%d",&q.data[q.tail]);
-			q.tail ++; //队尾向后加1
-		}
+        struct queue q;
+        q.head = 1;
+        q.tail = 1;
+        for ( int i = 1; i <= 5; i++){
+            printf("向队列存一个数 : ");
+            scanf("%d",&q.data[q.tail]);
+            q.tail ++; //队尾向后加1
+        }
 
 		while( q.head < q.tail ){
 			printf("出队列中的值: %d \n",q.data[q.head]);
