@@ -1,9 +1,9 @@
 #include "include/common.h"
-int main(int argc,const char* argv[]){
-
+int main(int argc,const char* argv[])
+{
 	// 程序版本
 	if( 1 == argc || (strcmp("-v",argv[1]) == 0) || (strcmp("--version",argv[1]) == 0) )
-	{
+	{/*{{{*/
 		const char *glibc_version = gnu_get_libc_version();
 		printf("cky程序用法\n");
 		printf("cky version : %.2f\n",0.01);
@@ -17,7 +17,7 @@ int main(int argc,const char* argv[]){
 		printf("有效用户组gid : %d\n",getegid());
 		struct passwd *my_info = getpwuid(getuid());
 
-		if(my_info)   //   是否获得info信息
+		if( my_info )   //   是否获得info信息
 		{/*{{{*/
 			printf("My Login Name:%s\n" ,my_info->pw_name);
 			printf("My Password :%s\n" ,my_info->pw_passwd);
@@ -29,7 +29,7 @@ int main(int argc,const char* argv[]){
 		}/*}}}*/
 
 		return 0;
-	}
+	}/*}}}*/
 	#include "src/struct.c" // 相当于直接把src/struct.c文件里所有的代码拷贝到这里，所谓的预处理嘛
 
 	// 函数指针
@@ -48,7 +48,8 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// sizeof 和 strlen()区别
-	if(strcmp("sizeof-strlen",argv[1]) == 0){/*{{{*/
+	if(strcmp("sizeof-strlen",argv[1]) == 0)
+	{/*{{{*/
 		char str[15] = {'H','e','l','l','o','\0','w','o','r','l','d','!'};
 		printf("str : %s \n",str);
 		printf("sizeof(str): %d \n",(int)sizeof(str));
@@ -59,7 +60,8 @@ int main(int argc,const char* argv[]){
 	// 1.碰见 \n
 	// 2.缓冲区满
 	// 3.碰见输出
-	if( strcmp("io-cache",argv[1]) == 0 ){/*{{{*/
+	if( strcmp("io-cache",argv[1]) == 0 )
+	{/*{{{*/
 		printf("test io-cache !");
 		printf("test io-cache !");
 		int input;
@@ -67,7 +69,6 @@ int main(int argc,const char* argv[]){
 		sleep(2);
 		return 0;
 	}/*}}}*/
-
 
 	// node 链表操作
 	if(strcmp("node",argv[1]) == 0)
@@ -106,7 +107,8 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// 队列
-	if (strcmp("queue",argv[1]) == 0) {/*{{{*/
+	if (strcmp("queue",argv[1]) == 0)
+	{/*{{{*/
 		struct queue q;
 		q.head = 1;
 		q.tail = 1;
@@ -124,7 +126,8 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// 队列
-	if (strcmp("queue-qq",argv[1]) == 0) {/*{{{*/
+	if (strcmp("queue-qq",argv[1]) == 0)
+	{/*{{{*/
 		int q[102] = {0,6,3,1,7,5,8,9,2,4} , head , tail;
 		head = 1;
 		tail = 10;
@@ -141,7 +144,8 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// 快速排序
-	if(strcmp("quick_sort",argv[1]) == 0){/*{{{*/
+	if(strcmp("quick_sort",argv[1]) == 0)
+	{/*{{{*/
 		// int test_data[] = {10,1,2,6,8,7,5,9,3,16,15,12,4,14,11,13};
 		int test_data[] = {2,1,3,5,4};
 		int lenth = sizeof(test_data) / sizeof(int);
@@ -160,13 +164,9 @@ int main(int argc,const char* argv[]){
 		return 0;
 	}/*}}}*/
 
-	// 线程互斥
-	if(strcmp("thread_mutex",argv[1]) == 0){/*{{{*/
-
-	}/*}}}*/
-
 	// 线程退出
-	if(strcmp("thread_exit",argv[1]) == 0){/*{{{*/
+	if(strcmp("thread_exit",argv[1]) == 0)
+	{/*{{{*/
 		pthread_t tid1 , tid2 , tid3;
 		void **res;
 		pthread_create(&tid1,NULL,first_thread,NULL);
@@ -177,22 +177,16 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// thread access
-	if(strcmp("thread_access",argv[1]) == 0){/*{{{*/
+	if(strcmp("thread_access",argv[1]) == 0)
+	{/*{{{*/
 		pthread_t tid , tid2;
-
 		HS arg;
-
 		int stack = 3;
-
 		arg.heap = (int *)malloc(sizeof(int));
-
 		*(arg.heap) = 2;
-
 		arg.stack = &stack;
 
-
 		// 打开文件
-
 		FILE *file_point = NULL;
 		if( (file_point = fopen("text.txt","wb")) == NULL ){
 			printf("打开文件失败");
@@ -214,7 +208,8 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// 线程与进程
-	if(strcmp("thread",argv[1]) == 0){/*{{{*/
+	if(strcmp("thread",argv[1]) == 0)
+	{/*{{{*/
 		printf("当前进程ID : %u\n",getpid());
 		printf("当前进程父ID : %u\n",getppid());
 		printf("当前用户ID : %u\n",getuid());
@@ -243,7 +238,8 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// 从指定的消息队列中读出数据
-	if( strcmp("ipc-queue-rcv",argv[1]) == 0){/*{{{*/
+	if( strcmp("ipc-queue-rcv",argv[1]) == 0)
+	{/*{{{*/
 		// argv[2] 存在
 		int qid = atoi( argv[2] );
 		struct msg pmsg;
@@ -265,7 +261,8 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// 进程间的通信 - 消息队列
-	if(strcmp("ipc-queue",argv[1]) == 0){/*{{{*/
+	if(strcmp("ipc-queue",argv[1]) == 0)
+	{/*{{{*/
 		key_t key = 113;
 		struct msg pmsg; // 消息的结构体变量
 		pmsg.msg_types = getpid();
@@ -296,7 +293,8 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// 两个子进程之间的通信
-	if(strcmp("brother-pipe",argv[1]) == 0){/*{{{*/
+	if(strcmp("brother-pipe",argv[1]) == 0)
+	{/*{{{*/
 		pro_start();
 		int fd[2];
 		char buf[PIPE_BUF];
@@ -339,7 +337,8 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// 管道
-	if(strcmp("pipe",argv[1]) == 0){/*{{{*/
+	if(strcmp("pipe",argv[1]) == 0)
+	{/*{{{*/
 		pro_start();
 		int fd[2];
 		char buf[PIPE_BUF];
@@ -367,15 +366,9 @@ int main(int argc,const char* argv[]){
 		}
 	}/*}}}*/
 
-	// 信号
-	if(strcmp("signal",argv[1]) == 0){/*{{{*/
-		// 1. 异步的
-		// 2. 信号 = 软件中断, 中断就是会打断原来的执行流程，来处理该信号
-		// 3. kill -l 查看信号, signal.h 文件定义信号
-	}/*}}}*/
-
 	// no-zombie
-	if(strcmp("no-zombie",argv[1]) == 0){/*{{{*/
+	if(strcmp("no-zombie",argv[1]) == 0)
+	{/*{{{*/
 		pid_t pid = fork();
 
 		if(pid < 0){
@@ -399,7 +392,8 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// 僵尸进程的产生
-	if(strcmp("zombie",argv[1]) == 0){/*{{{*/
+	if(strcmp("zombie",argv[1]) == 0)
+	{/*{{{*/
 		pid_t pid = fork();
 		if(pid < 0){
 		}else if(pid == 0){
@@ -419,18 +413,14 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// wait
-	if(strcmp("wait",argv[1]) == 0){/*{{{*/
+	if(strcmp("wait",argv[1]) == 0)
+	{/*{{{*/
 		pid_t pid = fork();
 		int num,status;
 		if(pid < 0){
 			perror("fail to fork");
 			exit(1);
 		}else if(pid == 0){
-			/*
-			if(execl("./shell" , "first" , NULL) < 0){
-				printf("execl fault");
-			}
-			*/
 			printf("the first , exit normally \n");
 			sleep(3);
 			exit(0);
@@ -496,7 +486,8 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// 多进程操作
-	if(strcmp("proc",argv[1]) == 0){/*{{{*/
+	if(strcmp("proc",argv[1]) == 0)
+	{/*{{{*/
 		pid_t pid = fork();
 		if(pid < 0){
 			printf("fork 出错");
@@ -510,7 +501,8 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// 线程操作
-	if(strcmp("vfork",argv[1]) == 0){/*{{{*/
+	if(strcmp("vfork",argv[1]) == 0)
+	{/*{{{*/
 		int stack = 1;
 		int *heap = (int *) malloc(sizeof(int));
 		*heap = 100;
@@ -551,14 +543,16 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// 移位操作
-	if(strcmp("shift",argv[1]) == 0){/*{{{*/
+	if(strcmp("shift",argv[1]) == 0)
+	{/*{{{*/
 		int a = 12;
 		a = a >> 2;
 		printf("a : %d \n",a);
 	}/*}}}*/
 
 	// 测试EOF
-	if(strcmp("eof",argv[1]) == 0){/*{{{*/
+	if(strcmp("eof",argv[1]) == 0)
+	{/*{{{*/
 		char test_eof;
 		while( (test_eof = getchar()) != EOF){
 			putchar(test_eof);
@@ -566,7 +560,8 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// 测试fgets()
-	if(strcmp("fgets",argv[1]) == 0){/*{{{*/
+	if(strcmp("fgets",argv[1]) == 0)
+	{/*{{{*/
 		char words[STLEN];
 		int i;
 		while(fgets(words,STLEN,stdin) != NULL && words[0] != '\n'){
@@ -586,7 +581,8 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// 指向多维数组的指针
-	if( strcmp("multi-array",argv[1]) == 0 ){/*{{{*/
+	if( strcmp("multi-array",argv[1]) == 0 )
+	{/*{{{*/
 		int zippo[3][2] = {
 			{2,3},
 			{4,5},
@@ -594,9 +590,7 @@ int main(int argc,const char* argv[]){
 		};
 		int (*pz)[2]; // 指向一个含有两个int类型值的数组
 		pz = zippo;
-
 		printf("zippo : %p , zippo[0]: %p :zippo[0][0] : %d \n",zippo,zippo[0],zippo[0][0]);
-
 		printf("pz : %p , *pz: %p : **pz: %d \n",pz,*pz,**pz);
 		printf("pz = %p,pz + 1:%p \n",pz,pz+1);
 		printf("pz[0] = %p,pz[0] + 1:%p \n",pz[0],pz[0]+1);
@@ -607,7 +601,8 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// 测试下字符串数组
-	if(strcmp("str-array",argv[1]) == 0){/*{{{*/
+	if(strcmp("str-array",argv[1]) == 0)
+	{/*{{{*/
 		const char *pointer_str[5] = {
 			"string1 heheh",
 			"string2 ,sdfadf",
@@ -647,7 +642,8 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// 使用预定义宏
-	if(strcmp("default-macro",argv[1]) == 0){/*{{{*/
+	if(strcmp("default-macro",argv[1]) == 0)
+	{/*{{{*/
 		printf("File :%s\n", __FILE__ );
 		printf("Date :%s\n", __DATE__ );
 		printf("Time :%s\n", __TIME__ );
@@ -657,7 +653,8 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// 读取文件
-	if(strcmp("read-file",argv[1]) == 0){/*{{{*/
+	if(strcmp("read-file",argv[1]) == 0)
+	{/*{{{*/
 		char ch;
 		FILE* fp = fopen("test.txt","r");
 		if(fp){
@@ -672,13 +669,15 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// 不定参数
-	if(strcmp("uncertain-var",argv[1]) == 0){/*{{{*/
+	if(strcmp("uncertain-var",argv[1]) == 0)
+	{/*{{{*/
 		print_args(-1,"hello","world",NULL);
 		print_args(-1,"Olympic","china","Beijing",NULL);
 	}/*}}}*/
 
 	// 扑克牌游戏
-	if( strcmp("poke-game",argv[1]) == 0 ){/*{{{*/
+	if( strcmp("poke-game",argv[1]) == 0 )
+	{/*{{{*/
 		struct stack desk;// 桌面
 		struct queue player1 = {{2,4,1,2,5,6},0,6}; //玩家1
 		struct queue player2 = {{3,1,3,5,6,4},0,6}; //玩家2
@@ -717,7 +716,8 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// 进程
-	if( strcmp("fork",argv[1]) == 0 ){/*{{{*/
+	if( strcmp("fork",argv[1]) == 0 )
+	{/*{{{*/
 		int stack = 1;
 		int *heap;
 		heap = (int *)malloc(sizeof(int));
@@ -742,7 +742,8 @@ int main(int argc,const char* argv[]){
 	}/*}}}*/
 
 	// exec 函数
-	if( strcmp("exec",argv[1]) == 0 ){/*{{{*/
+	if( strcmp("exec",argv[1]) == 0 )
+	{/*{{{*/
 		pid_t pid;
 		char *argv[] = {"hello"};
 		pid = fork();
