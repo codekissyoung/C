@@ -1,7 +1,8 @@
 #include "include/common.h"
 int main(int argc,const char* argv[])
 {
-	// 程序版本
+    // 第一行从mac来的代码
+    // 程序版本
 	if( 1 == argc || (strcmp("-v",argv[1]) == 0) || (strcmp("--version",argv[1]) == 0) )
 	{/*{{{*/
 		const char *glibc_version = gnu_get_libc_version();
