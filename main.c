@@ -1,14 +1,12 @@
 #include "include/common.h"
 int main(int argc,const char* argv[])
 {
-    // 第一行从mac来的代码
     // 程序版本
     if( 1 == argc || (strcmp("-v",argv[1]) == 0) || (strcmp("--version",argv[1]) == 0) )
-    {/*{{{*/
-        const char *glibc_version = gnu_get_libc_version();
+    {
         printf("cky程序用法\n");
         printf("cky version : %.2f\n",0.01);
-        printf("glibc version : %s\n" , glibc_version);
+        printf("glibc version : %s\n" , gnu_get_libc_version() );
         printf("获取环境变量HOME : %s\n",getenv("HOME")); // 获取环境变量HOME
         printf("当前进程PID : %d\n",getpid());
         printf("当前进程父PID : %d\n",getppid());
@@ -16,29 +14,28 @@ int main(int argc,const char* argv[])
         printf("有效用户的uid : %d \n",geteuid());
         printf("当前用户组gid : %d\n",getgid());
         printf("有效用户组gid : %d\n",getegid());
+
         struct passwd *my_info = getpwuid(getuid());
-
         if( my_info )   //   是否获得info信息
-        {/*{{{*/
-            printf("My Login Name:%s\n" ,my_info->pw_name);
-            printf("My Password :%s\n" ,my_info->pw_passwd);
-            printf("My User ID :%d\n",my_info->pw_uid);
-            printf("My Group ID :%d\n",my_info->pw_gid);
-            printf("My Real Name:%s\n" ,my_info->pw_gecos);
-            printf("My Home Dir :%s\n", my_info->pw_dir);
-            printf("My Work Shell:%s\n", my_info->pw_shell);
-        }/*}}}*/
-
+        {
+            printf("My Login Name:%s\n",        my_info -> pw_name);
+            printf("My Password :%s\n",         my_info -> pw_passwd);
+            printf("My User ID :%d\n",          my_info -> pw_uid);
+            printf("My Group ID :%d\n",         my_info -> pw_gid);
+            printf("My Real Name:%s\n",         my_info -> pw_gecos);
+            printf("My Home Dir :%s\n",         my_info -> pw_dir);
+            printf("My Work Shell:%s\n",        my_info -> pw_shell);
+        }
         return 0;
-    }/*}}}*/
+    }
     #include "src/struct.c" // 相当于直接把src/struct.c文件里所有的代码拷贝到这里，所谓的预处理嘛
 
     // 函数指针
     if(strcmp("func_point",argv[1]) == 0)
-    {/*{{{*/
+    {
         typedef int (*fun_ptr)(int,int); // 定义一种函数指针类型
-        fun_ptr f = max; // 用该类型声明一个函数指针，并将该函数指针指向函数
-        int b = f(10,29);
+        fun_ptr f  = max; // 用该类型声明一个函数指针，并将该函数指针指向函数
+        int b      = f(10,29);
         printf("%d\n",b);
 
         int (*f2)(int,int) = max; // 也可以直接声明一个函数指针，指向函数
@@ -46,34 +43,34 @@ int main(int argc,const char* argv[])
 
         // 测试下回掉函数
         printf("%d\n",call_func(max)); // 将max函数作为参数传进去
-    }/*}}}*/
+    }
 
     // sizeof 和 strlen()区别
     if(strcmp("sizeof-strlen",argv[1]) == 0)
-    {/*{{{*/
+    {
         char str[15] = {'H','e','l','l','o','\0','w','o','r','l','d','!'};
         printf("str : %s \n",str);
         printf("sizeof(str): %d \n",(int)sizeof(str));
         printf("strlen(str): %d \n",(int)strlen(str));
-    }/*}}}*/
+    }
 
     // 测试缓冲区
     // 1.碰见 \n
     // 2.缓冲区满
     // 3.碰见输出
     if( strcmp("io-cache",argv[1]) == 0 )
-    {/*{{{*/
+    {
         printf("test io-cache !");
         printf("test io-cache !");
         int input;
         scanf("%d",&input);
         sleep(2);
         return 0;
-    }/*}}}*/
+    }
 
     // node 链表操作
     if(strcmp("node",argv[1]) == 0)
-    {/*{{{*/
+    {
         // 给定一个数字，创建链表存储数据，然后遍历打印出来
         printf("How much number you want to save : ");
         int num;
@@ -104,12 +101,11 @@ int main(int argc,const char* argv[])
             now = now -> next; // 继续下一个节点
         }
         return 0;
-
-    }/*}}}*/
+    }
 
     // 队列
     if (strcmp("queue",argv[1]) == 0)
-    {/*{{{*/
+    {
         struct queue q;
         q.head = 1;
         q.tail = 1;
@@ -124,11 +120,11 @@ int main(int argc,const char* argv[])
             q.head++;
         }
         return 0;
-    }/*}}}*/
+    }
 
     // 队列
     if (strcmp("queue-qq",argv[1]) == 0)
-    {/*{{{*/
+    {
         int q[102] = {0,6,3,1,7,5,8,9,2,4} , head , tail;
         head = 1;
         tail = 10;
@@ -142,7 +138,7 @@ int main(int argc,const char* argv[])
             tail ++; // 队尾+1
         }
         return 0;
-    }/*}}}*/
+    }
 
     // 快速排序
     if(strcmp("quick_sort",argv[1]) == 0)
@@ -678,7 +674,7 @@ int main(int argc,const char* argv[])
 
     // 扑克牌游戏
     if( strcmp("poke-game",argv[1]) == 0 )
-    {/*{{{*/
+    {
         struct stack desk;// 桌面
         struct queue player1 = {{2,4,1,2,5,6},0,6}; //玩家1
         struct queue player2 = {{3,1,3,5,6,4},0,6}; //玩家2
@@ -714,11 +710,11 @@ int main(int argc,const char* argv[])
         }else{
             printf("\n------------------------------玩家1胜利-------------------------\n");
         }
-    }/*}}}*/
+    }
 
     // 进程
     if( strcmp("fork",argv[1]) == 0 )
-    {/*{{{*/
+    {
         int stack = 1;
         int *heap;
         heap = (int *)malloc(sizeof(int));
@@ -740,7 +736,7 @@ int main(int argc,const char* argv[])
             printf("stack : %d , *heap :%d,global:%d\n",stack,*heap,global);
             printf("this is parent , pid is : %u,child-pid is : %u\n",getpid(),pid);
         }
-    }/*}}}*/
+    }
 
     // exec 函数
     if( strcmp("exec",argv[1]) == 0 )
@@ -768,14 +764,20 @@ int main(int argc,const char* argv[])
         struct rusage rusage;
 
         pid = fork();
-        if(pid < 0){
+        if(pid < 0)
+        {
             exit(1);
-        }else if(pid == 0){
+        }
+        else if(pid == 0)
+        {
             printf("the child \n");
             exit(0);
-        }else{
+        }
+        else
+        {
             printf("the parent \n");
-            if(wait3(&status,0,&rusage) == -1){
+            if(wait3(&status,0,&rusage) == -1)
+            {
                 perror("fail to wait!\n");
                 exit(1);
             }
