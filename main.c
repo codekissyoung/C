@@ -411,7 +411,7 @@ int main(int argc,const char* argv[])
 
     // wait
     if(strcmp("wait",argv[1]) == 0)
-    {/*{{{*/
+    {
         pid_t pid = fork();
         int num,status;
         if(pid < 0){
@@ -480,7 +480,7 @@ int main(int argc,const char* argv[])
                 printf("the teminated signal is : %d\n",WTERMSIG(status));
             }
         }
-    }/*}}}*/
+    }
 
     // 多进程操作
     if(strcmp("proc",argv[1]) == 0)
