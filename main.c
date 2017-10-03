@@ -26,7 +26,7 @@ int main(int argc,const char* argv[])
             printf("My Home Dir :%s\n",         my_info -> pw_dir);
             printf("My Work Shell:%s\n",        my_info -> pw_shell);
         }
-        return 0;
+        return EXIT_SUCCESS;
     }
     #include "src/struct.c" // 相当于直接把 src/struct.c 文件里所有的代码拷贝到这里，所谓的预处理嘛
 
@@ -65,7 +65,7 @@ int main(int argc,const char* argv[])
         int input;
         scanf("%d",&input);
         sleep(2);
-        return 0;
+        return EXIT_SUCCESS;
     }
 
     // node 链表操作
@@ -100,7 +100,7 @@ int main(int argc,const char* argv[])
             printf("your data : %d \n",now -> data);
             now = now -> next; // 继续下一个节点
         }
-        return 0;
+        return EXIT_SUCCESS;
     }
 
     // 队列
@@ -119,7 +119,7 @@ int main(int argc,const char* argv[])
             printf("出队列中的值: %d \n",q.data[q.head]);
             q.head++;
         }
-        return 0;
+        return EXIT_SUCCESS;
     }
 
     // 队列
@@ -137,7 +137,7 @@ int main(int argc,const char* argv[])
             head ++; // 队首出队
             tail ++; // 队尾+1
         }
-        return 0;
+        return EXIT_SUCCESS;
     }
 
     // 快速排序
@@ -158,7 +158,7 @@ int main(int argc,const char* argv[])
         int arr[] = {30,1,34,53,2,46,5,30,8,9,100,30,28,18,90,78,30,56,84,33,30,20};
         int arr_size = sizeof(arr) / sizeof(arr[0]);
         divide(arr,0,arr_size -1);
-        return 0;
+        return EXIT_SUCCESS;
     }/*}}}*/
 
     // 线程退出
@@ -201,7 +201,7 @@ int main(int argc,const char* argv[])
 
         // 释放资源
         fclose(file_point);
-        return 0;
+        return EXIT_SUCCESS;
     }/*}}}*/
 
     // 线程与进程
@@ -231,7 +231,7 @@ int main(int argc,const char* argv[])
 
         sleep(2);
         printf("the main thread pid is %u ,tid is : %u \n",(unsigned int)getpid(),(unsigned int)tid);
-        return 0;
+        return EXIT_SUCCESS;
     }/*}}}*/
 
     // 从指定的消息队列中读出数据
@@ -793,6 +793,6 @@ int main(int argc,const char* argv[])
     // print_diamond(11); // 打印一个菱形
     // plus(9); // 打印99乘法表
     // ------------------------------------------ end --------------------------------------------- //
-    return 0;
+    return EXIT_SUCCESS;
 }
 
