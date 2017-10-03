@@ -4,10 +4,10 @@ int main(int argc,const char* argv[])
     // 程序版本
     if( 1 == argc || (strcmp("-v",argv[1]) == 0) || (strcmp("--version",argv[1]) == 0) )
     {
-        printf("cky程序用法\n");
+        puts("cky程序用法");
         printf("cky version : %.2f\n",0.01);
         printf("glibc version : %s\n" , gnu_get_libc_version() );
-        printf("获取环境变量HOME : %s\n",getenv("HOME")); // 获取环境变量HOME
+        printf("环境变量HOME : %s\n",getenv("HOME"));
         printf("当前进程PID : %d\n",getpid());
         printf("当前进程父PID : %d\n",getppid());
         printf("用户的uid : %d\n",getuid());
