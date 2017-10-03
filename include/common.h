@@ -1,22 +1,66 @@
+/*        LINUX 系统调用        */
+#include <aio.h>            // 异步io
+#include <cpio.h>           // 归档值
+#include <dirent.h>         // 目录项
+#include <dlfcn.h>          // 动态链接
+#include <fcntl.h>          // 文件控制
+#include <fnmatch.h>        // 文件名匹配类型
+#include <glob.h>           // 文件名模式匹配与生成
+#include <grp.h>            // 组文件
+#include <iconv.h>          // 代码集变换实用程序
+#include <langinfo.h>       // 语言信息常量
+#include <monetary.h>       // 货币类型与函数
+#include <netdb.h>          // 网络数据库操作
+#include <nl_types.h>       // 消息类
+#include <poll.h>           // 投票函数
+#include <pthread.h>        // 线程
+#include <pwd.h>            // 口令文件
+#include <regex.h>          // 正则表达式
+#include <sched.h>          // 执行调度
+#include <semaphore.h>      // 信号量
+#include <strings.h>        // 字符串操作
+#include <tar.h>            // tar 归档值
+#include <termios.h>        // 终端I/O
+#include <unistd.h>         // 符号常量
+#include <wordexp.h>        // 字扩充类型
+#include <arpa/inet.h>      // 因特网定义
+#include <net/if.h>             // 套接字本地接口
+#include <netinet/in.h>     // 因特网地址族
+#include <netinet/tcp.h>    // 传输控制协议定义
+#include <sys/mman.h>       // 存储管理申明
+#include <sys/select.h>     // select 函数
+#include <sys/types.h>      // 基本系统数据类型
+#include <sys/stat.h>       // 文件状态
+#include <sys/statvfs.h>    // 文件系统信息
+#include <sys/times.h>      // 进程时间
+#include <sys/un.h>         // unix 域 套接字定义
+#include <sys/utsname.h>    // 系统名
+#include <sys/wait.h>       // 进程控制
+#include <fmtmsg.h>         // 消息显示结构
+#include <ftw.h>            // 文件树漫游
+#include <libgen.h>         // 路径名管理函数
+#include <search.h>         // 搜索表
+#include <syslog.h>         // 系统出错日志记录
+#include <utmpx.h>          // 用户账户数据库
+#include <sys/sem.h>            // XSI 信号量
+#include <sys/time.h>           // 时间类型
+#include <sys/uio.h>        // 矢量I/O操作
+#include <sys/resource.h>   // 资源操作
+#include <sys/msg.h>        // XSI 消息队列
+#include <sys/ipc.h>        // IPC
+#include <mqueue.h>         // 消息队列
+#include <spawn.h>          // 实时spawn接口
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <inttypes.h>
 #include <unistd.h> /* 进程相关函数头文件 */
-#include <fcntl.h> /* linux系统调用的头文件 */
 #include <stdarg.h>
 #include <string.h>
 #include <errno.h> /* 错误号申明头文件 */
 #include <time.h>
 #include <math.h> /* 数学库 */
-#include <pthread.h> /* 线程 */
-#include <pwd.h> /*用户详细信息*/
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/resource.h>
-#include <sys/msg.h> /*消息队列*/
-#include <sys/ipc.h> /*消息队列*/
 #include <limits.h> /* 整数类型大小限制 */ /* 下面两个头文件定义了相关最大值和最小值的的常量 */
 #include <float.h> /* 浮点类型大小限制 */
 #include <ctype.h> /* 专门处理字符的函数*/
