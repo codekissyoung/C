@@ -51,20 +51,28 @@
 #include <mqueue.h>         // 消息队列
 #include <spawn.h>          // 实时spawn接口
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <inttypes.h>
-#include <unistd.h> /* 进程相关函数头文件 */
+/*      C 标准库函数     */
+#include <assert.h>
+#include <float.h> /* 浮点类型大小限制 */
+#include <math.h> /* 数学库 */
 #include <stdarg.h>
+#include <stdlib.h>
+#include <ctype.h> /* 专门处理字符的函数*/
+#include <limits.h> /* 整数类型大小限制 */
+#include <setjmp.h>
+#include <stddef.h>
 #include <string.h>
 #include <errno.h> /* 错误号申明头文件 */
+#include <locale.h> // 本地化函数
+#include <signal.h>
+#include <stdio.h>
 #include <time.h>
-#include <math.h> /* 数学库 */
-#include <limits.h> /* 整数类型大小限制 */ /* 下面两个头文件定义了相关最大值和最小值的的常量 */
-#include <float.h> /* 浮点类型大小限制 */
-#include <ctype.h> /* 专门处理字符的函数*/
+
+#include <stdint.h>
+#include <inttypes.h>
 #include <gnu/libc-version.h> // gnu glibc version
+
+/* 引入其他的头文件 */
 #include "thread.h"
 #include "struct.h"
 
@@ -116,9 +124,8 @@ extern void sum_rows(int ar[][2],int rows);
 extern int sum2d(int rows,int cols,int ar[rows][cols]);
 extern char *pr(char *str);
 extern void quick_sort(int arr[],int num);
-extern void printBook(struct Books *);
-// 设计一个调用回调函数的函数
-extern int call_func(fp1);
+extern void printBook( struct Books * );
+extern int call_func( fp1 ); // 设计一个调用回调函数的函数
 
 // 快速排序
 extern void sort_in_quick(int arr[] , int s, int e);
@@ -126,16 +133,21 @@ extern void divide(int *arr,int low,int high);
 extern void show_arr(int arr[],int num);
 extern void pro_start();
 extern void pro_end();
+
 // 测试不定参数
 extern void simple_print_int(int i ,...);
+
 // 程序信息
 extern void self_info();
+
 // 出牌过程
 extern void card_out(struct queue *q,struct stack *s);
 extern void card_eat(struct queue *q,struct stack *s);
+
 // 为了避免出现implicit declaration of function vfork ,warning,所以自己加个声明
 extern pid_t vfork(void);
 extern pid_t wait3(int *statloc,int options,struct rusage *r);
+
 // 测试gdb
 extern int factorial(int n);
 extern void when_exit(void);
@@ -155,3 +167,4 @@ extern struct node* init(int num);
 extern void show_queue(const struct queue *q);
 // 打印栈
 extern void show_stack(const struct stack *s);
+

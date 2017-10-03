@@ -270,7 +270,8 @@ void when_exit(void){/*{{{*/
 	printf("\n进程 %d 退出了\n",getpid());
 }/*}}}*/
 
-void self_info(){/*{{{*/
+void self_info()
+{/*{{{*/
 	printf("PID: %d  PPID:%d  UID: %d  EUID:%d  GID: %d  EGID: %d\n",getpid(),getppid(),getuid(),geteuid(),getgid(),getegid());
 }/*}}}*/
 
