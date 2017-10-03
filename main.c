@@ -28,7 +28,7 @@ int main(int argc,const char* argv[])
         }
         return 0;
     }
-    #include "src/struct.c" // 相当于直接把src/struct.c文件里所有的代码拷贝到这里，所谓的预处理嘛
+    #include "src/struct.c" // 相当于直接把 src/struct.c 文件里所有的代码拷贝到这里，所谓的预处理嘛
 
     // 函数指针
     if(strcmp("func_point",argv[1]) == 0)
@@ -484,7 +484,7 @@ int main(int argc,const char* argv[])
 
     // 多进程操作
     if(strcmp("proc",argv[1]) == 0)
-    {/*{{{*/
+    {
         pid_t pid = fork();
         if(pid < 0){
             printf("fork 出错");
@@ -495,11 +495,11 @@ int main(int argc,const char* argv[])
         }else {
             printf(" 父进程 ");
         }
-    }/*}}}*/
+    }
 
     // 线程操作
     if(strcmp("vfork",argv[1]) == 0)
-    {/*{{{*/
+    {
         int stack = 1;
         int *heap = (int *) malloc(sizeof(int));
         *heap = 100;
@@ -519,7 +519,6 @@ int main(int argc,const char* argv[])
         }else {
             printf("in process : global : %d , stack : %d , *heap : %d \n",global ,stack ,*heap);
         }
-        // --------
         heap = (int *)malloc(sizeof(int));
         *heap = 200;
 
@@ -537,28 +536,28 @@ int main(int argc,const char* argv[])
             sleep(2); // 保证子进程先运行
             printf("stack : %d ,*heap : %d, global : %d",stack,*heap,global);
         }
-    }/*}}}*/
+    }
 
     // 移位操作
     if(strcmp("shift",argv[1]) == 0)
-    {/*{{{*/
+    {
         int a = 12;
         a = a >> 2;
         printf("a : %d \n",a);
-    }/*}}}*/
+    }
 
     // 测试EOF
     if(strcmp("eof",argv[1]) == 0)
-    {/*{{{*/
+    {
         char test_eof;
         while( (test_eof = getchar()) != EOF){
             putchar(test_eof);
         }
-    }/*}}}*/
+    }
 
     // 测试fgets()
     if(strcmp("fgets",argv[1]) == 0)
-    {/*{{{*/
+    {
         char words[STLEN];
         int i;
         while(fgets(words,STLEN,stdin) != NULL && words[0] != '\n'){
@@ -575,11 +574,11 @@ int main(int argc,const char* argv[])
             }
             fputs(words,stdout);
         }
-    }/*}}}*/
+    }
 
     // 指向多维数组的指针
     if( strcmp("multi-array",argv[1]) == 0 )
-    {/*{{{*/
+    {
         int zippo[3][2] = {
             {2,3},
             {4,5},
@@ -595,11 +594,11 @@ int main(int argc,const char* argv[])
         printf("**pz = %d,*(*pz + 1):%d \n",**pz,*(*pz+1));
         printf("**(pz + 1) = %d,*(*(pz + 1) + 1):%d \n",**(pz + 1),*(*(pz + 1)+1));
         printf("pz[0][0] = %d,pz[0][1]:%d \n",pz[0][0],pz[0][1]);
-    }/*}}}*/
+    }
 
     // 测试下字符串数组
     if(strcmp("str-array",argv[1]) == 0)
-    {/*{{{*/
+    {
         const char *pointer_str[5] = {
             "string1 heheh",
             "string2 ,sdfadf",
@@ -636,22 +635,22 @@ int main(int argc,const char* argv[])
         };
         sum_rows(zippo,3);
 
-    }/*}}}*/
+    }
 
     // 使用预定义宏
     if(strcmp("default-macro",argv[1]) == 0)
-    {/*{{{*/
+    {
         printf("File :%s\n", __FILE__ );
         printf("Date :%s\n", __DATE__ );
         printf("Time :%s\n", __TIME__ );
         printf("Line :%d\n", __LINE__ );
         printf("ANSI :%d\n", __STDC__ );
         printf("AUTHOR: %s \n---------------\n\n","codekissyoung");
-    }/*}}}*/
+    }
 
     // 读取文件
     if(strcmp("read-file",argv[1]) == 0)
-    {/*{{{*/
+    {
         char ch;
         FILE* fp = fopen("test.txt","r");
         if(fp){
@@ -663,14 +662,14 @@ int main(int argc,const char* argv[])
             printf("打开文件失败\n");
             exit(1);
         }
-    }/*}}}*/
+    }
 
     // 不定参数
     if(strcmp("uncertain-var",argv[1]) == 0)
-    {/*{{{*/
+    {
         print_args(-1,"hello","world",NULL);
         print_args(-1,"Olympic","china","Beijing",NULL);
-    }/*}}}*/
+    }
 
     // 扑克牌游戏
     if( strcmp("poke-game",argv[1]) == 0 )
@@ -740,7 +739,7 @@ int main(int argc,const char* argv[])
 
     // exec 函数
     if( strcmp("exec",argv[1]) == 0 )
-    {/*{{{*/
+    {
         pid_t pid;
         char *argv[] = {"hello"};
         pid = fork();
@@ -754,11 +753,11 @@ int main(int argc,const char* argv[])
             printf("parent!");
         }
         system("ls -alh");
-    }/*}}}*/
+    }
 
     // wait3 函数
     if( strcmp("wait3",argv[1]) == 0)
-    {/*{{{*/
+    {
         pid_t pid;
         int status;
         struct rusage rusage;
@@ -789,7 +788,7 @@ int main(int argc,const char* argv[])
             printf("msgsnd is %ld\n",rusage.ru_msgsnd);
             printf("maxrss is %ld\n",rusage.ru_maxrss);
         }
-    }/*}}}*/
+    }
 
     // print_diamond(11); // 打印一个菱形
     // plus(9); // 打印99乘法表
