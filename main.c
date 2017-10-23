@@ -30,7 +30,7 @@ int main(int argc,const char* argv[])
     }
 
     // 相当于直接把 src/struct.c 文件里所有的代码拷贝到这里，所谓的预处理嘛
-    #include "src/struct.c";
+    #include "src/struct.c"
 
     // 函数指针
     if(strcmp("func_point",argv[1]) == 0)
