@@ -4,7 +4,7 @@ int main(int argc,const char* argv[])
     // 程序版本
     if( 1 == argc || (strcmp("-v",argv[1]) == 0) || (strcmp("--version",argv[1]) == 0) )
     {
-        puts("cky程序用法");
+        puts("------------------------- cky程序用法 ----------------------");
         printf("cky version : %.2f\n",0.01);
         printf("glibc version : %s\n" , gnu_get_libc_version() );
         printf("环境变量HOME : %s\n",getenv("HOME"));
@@ -26,6 +26,11 @@ int main(int argc,const char* argv[])
             printf("My Home Dir :%s\n",         my_info -> pw_dir);
             printf("My Work Shell:%s\n",        my_info -> pw_shell);
         }
+
+        // 测试整形最大值
+        long long test_16 = 0x1000000000000000;
+        printf( "%lld\n", test_16 );
+        printf( "%p\n", &test_16);
         return EXIT_SUCCESS;
     }
 
