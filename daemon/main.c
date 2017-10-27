@@ -9,8 +9,7 @@
 
 void init_daemon();
 
-
-int main(int argc, char *argv[] )
+int main( int argc, char *argv[] )
 {
     FILE *fp;
     time_t t;
@@ -29,7 +28,14 @@ int main(int argc, char *argv[] )
     return 0;
 }
 
-
+/*
+ * 守护进程
+ * 特性:
+ * 1. 后台运行
+ * 2. 与运行前环境( 运行守护进程的终端环境 | /etc/rc.d 脚本 | crond 脚本 ) 完全脱离 , 不使用继承而来的 文件描述符 , 控制终端
+ *    会话Session , 进程组 , 工作目录 , 文件创建掩模.
+ * 编写守护进程 就是将一个普通进程 按照上述特性 改造成 守护进程.
+ * */
 void init_daemon()
 {
     int pid;
@@ -69,8 +75,9 @@ void init_daemon()
     // 修改 子子进程 的工作目录
     chdir( "./" );
 
-    // 重新设置 子子进程 的 文件掩码
+    // 重新设置 子子进程 的 文件掩码 , 不使用从父进程继承来的
     umask( 0 );
 
-    return;
 }
+
+

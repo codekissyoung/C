@@ -4,3 +4,4 @@ cky
 *.a
 *.so
 core
+*.log
