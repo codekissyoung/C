@@ -6,14 +6,47 @@
 #include <sys/param.h>
 #include <sys/stat.h>
 #include <time.h>
+#include <string.h>
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
 
 void init_daemon();
 
 int main( int argc, char *argv[] )
 {
+    // 将进程变为守护进程
+    init_daemon();
+
+    // 创建套接字
+    int sock = socket( AF_INET, SOCK_STREAM, IPPROTO_TCP );
+
+    // 绑定 ip 以及 port
+    struct sockaddr_in addr;
+    memset( &addr, 0, sizeof(addr) ); // 地址全部填充 0
+
+    addr.sin_family         = AF_INET;
+    addr.sin_addr.s_addr    = inet_addr( "127.0.0.1" );
+    addr.sin_port           = htons( 2046 );
+    bind( sock, (struct sockaddr*) &addr, sizeof( addr ) );
+
+    // 开始监听
+    listen( sock, 20 );
+
+    struct sockaddr_in client_addr;
+    socklen_t client_addr_size = sizeof( client_addr );
+    int client_sock = accept( sock, ( struct sockaddr* )&client_addr, &client_addr_size );
+
+    // 向客户端发送数据
+    char str[] = "Hello Socket!";
+    write( client_sock, str, sizeof( str ) );
+
+    // 关闭套接字
+    close( client_sock );
+    close( sock );
+
     FILE *fp;
     time_t t;
-    init_daemon();
     while( 1 )
     {
         sleep( 2 );
