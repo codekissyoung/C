@@ -38,7 +38,7 @@ int main(int argc,const char* argv[])
     #include "src/struct.c"
 
     // 函数指针
-    if(strcmp("func_point",argv[1]) == 0)
+    if( strcmp( "func_point", argv[1] ) == 0)
     {
         typedef int (*fun_ptr)(int,int); // 定义一种函数指针类型
         fun_ptr f  = max; // 用该类型声明一个函数指针，并将该函数指针指向函数
@@ -52,15 +52,6 @@ int main(int argc,const char* argv[])
         printf("%d\n",call_func(max)); // 将max函数作为参数传进去
     }
 
-    // sizeof 和 strlen()区别
-    if(strcmp("sizeof-strlen",argv[1]) == 0)
-    {
-        char str[15] = {'H','e','l','l','o','\0','w','o','r','l','d','!'};
-        printf("str : %s \n",str);
-        printf("sizeof(str): %d \n",(int)sizeof(str));
-        printf("strlen(str): %d \n",(int)strlen(str));
-    }
-
     // 测试缓冲区
     // 1.碰见 \n
     // 2.缓冲区满
@@ -71,7 +62,7 @@ int main(int argc,const char* argv[])
         printf("test io-cache !");
         int input;
         scanf("%d",&input);
-        sleep(2);
+        sleep( 2 );
         return EXIT_SUCCESS;
     }
 
@@ -604,7 +595,7 @@ int main(int argc,const char* argv[])
     }
 
     // 测试下字符串数组
-    if(strcmp("str-array",argv[1]) == 0)
+    if( strcmp( "str-array", argv[1] ) == 0 )
     {
         const char *pointer_str[5] = {
             "string1 heheh",
@@ -641,11 +632,10 @@ int main(int argc,const char* argv[])
             {6,7}
         };
         sum_rows(zippo,3);
-
     }
 
     // 使用预定义宏
-    if(strcmp("default-macro",argv[1]) == 0)
+    if( strcmp( "default-macro", argv[1] ) == 0 )
     {
         printf("File :%s\n", __FILE__ );
         printf("Date :%s\n", __DATE__ );
@@ -672,50 +662,10 @@ int main(int argc,const char* argv[])
     }
 
     // 不定参数
-    if(strcmp("uncertain-var",argv[1]) == 0)
+    if( strcmp("uncertain-var",argv[1]) == 0 )
     {
         print_args(-1,"hello","world",NULL);
         print_args(-1,"Olympic","china","Beijing",NULL);
-    }
-
-    // 扑克牌游戏
-    if( strcmp("poke-game",argv[1]) == 0 )
-    {
-        struct stack desk;// 桌面
-        struct queue player1 = {{2,4,1,2,5,6},0,6}; //玩家1
-        struct queue player2 = {{3,1,3,5,6,4},0,6}; //玩家2
-
-        // 输出下玩家的手牌
-        while(player1.head < player1.tail && player2.head < player2.tail){
-
-            card_out(&player1,&desk);
-            printf("玩家1出牌后:\n");
-            printf("玩家1: \t");
-            show_queue(&player1);
-            printf("\n玩家2: \t");
-            show_queue(&player2);
-
-            printf("\n桌面:\t");show_stack(&desk);
-            printf("\n-----------------------------------------\n");
-
-            card_out(&player2,&desk);
-
-            printf("玩家2出牌后:\n");
-            printf("玩家1: \t");
-            show_queue(&player1);
-            printf("\n玩家2: \t");
-            show_queue(&player2);
-
-            printf("\n桌面:\t");show_stack(&desk);
-            printf("\n-----------------------------------------\n");
-        }
-
-        // 判断胜负
-        if(player1.head == player1.tail){
-            printf("\n------------------------------玩家2胜利-------------------------\n");
-        }else{
-            printf("\n------------------------------玩家1胜利-------------------------\n");
-        }
     }
 
     // 进程
@@ -796,9 +746,6 @@ int main(int argc,const char* argv[])
             printf("maxrss is %ld\n",rusage.ru_maxrss);
         }
     }
-
-    // print_diamond(11); // 打印一个菱形
-    // plus(9); // 打印99乘法表
     // ------------------------------------------ end --------------------------------------------- //
     return EXIT_SUCCESS;
 }
