@@ -26,7 +26,7 @@ int main( int argc, char *argv[] )
     memset( &addr, 0, sizeof(addr) ); // 地址全部填充 0
 
     addr.sin_family         = AF_INET;
-    addr.sin_addr.s_addr    = inet_addr( "127.0.0.1" );
+    addr.sin_addr.s_addr    = inet_addr( "0.0.0.0" );
     addr.sin_port           = htons( 2046 );
     bind( sock, (struct sockaddr*) &addr, sizeof( addr ) );
 
