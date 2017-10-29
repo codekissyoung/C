@@ -10,7 +10,7 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-
+#include <errno.h>
 void init_daemon();
 
 int main( int argc, char *argv[] )
@@ -41,17 +41,40 @@ int main( int argc, char *argv[] )
         socklen_t client_addr_size = sizeof( client_addr );
         int client_sock = accept( sock, ( struct sockaddr* )&client_addr, &client_addr_size );
 
-        // 向客户端发送数据
-        char str[] = "Hello Socket!";
-        write( client_sock, str, sizeof( str ) );
-        close( client_sock );
-
-        fp = fopen( "sys-time.log", "a" );
-        if( fp >= 0 )
+        // 创建一个子进程处理该次请求
+        pid_t handler_pid = fork();
+        if( handler_pid < 0 )
         {
-            time( &t );
-            fprintf( fp, "打印访问日志 : %s \n", asctime( localtime( &t ) ) );
-            fclose( fp );
+            exit( errno );
+        }
+        // 父进程( 即守护进程 )记录日志
+        else if( handler_pid > 0 )
+        {
+            fp = fopen( "sys-time.log", "a" );
+            if( fp >= 0 )
+            {
+                time( &t );
+                fprintf( fp, "打印访问日志 : %s \n", asctime( localtime( &t ) ) );
+                fclose( fp );
+            }
+        }
+        else
+        {
+            // 为了避免产生僵尸进程
+            handler_pid = fork();
+            if( handler_pid < 0 )
+            {
+                exit( errno );
+            }
+            else if( handler_pid > 0 )
+            {
+                exit( 0 );
+            }
+
+            // handler 进程处理请求 , 向客户端发送数据
+            char str[] = "Hello Socket!";
+            write( client_sock, str, sizeof( str ) );
+            close( client_sock );
         }
     }
 
