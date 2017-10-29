@@ -5,6 +5,7 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <sys/socket.h>
+#include <errno.h>
 
 int main ( int argc, char *argv[] )
 {
@@ -16,7 +17,7 @@ int main ( int argc, char *argv[] )
     if( ( hptr = gethostbyname( (const char *)ptr ) ) == NULL )
     {
         printf(" gethostbyname error for host : %s \n ", ptr);
-        return 0;
+        exit( errno ); // 程序出错退出 ， 将错误号当做参数退出
     }
 
 /*
