@@ -6,4 +6,5 @@ cky
 core
 *.log
 client/client
+daemon/daemon
 

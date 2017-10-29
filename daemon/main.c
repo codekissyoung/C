@@ -33,31 +33,30 @@ int main( int argc, char *argv[] )
     // 开始监听
     listen( sock, 20 );
 
-    struct sockaddr_in client_addr;
-    socklen_t client_addr_size = sizeof( client_addr );
-    int client_sock = accept( sock, ( struct sockaddr* )&client_addr, &client_addr_size );
-
-    // 向客户端发送数据
-    char str[] = "Hello Socket!";
-    write( client_sock, str, sizeof( str ) );
-
-    // 关闭套接字
-    close( client_sock );
-    close( sock );
-
     FILE *fp;
     time_t t;
     while( 1 )
     {
-        sleep( 2 );
-        fp = fopen( "sys-time.log", "a");
+        struct sockaddr_in client_addr;
+        socklen_t client_addr_size = sizeof( client_addr );
+        int client_sock = accept( sock, ( struct sockaddr* )&client_addr, &client_addr_size );
+
+        // 向客户端发送数据
+        char str[] = "Hello Socket!";
+        write( client_sock, str, sizeof( str ) );
+        close( client_sock );
+
+        fp = fopen( "sys-time.log", "a" );
         if( fp >= 0 )
         {
             time( &t );
-            fprintf( fp, "sys time : %s \n", asctime( localtime( &t ) ) );
+            fprintf( fp, "打印访问日志 : %s \n", asctime( localtime( &t ) ) );
             fclose( fp );
         }
     }
+
+    // 服务端关闭套接字
+    close( sock );
     return 0;
 }
 
