@@ -11,6 +11,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <errno.h>
+#include <sys/wait.h>
 void init_daemon();
 
 int main( int argc, char *argv[] )
@@ -33,8 +34,6 @@ int main( int argc, char *argv[] )
     // 开始监听
     listen( sock, 20 );
 
-    FILE *fp;
-    time_t t;
     while( 1 )
     {
         struct sockaddr_in client_addr;
@@ -50,6 +49,11 @@ int main( int argc, char *argv[] )
         // 父进程( 即守护进程 )记录日志
         else if( handler_pid > 0 )
         {
+            // 避免子进程变成僵尸进程
+            waitpid( handler_pid, NULL, 0);
+            // 记录日志
+            FILE *fp;
+            time_t t;
             fp = fopen( "sys-time.log", "a" );
             if( fp >= 0 )
             {
@@ -61,20 +65,24 @@ int main( int argc, char *argv[] )
         else
         {
             // 为了避免产生僵尸进程
+            pid_t handler_pid;
             handler_pid = fork();
             if( handler_pid < 0 )
             {
                 exit( errno );
             }
-            else if( handler_pid > 0 )
+            else if( handler_pid == 0 )
             {
+                // handler 进程处理请求 , 向客户端发送数据
+                char str[] = "Hello Socket!";
+                write( client_sock, str, sizeof( str ) );
+                close( client_sock );
+            }
+            else
+            {
+                // 让父进程先退出
                 exit( 0 );
             }
-
-            // handler 进程处理请求 , 向客户端发送数据
-            char str[] = "Hello Socket!";
-            write( client_sock, str, sizeof( str ) );
-            close( client_sock );
         }
     }
 
