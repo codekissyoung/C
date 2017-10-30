@@ -1,3 +1,0 @@
-#!/usr/bin/zsh
-killall daemon
-daemon
