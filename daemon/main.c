@@ -13,6 +13,7 @@
 #include <errno.h>
 #include <sys/wait.h>
 void init_daemon();
+void daemon_log( char* str );
 
 int main( int argc, char *argv[] )
 {
@@ -29,16 +30,19 @@ int main( int argc, char *argv[] )
     addr.sin_family         = AF_INET;
     addr.sin_addr.s_addr    = inet_addr( "0.0.0.0" );
     addr.sin_port           = htons( 2046 );
+
     bind( sock, (struct sockaddr*) &addr, sizeof( addr ) );
 
     // 开始监听
-    listen( sock, 20 );
+    listen( sock, SOMAXCONN );
 
+    struct sockaddr_in client_addr;
+    socklen_t client_addr_size = sizeof( client_addr );
+    char str[40];
     while( 1 )
     {
-        struct sockaddr_in client_addr;
-        socklen_t client_addr_size = sizeof( client_addr );
         int client_sock = accept( sock, ( struct sockaddr* )&client_addr, &client_addr_size );
+        daemon_log("新建立socket");
 
         // 创建一个子进程处理该次请求
         pid_t handler_pid = fork();
@@ -51,37 +55,15 @@ int main( int argc, char *argv[] )
         {
             // 避免子进程变成僵尸进程
             waitpid( handler_pid, NULL, 0);
-            // 记录日志
-            FILE *fp;
-            time_t t;
-            fp = fopen( "sys-time.log", "a" );
-            if( fp >= 0 )
-            {
-                time( &t );
-                fprintf( fp, "打印访问日志 : %s \n", asctime( localtime( &t ) ) );
-                fclose( fp );
-            }
         }
         else
         {
-            // 为了避免产生僵尸进程
-            pid_t handler_pid;
-            handler_pid = fork();
-            if( handler_pid < 0 )
+            // handler 进程处理请求 , 向客户端发送数据
+            while( 1 )
             {
-                exit( errno );
-            }
-            else if( handler_pid == 0 )
-            {
-                // handler 进程处理请求 , 向客户端发送数据
-                char str[] = "Hello Socket!";
+                read( client_sock, str, sizeof( str ) - 1 );
+                daemon_log( str );
                 write( client_sock, str, sizeof( str ) );
-                close( client_sock );
-            }
-            else
-            {
-                // 让父进程先退出
-                exit( 0 );
             }
         }
     }
@@ -89,6 +71,19 @@ int main( int argc, char *argv[] )
     // 服务端关闭套接字
     close( sock );
     return 0;
+}
+
+void daemon_log( char* str )
+{
+    FILE *fp;
+    time_t t;
+    fp = fopen( "sys-time.log", "a" );
+    if( fp )
+    {
+        time( &t );
+        fprintf( fp, "[ %s ]: %s \n", asctime( localtime( &t ) ), str );
+        fclose( fp );
+    }
 }
 
 /*

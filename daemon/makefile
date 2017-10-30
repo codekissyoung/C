@@ -1,2 +1,2 @@
 daemon:main.c
-	gcc main.c -o daemon
+	gcc -g -std=c11 -pedantic -Wall -Werror -pthread main.c  -o daemon
