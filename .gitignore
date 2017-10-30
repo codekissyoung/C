@@ -7,4 +7,3 @@ core
 *.log
 client/cky-client
 daemon/daemon
-
