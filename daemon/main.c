@@ -1,17 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <signal.h>
-#include <sys/types.h>
-#include <sys/param.h>
-#include <sys/stat.h>
-#include <time.h>
-#include <string.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <errno.h>
-#include <sys/wait.h>
+#include "main.h"
 void init_daemon();
 void daemon_log( char* str );
 
@@ -61,9 +48,14 @@ int main( int argc, char *argv[] )
             // handler 进程处理请求 , 向客户端发送数据
             while( 1 )
             {
-                read( client_sock, str, sizeof( str ) - 1 );
-                daemon_log( str );
-                write( client_sock, str, sizeof( str ) );
+                if ( read( client_sock, str, sizeof( str ) - 1 ) )
+                {
+                    daemon_log( str );
+                    if ( write( client_sock, str, sizeof( str ) ) == -1 )
+                    {
+                        daemon_log( "写入 client_sock 失败" );
+                    }
+                }
             }
         }
     }
@@ -131,7 +123,11 @@ void init_daemon()
         close( i );
 
     // 修改 子子进程 的工作目录
-    chdir( "./" );
+    if( chdir( "./" ) == -1 )
+    {
+        daemon_log( "修改工作目录失败" );
+        exit( errno );
+    }
 
     // 重新设置 子子进程 的 文件掩码 , 不使用从父进程继承来的
     umask( 0 );
