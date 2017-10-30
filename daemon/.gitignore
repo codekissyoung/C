@@ -7,3 +7,8 @@ configure
 depcomp
 install-sh
 missing
+.deps/
+Makefile
+config.h
+config.status
+stamp-h1
