@@ -1,4 +1,17 @@
-#include "main.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
+#include <sys/types.h>
+#include <sys/param.h>
+#include <sys/stat.h>
+#include <time.h>
+#include <string.h>
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <errno.h>
+#include <sys/wait.h>
 void init_daemon();
 void daemon_log( char* str );
 
