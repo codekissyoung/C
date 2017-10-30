@@ -51,6 +51,11 @@ int main( int argc, char *argv[] )
                 if ( read( client_sock, str, sizeof( str ) - 1 ) )
                 {
                     daemon_log( str );
+                    if( strcmp( "stop", str) == 0 )
+                    {
+                        close( client_sock );
+                        break;
+                    }
                     if ( write( client_sock, str, sizeof( str ) ) == -1 )
                     {
                         daemon_log( "写入 client_sock 失败" );
@@ -73,7 +78,7 @@ void daemon_log( char* str )
     if( fp )
     {
         time( &t );
-        fprintf( fp, "[ %s ]: %s \n", asctime( localtime( &t ) ), str );
+        fprintf( fp, "%s  %s \n", asctime( localtime( &t ) ), str );
         fclose( fp );
     }
 }
@@ -131,7 +136,6 @@ void init_daemon()
 
     // 重新设置 子子进程 的 文件掩码 , 不使用从父进程继承来的
     umask( 0 );
-
 }
 
 
