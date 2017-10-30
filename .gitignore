@@ -1,9 +1,2 @@
-*.o
-tags
-cky
-*.a
-*.so
-core
 *.log
-client/cky-client
-daemon/daemon
+*.o
