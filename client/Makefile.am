@@ -1,3 +1,3 @@
 AUTOMAKE_OPTIONS=foreign
-bin_PROGRAMS=cky-client
-cky-client_SOURCES=client.c
+bin_PROGRAMS=client
+client_SOURCES=client.c
