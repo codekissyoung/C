@@ -10,8 +10,10 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-
+#include <errno.h>
+#include <sys/wait.h>
 void init_daemon();
+void daemon_log( char* str );
 
 int main( int argc, char *argv[] )
 {
@@ -28,36 +30,60 @@ int main( int argc, char *argv[] )
     addr.sin_family         = AF_INET;
     addr.sin_addr.s_addr    = inet_addr( "0.0.0.0" );
     addr.sin_port           = htons( 2046 );
+
     bind( sock, (struct sockaddr*) &addr, sizeof( addr ) );
 
     // 开始监听
-    listen( sock, 20 );
+    listen( sock, SOMAXCONN );
 
-    FILE *fp;
-    time_t t;
+    struct sockaddr_in client_addr;
+    socklen_t client_addr_size = sizeof( client_addr );
+    char str[40];
     while( 1 )
     {
-        struct sockaddr_in client_addr;
-        socklen_t client_addr_size = sizeof( client_addr );
         int client_sock = accept( sock, ( struct sockaddr* )&client_addr, &client_addr_size );
+        daemon_log("新建立socket");
 
-        // 向客户端发送数据
-        char str[] = "Hello Socket!";
-        write( client_sock, str, sizeof( str ) );
-        close( client_sock );
-
-        fp = fopen( "sys-time.log", "a" );
-        if( fp >= 0 )
+        // 创建一个子进程处理该次请求
+        pid_t handler_pid = fork();
+        if( handler_pid < 0 )
         {
-            time( &t );
-            fprintf( fp, "打印访问日志 : %s \n", asctime( localtime( &t ) ) );
-            fclose( fp );
+            exit( errno );
+        }
+        // 父进程( 即守护进程 )记录日志
+        else if( handler_pid > 0 )
+        {
+            // 避免子进程变成僵尸进程
+            waitpid( handler_pid, NULL, 0);
+        }
+        else
+        {
+            // handler 进程处理请求 , 向客户端发送数据
+            while( 1 )
+            {
+                read( client_sock, str, sizeof( str ) - 1 );
+                daemon_log( str );
+                write( client_sock, str, sizeof( str ) );
+            }
         }
     }
 
     // 服务端关闭套接字
     close( sock );
     return 0;
+}
+
+void daemon_log( char* str )
+{
+    FILE *fp;
+    time_t t;
+    fp = fopen( "sys-time.log", "a" );
+    if( fp )
+    {
+        time( &t );
+        fprintf( fp, "[ %s ]: %s \n", asctime( localtime( &t ) ), str );
+        fclose( fp );
+    }
 }
 
 /*
