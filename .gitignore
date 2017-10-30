@@ -5,6 +5,6 @@ cky
 *.so
 core
 *.log
-client/client
+client/cky-client
 daemon/daemon
 
