@@ -4,8 +4,8 @@ libstatic_a_SOURCES = static.c
 
 # 动态库 自动编译
 lib_LTLIBRARIES = libshare.la
-share_so_SOURCES = share.c
-share_so_LDFLAGS = -shared -fPIC
+libshare_so_SOURCES = share.c
+libshare_so_LDFLAGS = -shared -fPIC
 
 
 
