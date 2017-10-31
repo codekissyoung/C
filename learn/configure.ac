@@ -4,6 +4,7 @@
 AC_PREREQ([2.69])
 AC_INIT([cky], [1], [1162097842@qq.com])
 AM_INIT_AUTOMAKE([cky], [1])
+LT_INIT
 AC_CONFIG_SRCDIR([main.c])
 AC_CONFIG_HEADERS([config.h])
 
@@ -11,6 +12,7 @@ AC_CONFIG_HEADERS([config.h])
 AC_PROG_CC
 
 # Checks for libraries.
+AC_PROG_RANLIB
 
 # Checks for header files.
 AC_CHECK_HEADERS([arpa/inet.h fcntl.h float.h inttypes.h langinfo.h limits.h locale.h netdb.h netinet/in.h nl_types.h stddef.h stdint.h stdlib.h string.h strings.h sys/statvfs.h sys/time.h syslog.h termios.h unistd.h utmpx.h])
