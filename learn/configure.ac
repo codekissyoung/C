@@ -4,6 +4,9 @@
 AC_PREREQ([2.69])
 AC_INIT([cky], [1.0], [1162097842@qq.com])
 AM_INIT_AUTOMAKE([cky], [1.0])
+
+# 初始化 Libtool 的宏
+LT_INIT
 AC_CONFIG_SRCDIR([main.c])
 AC_CONFIG_HEADERS([config.h])
 
@@ -25,6 +28,7 @@ AC_TYPE_SSIZE_T
 AC_FUNC_FORK
 AC_FUNC_MALLOC
 AC_FUNC_WAIT3
+
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile])
