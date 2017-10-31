@@ -15,3 +15,5 @@ src/.dirstamp
 stamp-h1
 lib/*
 cky
+config.guess
+config.sub
