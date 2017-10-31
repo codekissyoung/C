@@ -1,3 +1,6 @@
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+
 AC_PREREQ([2.69])
 AC_INIT([cky], [1.0], [1162097842@qq.com])
 AM_INIT_AUTOMAKE([cky], [1.0])
@@ -23,6 +26,6 @@ AC_FUNC_FORK
 AC_FUNC_MALLOC
 AC_FUNC_WAIT3
 
-
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile
+                 src/Makefile])
 AC_OUTPUT
