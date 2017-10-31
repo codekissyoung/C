@@ -1,5 +1,18 @@
-bin_PROGRAMS=cky
-AUTOMAKE_OPTIONS=foreign subdir-objects
+# 编译生成可执行文件名称
+bin_PROGRAMS = cky
+
+# 编译标准
+AUTOMAKE_OPTIONS = foreign subdir-objects
+
+# 先扫描子目录
+SUBDIRS = src
+
 LTLIBRARIES = libpthread.a
+
 include_HEADERS = include/common.h  include/struct.h  include/thread.h
-cky_SOURCES = main.c src/global_variables.c src/thread.c src/static_lib.c src/node.c src/func.c src/stdarg.c src/share.c
+
+# 当前目录源文件
+cky_SOURCES = main.c
+
+# 添加动态链接库
+LIBS = -l pthread -l event
