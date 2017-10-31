@@ -1,5 +1,4 @@
 .deps/
-Makefile
 Makefile.in
 aclocal.m4
 autom4te.cache/
@@ -14,3 +13,5 @@ missing
 src/.deps/
 src/.dirstamp
 stamp-h1
+lib/*
+cky
