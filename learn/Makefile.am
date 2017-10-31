@@ -9,6 +9,3 @@ SUBDIRS = src
 
 # 当前目录源文件
 cky_SOURCES = main.c
-
-# 添加动态链接库
-LIBS = -l pthread

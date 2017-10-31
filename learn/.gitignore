@@ -18,3 +18,10 @@ lib/*
 cky
 config.guess
 config.sub
+Makefile
+libtool
+src/.libs/
+src/Makefile
+src/libshare.la
+src/libstatic.a
+src/share.lo
