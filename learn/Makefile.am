@@ -1,3 +1,6 @@
+# 加载动态库 配置
+AM_LDFLAGS = -lpthread
+
 # 编译生成可执行文件名称
 bin_PROGRAMS = cky
 
