@@ -54,25 +54,24 @@ int main( int argc, char *argv[] )
         else if( handler_pid > 0 )
         {
             // 避免子进程变成僵尸进程
-            waitpid( handler_pid, NULL, 0);
+            waitpid( handler_pid, NULL, 0 );
         }
         else
         {
             // handler 进程处理请求 , 向客户端发送数据
-            while( 1 )
+            if ( read( client_sock, str, sizeof( str ) - 1 ) )
             {
-                if ( read( client_sock, str, sizeof( str ) - 1 ) )
+                daemon_log( str );
+                if ( write( client_sock, str, sizeof( str ) ) == -1 )
                 {
-                    daemon_log( str );
-                    if( strcmp( "stop", str) == 0 )
-                    {
-                        close( client_sock );
-                        break;
-                    }
-                    if ( write( client_sock, str, sizeof( str ) ) == -1 )
-                    {
-                        daemon_log( "写入 client_sock 失败" );
-                    }
+                    daemon_log( "写入 client_sock 失败" );
+                }
+                // if( strcmp( "stop", str) == 0 )
+                {
+                    // 直接调用close()对本端进行关闭仅仅使socket的引用计数减1，socket并没关闭。
+                    // 从而导致系统中又多了一个CLOSE_WAIT的socket, 正确关闭应该先 shutdown
+                    shutdown( client_sock, SHUT_RDWR );
+                    close( client_sock );
                 }
             }
         }
@@ -83,6 +82,7 @@ int main( int argc, char *argv[] )
     return 0;
 }
 
+// 打印服务器系统日志
 void daemon_log( char* str )
 {
     FILE *fp;
