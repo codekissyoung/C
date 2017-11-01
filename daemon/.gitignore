@@ -13,3 +13,4 @@ Makefile
 config.h
 config.status
 stamp-h1
+ltmain.sh
