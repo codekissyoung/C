@@ -18,7 +18,6 @@ lib/*
 cky
 config.guess
 config.sub
-Makefile
 libtool
 src/.libs/
 src/Makefile
