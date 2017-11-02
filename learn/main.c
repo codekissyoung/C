@@ -27,11 +27,6 @@ int main(int argc,const char* argv[])
             printf("My Work Shell:%s\n",        my_info -> pw_shell);
         }
 
-        // 测试整形最大值
-        long long test_16 = 0x1000000000000000;
-        printf( "%lld\n", test_16 );
-        printf( "%p\n", &test_16);
-        return EXIT_SUCCESS;
     }/*}}}*/
 
     if( strcmp( "struct", argv[1] ) == 0 )
@@ -39,8 +34,8 @@ int main(int argc,const char* argv[])
         // 声明结构体变量
         struct Books b1;
         // b1.title = "How do I love you"; // 这种方式是错误的，数组名直接接收字符串？？？
-        strcpy( b1.title, "How Do I Love you\n" );
-        strcpy( b1.author, "codekissyoung\n" );
+        strcpy( b1.title,   "How Do I Love you\n" );
+        strcpy( b1.author,  "codekissyoung\n" );
         strcpy( b1.subject, "i love you\n" );
         b1.id = 23334235;
         printBook( &b1 ); // 取地址符 取出该结构体首地址，传给函数里面使用，从而处理该地址处的数据
@@ -49,16 +44,16 @@ int main(int argc,const char* argv[])
     // 函数指针
     if( strcmp( "func_point", argv[1] ) == 0)
     {/*{{{*/
-        typedef int (*fun_ptr)(int,int); // 定义一种函数指针类型
-        fun_ptr f  = max; // 用该类型声明一个函数指针，并将该函数指针指向函数
+        typedef int ( *fun_ptr )(int,int); // 定义一种函数指针类型
+        fun_ptr f  = max;                  // 用该类型声明一个函数指针，并将该函数指针指向函数
         int b      = f(10,29);
         printf("%d\n",b);
 
-        int (*f2)(int,int) = max; // 也可以直接声明一个函数指针，指向函数
+        int (*f2)(int,int) = max;          // 也可以直接声明一个函数指针，指向函数
         printf("%d\n",f2(4,65));
 
-        // 测试下回掉函数
-        printf("%d\n",call_func(max)); // 将max函数作为参数传进去
+        // 测试下回调函数
+        printf("%d\n",call_func(max));     // 将max函数作为参数传进去
     }/*}}}*/
 
     // 测试缓冲区
