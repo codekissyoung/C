@@ -43,6 +43,7 @@ int main ( int argc, char *argv[] )
     {
         printf("(client)>");
         scanf("%s",read_str);
+        printf( "you send : %s", read_str );
         write( sock, read_str, sizeof( read_str ) );
 
         read( sock, buffer, sizeof(buffer) - 1 );
