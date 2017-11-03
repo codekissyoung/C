@@ -1,22 +1,40 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <signal.h>
-#include <sys/types.h>
-#include <sys/param.h>
-#include <sys/stat.h>
-#include <time.h>
-#include <string.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <errno.h>
-#include <sys/wait.h>
+#ifndef TLPI_HDR_H
+#define TLPI_HDR_H
+    #include <sys/types.h>
+    #include <sys/param.h>
+    #include <sys/stat.h>
+    #include <sys/socket.h>
+
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <unistd.h>
+    #include <signal.h>
+    #include <time.h>
+    #include <string.h>
+    #include <arpa/inet.h>
+    #include <netinet/in.h>
+    #include <errno.h>
+    #include <sys/wait.h>
+    #include <gnu/libc-version.h>
+
+    typedef enum { FALSE, TRUE } Boolean;
+    #define min(m,n) ((m) < (n) ? (m) : (n))
+    #define max(m,n) ((m) > (n) ? (m) : (n))
+
+    #include "get_num.h"
+    #include "error_functions.h"
+#endif
+
+
+
+
+
 void init_daemon();
 void daemon_log( char* str );
 
 int main( int argc, char *argv[] )
 {
+    printf( "libc version : %s \n", gnu_get_libc_version());
     // 将进程变为守护进程
     init_daemon();
 
@@ -72,6 +90,7 @@ int main( int argc, char *argv[] )
                     // 从而导致系统中又多了一个CLOSE_WAIT的socket, 正确关闭应该先 shutdown
                     shutdown( client_sock, SHUT_RDWR );
                     close( client_sock );
+                    exit( 0 );
                 }
             }
         }
@@ -117,7 +136,12 @@ void init_daemon()
 
     // 进程创建成功 父进程正常退出
     else if( pid > 0 )
+    {
+        printf("Parent process exit\n");
         exit( 0 );
+    }
+
+    printf("child process run\n");
 
     // 子进程成为 新进程组长 以及 新会话组长 ，并且与 原会话 和 进程组 脱离
     setsid();
@@ -149,6 +173,7 @@ void init_daemon()
 
     // 重新设置 子子进程 的 文件掩码 , 不使用从父进程继承来的
     umask( 0 );
+    daemon_log("daemon process run !!!\n");
 }
 
 
