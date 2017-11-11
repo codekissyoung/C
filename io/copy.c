@@ -16,7 +16,7 @@ int main( int argc, char *argv[] )
 
     while( read( input_fd, buff, BUF_SIZE ) > 0 )
     {
-        printf( "%s", buff );
+
     }
 
     // int output_fd = open( argv[2], O_WRONLY, filePerms );
