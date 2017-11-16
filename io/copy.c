@@ -14,12 +14,18 @@ int main( int argc, char *argv[] )
     // 输入的文件
     int input_fd = open( argv[1], O_RDONLY );
 
-    while( read( input_fd, buff, BUF_SIZE ) > 0 )
-    {
+    // 输出的文件
+    int output_fd = open( argv[2],
+                          O_CREAT | O_WRONLY | O_TRUNC,
+                          S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH );
 
+    ssize_t read_num;
+    while( (read_num = read( input_fd, buff, BUF_SIZE )) > 0 )
+    {
+        if( write( output_fd, buff, read_num ) != read_num )
+            printf("can not write whole buffer\n");
     }
 
-    // int output_fd = open( argv[2], O_WRONLY, filePerms );
-
     close( input_fd );
+    return 0;
 }
