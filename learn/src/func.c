@@ -1,4 +1,4 @@
-#include "../include/common.h"
+#include "common.h"
 // 线程回调函数
 void *thread_callback(void *arg){/*{{{*/
 	HS *hs = (HS *)arg;

@@ -1,4 +1,4 @@
-#include "../include/common.h"
+#include "common.h"
 // 全局变量定义
 #ifndef GLOBAL
 	#define GLOBAL
