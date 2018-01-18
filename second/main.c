@@ -2,6 +2,7 @@
 #define MAXLINE 1000
 int my_getline( char line[], int maxline );
 void copy( char to[], char from[] );
+
 int main()
 {
     int c, i, nwhite, nother;
@@ -50,7 +51,7 @@ int main()
 }
 
 int my_getline( char s[], int lim )
-{
+{/*{{{*/
     int c, i;
     for ( i = 0; i < lim - 1 && ( c = getchar() ) != EOF; ++i )
     {
@@ -62,4 +63,5 @@ int my_getline( char s[], int lim )
         }
     }
     return i;
-}
+}/*}}}*/
+
