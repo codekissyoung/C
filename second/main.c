@@ -4,7 +4,7 @@ int my_getline( char line[], int maxline );
 void copy( char to[], char from[] );
 
 int main()
-{
+{/*{{{*/
     int c, i, nwhite, nother;
     int ndigit[10];
 
@@ -48,7 +48,7 @@ int main()
     }
 
     return 0;
-}
+}/*}}}*/
 
 int my_getline( char s[], int lim )
 {/*{{{*/
