@@ -1,16 +1,15 @@
 #include "common.h"
 void* max( void* arr[] ,int len, cmp func )
 {
-    int i;
-    void* tmp;
-    tmp = arr[0];
+    void* max;
+    max = arr[0];
 
-    for( i = 1; i < len; i++ )
+    for( int i = 1; i < len; i++ )
     {
-        if( ( * func )( tmp, arr[i] ) )
+        if( ( * func )( max, arr[i] ) )
         {
-            tmp = arr[i];
+            max = arr[i];
         }
     }
-    return tmp;
+    return max;
 }

@@ -15,13 +15,18 @@ int main( int argc, char* argv[] )
 
     for( i = 0; i < MAX; i++ )
     {
-        printf("Input info of book\n");
+        printf("Input id of book : ");
         scanf( "%d", &id );
+
+        printf("Input name of book : ");
         scanf( "%s", name );
 
         if( insert_struct( &array_1[i], id, name )  == -1 )
             exit(1);
+    }
 
+    for( i = 0; i < MAX; i++ )
+    {
         printf( "Input int\n" );
         scanf( "%d", &val );
 

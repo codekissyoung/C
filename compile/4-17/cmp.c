@@ -7,7 +7,7 @@ int cmp_int( void *p, void *q )
     a = ( int * )p;
     b = ( int * )q;
 
-    if( *a > *b )
+    if( *a < *b )
         return 1;
     else
         return 0;
@@ -21,7 +21,7 @@ int cmp_struct( void *p, void *q )
     a = (Book)p;
     b = (Book)q;
 
-    if( a->id > b->id )
+    if( a -> id < b -> id )
         return 1;
     else
         return 0;
