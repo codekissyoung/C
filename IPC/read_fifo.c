@@ -8,29 +8,25 @@
 #include <limits.h>
 #include <time.h>
 
-#define BUFES 256
+#define BUFES PIPE_BUF
 
 int main( int argc, char* argv[] )
 {
     int fd;
     int len = 0;
     char buf[BUFES];
-    mode_t mode = 0666;
 
-    if( ( fd = open( "fifo1", O_RDONLY ) ) < 0 )
+    if( ( fd = open( "/home/cky/workspace/C/IPC/fifo1", O_RDONLY ) ) < 0 )
     {
         perror("open error\n");
         exit(1);
     }
 
-    len = read( fd, buf, BUFES );
-
-    printf( "%d",len);
-
     while( ( len = read( fd, buf, BUFES ) ) > 0 )
     {
         printf("read info from fifo1 : %s\n", buf );
     }
+    printf("hehe");
     close( fd );
     return 0;
 }

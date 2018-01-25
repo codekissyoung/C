@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <limits.h>
 #include <time.h>
+#include <string.h>
 
 #define BUFES 256
 
@@ -19,7 +20,7 @@ int main( int argc, char* argv[] )
 
     printf("I am %d \n", getpid() );
 
-    if( ( fd == open( "fifo1",O_WRONLY | O_NONBLOCK ) ) < 0 )
+    if( ( fd == open( "/home/cky/workspace/C/IPC/fifo1",O_WRONLY) ) < 0 )
     {
         perror("open");
         exit(1);
@@ -27,7 +28,7 @@ int main( int argc, char* argv[] )
     for( i = 0; i < 10; i++ )
     {
         time( &tp );
-        n = sprintf( buf, "write info : %d sends %s ", getpid(), ctime(&tp) );
+        n = sprintf( buf, "write info : %d sends %s", getpid(), ctime(&tp) );
 
         if( write( fd, buf, n + 1 ) < 0 )
         {
@@ -35,7 +36,7 @@ int main( int argc, char* argv[] )
             close( fd );
             exit(1);
         }
-        sleep( 2 );
+        sleep( 3 );
     }
     close( fd );
     exit(0);
