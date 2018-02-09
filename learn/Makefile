@@ -43,12 +43,3 @@ clean:
 	rm lib/*.so
 	rm lib/*.a
 	rm cky
-
-
-
-
-
-
-
-
-
