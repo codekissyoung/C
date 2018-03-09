@@ -18,13 +18,14 @@
 
 #define MAXLINE 4096
 
-#define FILE_MODE (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH )
+#define FILE_MODE ( S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH )
 
 #define DIR_MODE ( FILE_MODE | S_XUSR | S_IXGRP | S_IXOTH )
 
 typedef void Sigfunc( int );
+
 #if defined(SIG_IGN) && !defined(SIG_ERR)
-#define SIG_ERR ((Sigfunc *) - 1 )
+    #define SIG_ERR ((Sigfunc *) - 1 )
 #endif
 
 #define min(a,b) ((a) < (b) ? (a) : (b))
