@@ -45,7 +45,7 @@ int do_more( FILE *fp )
 
         if( num_of_lines == PAGELINE )
         {
-            printf("\033[7m more?\033[m");
+            printf("more?\n");
             reply = see_more( fp_tty );
             if( reply == 0 )
                 break;
