@@ -7,6 +7,7 @@
 #define SHOWHOST
 
 void show_info( struct utmp * );
+
 int main( int argc, char *argv[] )
 {
     struct utmp current_record;
@@ -25,6 +26,7 @@ int main( int argc, char *argv[] )
     close( utmpfd );
     return 0;
 }
+
 void show_info( struct utmp *data )
 {
 
