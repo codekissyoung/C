@@ -28,7 +28,7 @@ int main( int argc, char *argv[] )
 void show_info( struct utmp *data )
 {
 
-    if( data ->ut_type == USER_PROCESS )
+    if( data -> ut_type == USER_PROCESS )
     {
         time_t t = data -> ut_time;
         printf("%s\t %s\t %12.12s\t %s\n",data->ut_name,data->ut_line,ctime( &t ) + 4,data->ut_host);
