@@ -14,9 +14,9 @@
 
 int  get_response( char*, int);
 void set_crmode();
-void tty_mode( int how );
+void tty_mode( int );
 void set_no_delay_mode();
-void ctrl_c_handler( int signum );
+void ctrl_c_handler( int );
 
 int main( int argc, char *argv[] )
 {
