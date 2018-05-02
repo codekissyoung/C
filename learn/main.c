@@ -65,9 +65,8 @@ int main(int argc,const char* argv[])
     }/*}}}*/
 
     if( strcmp("basic",argv[1]) == 0 )
-    {
-        
-    }
+    {/*{{{*/
+    }/*}}}*/
 
     if( strcmp( "struct", argv[1] ) == 0 )
     {/*{{{*/
