@@ -1,30 +1,32 @@
 #include "common.h"
+void insert_sort(int arr[], int len);
 
-int add_range(int low, int high)
+int main()
 {
-    int i, sum;
-    sum = 0;
-    for(i = low; i <= high; i++)
-        sum = sum + i;
-    return sum;
+    int arr[]={9,3,4,2,6,7,5,1};
+    int len = sizeof( arr ) / sizeof(int);
+
+    insert_sort(arr,len);
+
+    for (int i = 0; i < len; i++)
+        printf("%d ", arr[i]);
+    printf("\n");
+
+    return 0;
 }
 
-int main( int argc, char *argv[] )
+void insert_sort( int arr[] , int len)
 {
-    int man = 0;
-    scanf("%d", &man);
-
-    int result[100];
-    result[0] = add_range(1, 10);
-    result[1] = add_range(1, 100);
-    printf("result[0] : %d, result[1] : %d\n", result[0], result[1]);
-
-    int sum = 0, i = 0;
-    char input[5];
-    printf("input somthing : ");
-    scanf("%s", input);
-    for (i = 0; input[i] != '\0'; i++)
-        sum = sum * 10 + input[i] - '0';
-    printf("input=%d\n",sum);
-    return 0;
+    for (int i = 0, j = 0; i < len; i++)
+    {
+        int temp = arr[i];
+        for (j = i - 1; j >= 0; j--)
+        {
+            if( arr[j] > temp )
+                arr[j+1] = arr[j];
+            else
+                break;
+        }
+        arr[j+1] = temp;
+    }
 }
