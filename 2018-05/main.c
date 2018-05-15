@@ -1,8 +1,9 @@
 #include "common.h"
 
 void show_info(struct utmp *a);
+void oops(char*, char*);
 
-int main()
+int main(int ac, char *av[])
 {
     struct utmp     record;
     int             utmpfd;
@@ -18,12 +19,42 @@ int main()
         show_info(&record);
 
     close(utmpfd);
+
+
+    // cp 代码
+    int in_fd;
+    int out_fd;
+    int n_chars;
+    char buf[4096];
+
+    in_fd = open( av[1], O_RDONLY );
+
+    out_fd = open( av[2], O_WRONLY );
+
+    while( (n_chars = read(in_fd, buf, 4096)) > 0 )
+    {
+        if( write(out_fd, buf, n_chars) != n_chars )
+            oops("写入出错",av[2]);
+    }
+    if( n_chars == -1 )
+        oops("读取出错", av[2]);
+
+    close(in_fd);
+    close(out_fd);
+
     return 0;
 }
 
 void show_info(struct utmp *a)
 {
     printf("ut_name: %s,ut_len: %s,ut_time: %d\n",a->ut_name,a->ut_line,a->ut_time);
+}
+
+void oops( char *s1, char *s2 )
+{
+    fprintf(stderr,"Error:%s\n",s1);
+    perror(s2);
+    exit(1);
 }
 
 // 归并排序
