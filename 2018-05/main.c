@@ -1,24 +1,34 @@
 #include "common.h"
-void insert_sort(int arr[], int len);
-void merge_sort(int a[], int first, int last);
+
+void show_info(struct utmp *a);
 
 int main()
 {
-    int arr[]={9,3,4,2,6,7,5,1,78,87,31,24,55,43,11,22,33,44,11,11,11,22,33,443,112,90};
-    int len = sizeof( arr ) / sizeof(int);
+    struct utmp     record;
+    int             utmpfd;
+    int             len = sizeof(record);
 
-    // insert_sort(arr,len);
-    merge_sort( arr, 0, len - 1);
+    utmpfd = open(UTMP_FILE, O_RDONLY);
+    if (utmpfd == -1)
+    {
+        perror(UTMP_FILE);
+        exit(1);
+    }
+    while(read(utmpfd, &record, len) == len)
+        show_info(&record);
 
-    for (int i = 0; i < len; i++)
-        printf("%d ", arr[i]);
-    printf("\n");
-
+    close(utmpfd);
     return 0;
 }
 
-void merge_sort(int a[], int first, int last)
+void show_info(struct utmp *a)
 {
+    printf("ut_name: %s,ut_len: %s,ut_time: %d\n",a->ut_name,a->ut_line,a->ut_time);
+}
+
+// 归并排序
+void merge_sort(int a[], int first, int last)
+{/*{{{*/
     if( first < last )
     {
         int mid = (first + last) / 2;
@@ -49,10 +59,11 @@ void merge_sort(int a[], int first, int last)
         for(int i = first, k = 0; i <= last; i++, k++)
             a[i] = temp[k];
     }
-}
+}/*}}}*/
 
+// 插入排序
 void insert_sort( int arr[] , int len)
-{
+{/*{{{*/
     for (int i = 0, j = 0; i < len; i++)
     {
         int temp = arr[i];
@@ -65,4 +76,4 @@ void insert_sort( int arr[] , int len)
         }
         arr[j+1] = temp;
     }
-}
+}/*}}}*/
