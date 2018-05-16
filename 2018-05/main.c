@@ -1,5 +1,5 @@
 #include "common.h"
-
+#define BUFSIZE 16
 void show_info(struct utmp *a);
 void oops(char*, char*);
 
@@ -20,18 +20,19 @@ int main(int ac, char *av[])
 
     close(utmpfd);
 
-
     // cp 代码
     int in_fd;
     int out_fd;
     int n_chars;
-    char buf[4096];
+    char buf[BUFSIZE];
 
     in_fd = open( av[1], O_RDONLY );
 
-    out_fd = open( av[2], O_WRONLY );
+    out_fd = creat( av[2], 0644 );
+    if( out_fd == -1 )
+        oops("outfd error", av[2]);
 
-    while( (n_chars = read(in_fd, buf, 4096)) > 0 )
+    while( (n_chars = read(in_fd, buf, BUFSIZE)) > 0 )
     {
         if( write(out_fd, buf, n_chars) != n_chars )
             oops("写入出错",av[2]);
@@ -46,16 +47,16 @@ int main(int ac, char *av[])
 }
 
 void show_info(struct utmp *a)
-{
+{/*{{{*/
     printf("ut_name: %s,ut_len: %s,ut_time: %d\n",a->ut_name,a->ut_line,a->ut_time);
-}
+}/*}}}*/
 
 void oops( char *s1, char *s2 )
-{
+{/*{{{*/
     fprintf(stderr,"Error:%s\n",s1);
     perror(s2);
     exit(1);
-}
+}/*}}}*/
 
 // 归并排序
 void merge_sort(int a[], int first, int last)
