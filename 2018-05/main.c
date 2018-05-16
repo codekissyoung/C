@@ -5,22 +5,19 @@ void oops(char*, char*);
 
 int main(int ac, char *av[])
 {
-    struct utmp     record;
-    int             utmpfd;
-    int             len = sizeof(record);
+    int             len = sizeof(struct utmp);
+    char            utmpbuf[4*len];
 
-    utmpfd = open(UTMP_FILE, O_RDONLY);
-    if (utmpfd == -1)
-    {
-        perror(UTMP_FILE);
-        exit(1);
-    }
-    while(read(utmpfd, &record, len) == len)
-        show_info(&record);
+    int utmpfd = open(UTMP_FILE, O_RDONLY);
 
+    read(utmpfd, utmpbuf, 4 * len);
+    struct utmp *recive  = (struct utmp *)&utmpbuf[0];
+    struct utmp *recive2 = (struct utmp *)&utmpbuf[len];
+    struct utmp *recive3 = (struct utmp *)&utmpbuf[2*len];
     close(utmpfd);
 
     // cp 代码
+    /*
     int in_fd;
     int out_fd;
     int n_chars;
@@ -42,7 +39,7 @@ int main(int ac, char *av[])
 
     close(in_fd);
     close(out_fd);
-
+    */
     return 0;
 }
 
