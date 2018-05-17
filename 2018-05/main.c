@@ -12,8 +12,6 @@ int main(int ac, char *av[])
 
     read(utmpfd, utmpbuf, 4 * len);
     struct utmp *recive  = (struct utmp *)&utmpbuf[0];
-    struct utmp *recive2 = (struct utmp *)&utmpbuf[len];
-    struct utmp *recive3 = (struct utmp *)&utmpbuf[2*len];
     close(utmpfd);
 
     // cp 代码
