@@ -10,6 +10,24 @@ int main(int ac, char *av[])
 
     int utmpfd = open(UTMP_FILE, O_RDONLY);
 
+    DIR *dir_ptr;
+    if( (dir_ptr = opendir( "lib" )) == NULL )
+        oops("opendir","Error");
+
+    struct dirent *direntp;
+    while( (direntp = readdir( dir_ptr )) != NULL )
+    {
+        printf("%s\n",direntp -> d_name );
+    }
+
+    struct stat infobuf;
+    if( stat("main.c",&infobuf) == -1 )
+        oops("stat","Error");
+    else
+        printf("infobuf.size : %ld\n", infobuf.st_size);
+
+    closedir(dir_ptr);
+
     read(utmpfd, utmpbuf, 4 * len);
     struct utmp *recive  = (struct utmp *)&utmpbuf[0];
     close(utmpfd);
