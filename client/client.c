@@ -47,7 +47,7 @@ int main ( int argc, char *argv[] )
         write( sock, read_str, sizeof( read_str ) );
 
         read( sock, buffer, sizeof(buffer) - 1 );
-        printf( "Message form server : %s \n", buffer );
+        printf( "\n Message form server : %s \n", buffer );
     }
     close( sock );
 
