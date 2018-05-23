@@ -1,6 +1,7 @@
 #include "common.h"
 #define BUFSIZE 16
 #define NAME "codekissyoung"
+
 struct Books
 {
     char title[50];
@@ -34,6 +35,17 @@ struct B
 {
     struct A *pointer;
     int age;
+};
+
+struct bit_field
+{
+    int a:4;  //占用4个二进制位;
+    int  :0;  //空位域,自动置0;
+    int b:4;  //占用4个二进制位,从下一个存储单元开始存放;
+    int c:4;  //占用4个二进制位;
+    int d:5;  //占用5个二进制位,剩余的4个bit不够存储4个bit的数据,从下一个存储单元开始存放;
+    int  :0;  //空位域,自动置0;
+    int e:4;  //占用4个二进制位,从这个存储单元开始存放;
 };
 
 void show_info(struct utmp *a);
@@ -71,6 +83,13 @@ int main(int ac, char *av[])
     };
     user_name.pointer = &user_age;
     user_age.pointer = &user_name;
+
+    struct bit_field bt1;
+    bt1.a = 3;
+    bt1.b = 4;
+    bt1.c = 5;
+    bt1.d = 6;
+    bt1.e = 2;
 
     int utmpfd = open(UTMP_FILE, O_RDONLY);
 
