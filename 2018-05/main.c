@@ -1,12 +1,76 @@
 #include "common.h"
 #define BUFSIZE 16
+#define NAME "codekissyoung"
+struct Books
+{
+    char title[50];
+    char author[50];
+    char subject[100];
+    int book_id;
+};
+
+typedef struct
+{
+    int a;
+    char b;
+    double c;
+} Simple;
+
+struct NODE
+{
+    char string[100];
+    struct NODE *next_node;
+};
+
+struct B;
+
+struct A
+{
+    struct B *pointer;
+    char name[100];
+};
+
+struct B
+{
+    struct A *pointer;
+    int age;
+};
+
 void show_info(struct utmp *a);
 void oops(char*, char*);
+void test_static();
 
 int main(int ac, char *av[])
 {
     int             len = sizeof(struct utmp);
     char            utmpbuf[4*len];
+    const char *USERNAME = "codekissyoung";
+    struct Books book1 = {
+        "《钢铁是如何炼成的》",
+        "佚名",
+        "保尔柯察金",
+        893112
+    };
+    Simple s1 = {
+        329312,
+        'b',
+        1892.388
+    };
+    printf("%f\n",s1.c);
+    struct NODE node1 = {
+        "helloworld",
+        NULL
+    };
+    struct A user_name = {
+        NULL,
+        "codekissyoung"
+    };
+    struct B user_age = {
+        NULL,
+        21
+    };
+    user_name.pointer = &user_age;
+    user_age.pointer = &user_name;
 
     int utmpfd = open(UTMP_FILE, O_RDONLY);
 
@@ -31,7 +95,9 @@ int main(int ac, char *av[])
     read(utmpfd, utmpbuf, 4 * len);
     struct utmp *recive  = (struct utmp *)&utmpbuf[0];
     close(utmpfd);
-
+    test_static();
+    test_static();
+    test_static();
     // cp 代码
     /*
     int in_fd;
@@ -57,6 +123,13 @@ int main(int ac, char *av[])
     close(out_fd);
     */
     return 0;
+}
+
+void test_static()
+{
+    static int i;
+    i++;
+    printf("i : %d\n",i);
 }
 
 void show_info(struct utmp *a)
