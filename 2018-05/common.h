@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <dirent.h>
+#include <string.h>
 
 void insert_sort(int arr[], int len);
 void merge_sort(int a[], int first, int last);

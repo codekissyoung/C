@@ -48,6 +48,13 @@ struct bit_field
     int e:4;  //占用4个二进制位,从这个存储单元开始存放;
 };
 
+union Data
+{
+    int i;
+    float f;
+    char str[20];
+};
+
 void show_info(struct utmp *a);
 void oops(char*, char*);
 void test_static();
@@ -90,6 +97,9 @@ int main(int ac, char *av[])
     bt1.c = 5;
     bt1.d = 6;
     bt1.e = 2;
+
+    union Data d1;
+    strcpy( d1.str, "codekissyoung" );
 
     int utmpfd = open(UTMP_FILE, O_RDONLY);
 
