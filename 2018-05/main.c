@@ -1,7 +1,6 @@
 #include "common.h"
 #define BUFSIZE 16
 #define NAME "codekissyoung"
-
 struct Books
 {
     char title[50];
@@ -61,6 +60,18 @@ void test_static();
 
 int main(int ac, char *av[])
 {
+    int i;
+    for(i = 0; i < 60; i++)
+    {
+        sleep(1);
+    }
+    return 0;
+
+    int n = 10;
+    n++;
+    n--;
+    n += 100;
+
     int             len = sizeof(struct utmp);
     char            utmpbuf[4*len];
     const char *USERNAME = "codekissyoung";
