@@ -7,6 +7,13 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <string.h>
+#include <errno.h>
+#include <stdarg.h>
+
+typedef enum { FALSE, TRUE } Boolen;
+
+#define min(m,n) ((m) < (n) ? (m) : (n))
+#define max(m,n) ((m) > (n) ? (m) : (n))
 
 struct Books
 {
@@ -60,8 +67,43 @@ union Data
     char str[20];
 };
 
+typedef unsigned char BYTE;
+
 void show_info(struct utmp *a);
 void oops(char*, char*);
 void test_static();
 void insert_sort(int arr[], int len);
 void merge_sort(int a[], int first, int last);
+
+void errMsg(const char *format, ...);
+
+#ifdef __GNUC__
+#define NORETURN __attribute__ ((__noreturn__))
+#else
+#define NORETURN
+#endif
+
+void errExit(const char *format, ...) NORETURN;
+void err_exit(const char *format, ...) NORETURN;
+void errExitEN(int errnum, const char *format, ...) NORETURN;
+void fatal(const char *format, ...) NORETURN;
+void usageErr(const char *format, ...) NORETURN;
+void cmdLineErr(const char *format, ...) NORETURN;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

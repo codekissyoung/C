@@ -1,16 +1,17 @@
 #include "common.h"
+#include "lib/ename.inc.c"
 #define BUFSIZE 16
 #define NAME "codekissyoung"
 
 int main(int ac, char *av[])
 {
-    int i;
-    for(i = 0; i < 60; i++)
-    {
-        sleep(1);
-    }
-    return 0;
+    printf("File :%s\n", __FILE__ );
+    printf("Date :%s\n", __DATE__ );
+    printf("Time :%s\n", __TIME__ );
+    printf("Line :%d\n", __LINE__ );
+    printf("ANSI :%d\n", __STDC__ );
 
+    BYTE b1,b2;
     int n = 10;
     n++;
     n--;
@@ -109,12 +110,60 @@ int main(int ac, char *av[])
     return 0;
 }
 
-void test_static()
+/*错误处理*/
+static void terminate(Boolen useExit3)
+{/*{{{*/
+    char *s;
+    s = getenv("EF_DUMPCORE");
+
+    if(s != NULL && *s != '\0')
+        abort();
+    else if (useExit3)
+        exit(EXIT_FAILURE);
+    else
+        _exit(EXIT_FAILURE);
+}/*}}}*/
+
+static void outputError(Boolen useErr, int err, Boolen flushStdout, const char *format, va_list ap)
+{/*{{{*/
+    #define BUF_SIZE 500
+    char buf[BUF_SIZE * 3];
+    char userMsg[BUF_SIZE];
+    char errText[BUF_SIZE];
+
+    vsnprintf(userMsg, BUF_SIZE, format, ap);
+
+    if(useErr)
+        snprintf( errText, BUF_SIZE, "[%s %s]", (err>0 && err <= MAX_ENAME) ? ename[err] : "?UNKNOWN?", strerror(err) );
+    else
+        snprintf( errText, BUF_SIZE, ":" );
+
+    snprintf( buf, BUF_SIZE * 3, "ERROR%s %s\n", errText, userMsg );
+
+    if(flushStdout)
+        fflush(stdout);
+    fputs(buf,stderr);
+    fflush(stderr);
+}/*}}}*/
+
+void errMsg(const char *format, ...)
 {
+    va_list argList;
+    int savedErrno;
+    savedErrno = errno;
+    va_start(argList,format);
+    outputError(TRUE,errno,TRUE,format,argList);
+    va_end(argList);
+    errno = savedErrno;
+}
+
+
+void test_static()
+{/*{{{*/
     static int i;
     i++;
     printf("i : %d\n",i);
-}
+}/*}}}*/
 
 void show_info(struct utmp *a)
 {/*{{{*/
