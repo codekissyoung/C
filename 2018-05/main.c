@@ -3,20 +3,9 @@
 #include "func.c"
 int main(int ac, char *av[])
 {
-    printf("File :%s\n", __FILE__ );
-    printf("Date :%s\n", __DATE__ );
-    printf("Time :%s\n", __TIME__ );
-    printf("Line :%d\n", __LINE__ );
-    printf("ANSI :%d\n", __STDC__ );
-
-    BYTE b1,b2;
-    int n = 10;
-    n++;
-    n--;
-    n += 100;
-
     int             len = sizeof(struct utmp);
     char            utmpbuf[4*len];
+
     const char *USERNAME = "codekissyoung";
     struct Books book1 = {
         "《钢铁是如何炼成的》",
