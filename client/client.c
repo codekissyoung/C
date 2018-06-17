@@ -10,7 +10,6 @@
 int main ( int argc, char *argv[] )
 {
     const char* ptr = "www.codekissyoung.com";
-    char **pptr;
     struct hostent *hptr;
     char str[32];
 
