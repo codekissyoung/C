@@ -61,7 +61,11 @@ int main(int argc,const char* argv[])
             printf("My Home Dir :%s\n",         my_info -> pw_dir);
             printf("My Work Shell:%s\n",        my_info -> pw_shell);
         }
+        return 0;
+    }/*}}}*/
 
+    if( strcmp("basic",argv[1]) == 0 )
+    {/*{{{*/
     }/*}}}*/
 
     if( strcmp( "struct", argv[1] ) == 0 )
@@ -93,9 +97,9 @@ int main(int argc,const char* argv[])
 
     // 深度遍历函数
     if( strcmp( "dfs", argv[1] ) == 0 )
-    {
+    {/*{{{*/
         dfs( 1 );
-    }
+    }/*}}}*/
 
     // 测试缓冲区
     // 1.碰见 \n

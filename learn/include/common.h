@@ -24,7 +24,7 @@
 #include <unistd.h>         // 符号常量
 #include <wordexp.h>        // 字扩充类型
 #include <arpa/inet.h>      // 因特网定义
-#include <net/if.h>             // 套接字本地接口
+#include <net/if.h>         // 套接字本地接口
 #include <netinet/in.h>     // 因特网地址族
 #include <netinet/tcp.h>    // 传输控制协议定义
 #include <sys/mman.h>       // 存储管理申明
@@ -42,8 +42,8 @@
 #include <search.h>         // 搜索表
 #include <syslog.h>         // 系统出错日志记录
 #include <utmpx.h>          // 用户账户数据库
-#include <sys/sem.h>            // XSI 信号量
-#include <sys/time.h>           // 时间类型
+#include <sys/sem.h>        // XSI 信号量
+#include <sys/time.h>       // 时间类型
 #include <sys/uio.h>        // 矢量I/O操作
 #include <sys/resource.h>   // 资源操作
 #include <sys/msg.h>        // XSI 消息队列
@@ -157,7 +157,8 @@ extern int pthread_create(
 	pthread_t* restrict tidp,
 	const pthread_attr_t* restrict attr ,
 	void *(*start_rtn)(void *),
-	void *restrict arg);
+	void *restrict arg
+);
 
 extern void *thread_callback(void *arg);
 
