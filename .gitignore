@@ -2,3 +2,4 @@
 *.o
 .*
 build-QT-Desktop_Qt_5_9_5_clang_64bit-Debug/
+QT/QT.pro.user
