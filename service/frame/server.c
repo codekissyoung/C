@@ -7,10 +7,7 @@
 #include "conf.h"
 #include "log.h"
 
-/* settings */
 struct setting setting;
-
-/* pid file */
 static const char *pid_file = "./pid";
 
 /* forward declarations */
@@ -18,10 +15,8 @@ void io_thread_init(int nthreads);
 void dispatch_io(int fd, int event_flag, enum io_cmd cmd, struct io_buff *buff);
 void io_thread_stop();
 
-/*
- * set file description to non-block 
- */
-static void set_non_block(int sock) {
+static void set_non_block(int sock)
+{
 	int val = fcntl(sock, F_GETFL, 0);
 	if (val == -1) {
 		log_txt_err("fcntl[F_GETFL] error");
@@ -33,10 +28,8 @@ static void set_non_block(int sock) {
 	}
 }
 
-/*
- * create listen socket and intialize it
- */
-static int server_sock_init(char *ip, int port) {
+static int server_sock_init(char *ip, int port)
+{
 	int sock;
 	struct sockaddr_in server_addr;
     int enable = 1;
@@ -47,9 +40,6 @@ static int server_sock_init(char *ip, int port) {
 		log_txt_err("socket error");
 		exit(1);
 	}
-
-	//set_non_block(sock);
-	//epoll_add(sock, EPOLLIN | EPOLLET);
 
     // set reuseaddr
     if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0) {
@@ -85,10 +75,8 @@ static int server_sock_init(char *ip, int port) {
 	return sock;
 }
 
-/*
- * accept a connection
- */
-static int server_accept(int server_sock) {
+static int server_accept(int server_sock)
+{
 	struct sockaddr addr;
 	socklen_t len;
 
@@ -98,10 +86,8 @@ static int server_accept(int server_sock) {
 	return accept(server_sock, &addr, &len);
 }
 
-/*
- * initialize setting
- */
-static void read_conf(char *conf_file) {
+static void read_conf(char *conf_file)
+{
 	int ret = 0;
 	int i = 0;
 
@@ -236,9 +222,6 @@ static void server_uninit() {
 	log_txt_err("server destroy ok");
 }
 
-/*
- * accept a new connection
- */
 static int accept_new(int server_sock, void *arg) {
 	int client_sock;
 	struct io_buff *buff;
