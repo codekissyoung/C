@@ -1,5 +1,5 @@
 .PHONY:clean
-CC=gcc-8
+CC=gcc
 CPPFLAGS=-Wall -g -std=c11 -pedantic
 BIN=main
 OBJS=main.o error.o func.o
