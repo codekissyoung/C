@@ -6,7 +6,7 @@ const int MAX( const int a, const int b)
 }
 
 void minprintf(char *fmt, ...)
-{
+{/*{{{*/
     va_list ap;
     char *p, *sval;
     int ival;
@@ -44,11 +44,36 @@ void minprintf(char *fmt, ...)
         }
     }
     va_end(ap);
-}
+}/*}}}*/
 
+void filecopy( FILE *ifp, FILE *ofp )
+{
+    int c;
+    while( ( c = getc( ifp ) ) != EOF )
+        putc( c, ofp );
+}
 
 int main(int argc, char *argv[])
 {
+    FILE *fp;
+    
+    if( argc == 1 )
+        filecopy(stdin, stdout);
+    else
+        while( --argc > 0 )
+        {
+            if( NULL == (fp = fopen( *++argv, "r")) )
+            {
+                printf( "can not open file : %s\n", *argv );
+                return 1;
+            }
+            else
+            {
+                filecopy( fp, stdout );
+                fclose( fp );
+            }   
+        }
+
     minprintf("Hello world %d, %f,%s\n", 10, 893.2233423, "Codekissyoung");
     return 0;
 }
