@@ -1,5 +1,6 @@
 #ifndef __COMMON_H_
 #define __COMMON_H_
+
 #include <stdio.h>
 #include <utmp.h>
 #include <fcntl.h>
@@ -18,9 +19,9 @@
 #define max(m,n) ((m) > (n) ? (m) : (n))
 
 #ifdef __GNUC__
-#define NORETURN __attribute__ ((__noreturn__))
+    #define NORETURN __attribute__ ((__noreturn__))
 #else
-#define NORETURN
+    #define NORETURN
 #endif
 
 typedef enum { FALSE, TRUE } Boolen;
