@@ -6,12 +6,13 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <dirent.h>
 #include <string.h>
 #include <errno.h>
 #include <stdarg.h>
+
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #define BUFSIZE 16
 #define NAME "codekissyoung"
@@ -79,47 +80,22 @@ union Data
     char str[20];
 };/*}}}*/
 
-
-void
-show_info( struct utmp *a );
-
-void
-oops( char*, char* );
-
-void
-test_static();
-
-void
-insert_sort( int arr[], int len );
-
-void
-merge_sort( int a[], int first, int last );
-
-void
-errMsg( const char *format, ... );
-
-void
-errExit( const char *format, ... ) NORETURN;
-
-void
-err_exit( const char *format, ... ) NORETURN;
-
-void
-errExitEN(int errnum, const char *format, ...) NORETURN;
-
-void
-fatal(const char *format, ...) NORETURN;
-
-void
-usageErr(const char *format, ...) NORETURN;
-
-void
-cmdLineErr(const char *format, ...) NORETURN;
-
-int
-getInt( const char *arg, int flags, const char *name );
-
-int
-getLong( const char *arg, int flags, const char *name );
+int MAX( const int a, const int b );
+void minprintf( char *fmt, ... );
+void filecopy( FILE *ifp, FILE *ofp );
+void show_info( struct utmp *a );
+void oops( char*, char* );
+void test_static();
+void insert_sort( int arr[], int len );
+void merge_sort( int a[], int first, int last );
+void errMsg( const char *format, ... );
+void errExit( const char *format, ... ) NORETURN;
+void err_exit( const char *format, ... ) NORETURN;
+void errExitEN(int errnum, const char *format, ...) NORETURN;
+void fatal(const char *format, ...) NORETURN;
+void usageErr(const char *format, ...) NORETURN;
+void cmdLineErr(const char *format, ...) NORETURN;
+int getInt( const char *arg, int flags, const char *name );
+int getLong( const char *arg, int flags, const char *name );
 
 #endif
