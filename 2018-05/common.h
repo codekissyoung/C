@@ -1,19 +1,6 @@
 #ifndef __COMMON_H_
 #define __COMMON_H_
 
-#include <stdio.h>
-#include <utmp.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <dirent.h>
-#include <string.h>
-#include <errno.h>
-#include <stdarg.h>
-
-#include <sys/types.h>
-#include <sys/stat.h>
-
 #define BUFSIZE 16
 #define NAME "codekissyoung"
 #define min(m,n) ((m) < (n) ? (m) : (n))
@@ -80,7 +67,12 @@ union Data
     char str[20];
 };/*}}}*/
 
-int MAX( const int a, const int b );
+typedef struct arg_struct {
+    char arg1[10];
+    int arg2;
+    double arg3;
+} ARG, *ARG_ptr;
+
 void minprintf( char *fmt, ... );
 void filecopy( FILE *ifp, FILE *ofp );
 void show_info( struct utmp *a );
@@ -97,5 +89,6 @@ void usageErr(const char *format, ...) NORETURN;
 void cmdLineErr(const char *format, ...) NORETURN;
 int getInt( const char *arg, int flags, const char *name );
 int getLong( const char *arg, int flags, const char *name );
-
+void test_endian(void);
+void *thfn( void *arg );
 #endif

@@ -1,3 +1,17 @@
+#include <stdio.h>
+#include <utmp.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <dirent.h>
+#include <string.h>
+#include <errno.h>
+#include <stdarg.h>
+#include <pthread.h>
+
+#include <sys/types.h>
+#include <sys/stat.h>
+
 #include "common.h"
 
 void test_static()
@@ -71,11 +85,6 @@ void insert_sort( int arr[] , int len)
     }
 }/*}}}*/
 
-const int MAX( const int a, const int b)
-{/*{{{*/
-    return a > b ? a : b;
-}/*}}}*/
-
 void minprintf(char *fmt, ...)
 {/*{{{*/
     va_list ap;
@@ -122,5 +131,33 @@ void filecopy( FILE *ifp, FILE *ofp )
     int c;
     while( ( c = getc( ifp ) ) != EOF )
         putc( c, ofp );
+}/*}}}*/
+
+void test_endian(void)
+{/*{{{*/
+    int a = 0x12345678;
+    char *p;
+
+    p = (char*)(&a);
+    if(*p == 0x78)
+        printf("小端法\n");
+    else if(*p == 0x12)
+        printf("大端法\n");
+}/*}}}*/
+
+void *thfn( void *arg )
+{/*{{{*/
+
+    ARG *p = (ARG_ptr)arg;
+    printf("arg1 : %s, arg2 :%d , arg3 : %f \n", p->arg1, p->arg2, p->arg3);
+
+    pid_t pid;
+    pthread_t tid;
+
+    pid = getpid();
+    tid = pthread_self();
+
+    printf("thfn : pid : %u, tid : %u\n",(unsigned int)pid, (unsigned int)tid);
+    return NULL;
 }/*}}}*/
 

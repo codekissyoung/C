@@ -1,3 +1,16 @@
+#include <stdio.h>
+#include <utmp.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <dirent.h>
+#include <string.h>
+#include <errno.h>
+#include <stdarg.h>
+#include <pthread.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+
 #include "common.h"
 #include "lib/ename.inc.c"
 
