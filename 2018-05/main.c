@@ -1,3 +1,9 @@
+// a simple echo server using epoll in linux  
+// 2009-11-05  
+// 2013-03-22:修改了几个问题，1是/n格式问题，2是去掉了原代码不小心加上的ET模式;
+// 本来只是简单的示意程序，决定还是加上 recv/send时的buffer偏移
+// by sparkling  
+
 #include <stdio.h>
 #include <utmp.h>
 #include <fcntl.h>
@@ -10,32 +16,19 @@
 #include <pthread.h>
 #include <string.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>  
+#include <errno.h>  
 
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/socket.h>  
+#include <sys/epoll.h>  
 
 #include "common.h"
 
-//   
-// a simple echo server using epoll in linux  
-//   
-// 2009-11-05  
-// 2013-03-22:修改了几个问题，1是/n格式问题，2是去掉了原代码不小心加上的ET模式;
-// 本来只是简单的示意程序，决定还是加上 recv/send时的buffer偏移
-// by sparkling  
-//   
-#include <sys/socket.h>  
-#include <sys/epoll.h>  
-#include <netinet/in.h>  
-#include <arpa/inet.h>  
-#include <fcntl.h>  
-#include <unistd.h>  
-#include <stdio.h>  
-#include <errno.h>  
-
 #define MAX_EVENTS 500  
 typedef struct myevent_s  
-{  
+{  /*{{{*/
     int fd;  
     void (*call_back)(int fd, int events, void *arg);  
     int events;  
@@ -44,10 +37,11 @@ typedef struct myevent_s
     char buff[128]; // recv data buffer  
     int len, s_offset;  
     long last_active; // last active time  
-} myevent_s;  
+};/*}}}*/
+
 // set event  
 void EventSet(myevent_s *ev, int fd, void (*call_back)(int, int, void*), void *arg)  
-{  
+{  /*{{{*/
     ev->fd = fd;  
     ev->call_back = call_back;  
     ev->events = 0;  
@@ -57,10 +51,11 @@ void EventSet(myevent_s *ev, int fd, void (*call_back)(int, int, void*), void *a
     ev->s_offset = 0;  
     ev->len = 0;
     ev->last_active = time(NULL);  
-}  
+}  /*}}}*/
+
 // add/mod an event to epoll  
 void EventAdd(int epollFd, int events, myevent_s *ev)  
-{  
+{  /*{{{*/
     struct epoll_event epv = {0, {0}};  
     int op;  
     epv.data.ptr = ev;  
@@ -76,23 +71,28 @@ void EventAdd(int epollFd, int events, myevent_s *ev)
         printf("Event Add failed[fd=%d], evnets[%d]\n", ev->fd, events);  
     else  
         printf("Event Add OK[fd=%d], op=%d, evnets[%0X]\n", ev->fd, op, events);  
-}  
+}  /*}}}*/
+
 // delete an event from epoll  
 void EventDel(int epollFd, myevent_s *ev)  
-{  
+{  /*{{{*/
     struct epoll_event epv = {0, {0}};  
     if(ev->status != 1) return;  
     epv.data.ptr = ev;  
     ev->status = 0;
     epoll_ctl(epollFd, EPOLL_CTL_DEL, ev->fd, &epv);  
-}  
+}  /*}}}*/
+
 int g_epollFd;  
+
 myevent_s g_Events[MAX_EVENTS+1]; // g_Events[MAX_EVENTS] is used by listen fd  
+
 void RecvData(int fd, int events, void *arg);  
 void SendData(int fd, int events, void *arg);  
+
 // accept new connections from clients  
 void AcceptConn(int fd, int events, void *arg)  
-{  
+{  /*{{{*/
     struct sockaddr_in sin;  
     socklen_t len = sizeof(struct sockaddr_in);  
     int nfd, i;  
@@ -132,10 +132,11 @@ void AcceptConn(int fd, int events, void *arg)
     }while(0);  
     printf("new conn[%s:%d][time:%d], pos[%d]\n", inet_ntoa(sin.sin_addr),
             ntohs(sin.sin_port), g_Events[i].last_active, i);  
-}  
+}  /*}}}*/
+
 // receive data  
 void RecvData(int fd, int events, void *arg)  
-{  
+{  /*{{{*/
     struct myevent_s *ev = (struct myevent_s*)arg;  
     int len;  
     // receive data
@@ -160,10 +161,11 @@ void RecvData(int fd, int events, void *arg)
         close(ev->fd);  
         printf("recv[fd=%d] error[%d]:%s\n", fd, errno, strerror(errno));  
     }  
-}  
+}  /*}}}*/
+
 // send data  
 void SendData(int fd, int events, void *arg)  
-{  
+{  /*{{{*/
     struct myevent_s *ev = (struct myevent_s*)arg;  
     int len;  
     // send data  
@@ -186,9 +188,10 @@ void SendData(int fd, int events, void *arg)
         EventDel(g_epollFd, ev);  
         printf("send[fd=%d] error[%d]\n", fd, errno);  
     }  
-}  
+}  /*}}}*/
+
 void InitListenSocket(int epollFd, short port)  
-{  
+{  /*{{{*/
     int listenFd = socket(AF_INET, SOCK_STREAM, 0);  
     fcntl(listenFd, F_SETFL, O_NONBLOCK); // set non-blocking  
     printf("server listen fd=%d\n", listenFd);  
@@ -203,7 +206,8 @@ void InitListenSocket(int epollFd, short port)
     sin.sin_port = htons(port);  
     bind(listenFd, (const sockaddr*)&sin, sizeof(sin));  
     listen(listenFd, 5);  
-}  
+}  /*}}}*/
+
 int main(int argc, char **argv)  
 {  
     unsigned short port = 12345; // default port  
