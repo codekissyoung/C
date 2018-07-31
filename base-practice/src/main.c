@@ -11,15 +11,16 @@
 
 int main( int argc, char *argv[] )
 {
-    int fd = open("file.txt", O_RDONLY );
-    if( fd == -1 )
-        printf("open file.txt error\n");
-
     char arr[10];
+    arr[9] = '\0';
     int len = sizeof(arr);
     int ret = 0;
 
-    while( (ret = read(fd, arr, len)) != 0 )
+    int fd = open("file.txt", O_RDONLY );
+    if( fd == -1 )
+        printf("open file.txt error\n");
+    int i = 0;
+    while( (ret = read(fd, arr, len - 1)) != 0 )
     {
         if( ret == -1 )
         {
@@ -28,9 +29,9 @@ int main( int argc, char *argv[] )
             perror("read error");
             break;
         }
-        printf("%s",arr);
+        printf("%d : %s\n",i,arr);
+        i++;
     }
-
     close( fd );
     return 0;
 }

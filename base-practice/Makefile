@@ -20,7 +20,6 @@ vpath %.h include
 # 书写构建规则
 $(BIN):$(OBJS)
 	$(CC) $(CPPFLAGS) $^ $(SEARCH_DIR) $(LINK_LIB) -o $@
-	rm *.o
 
 # 隐含规则
 %.o:%.c
