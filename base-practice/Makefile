@@ -2,7 +2,7 @@
 BIN=main
 CC=gcc
 SRC_DIR=src
-INCLUDE_DIR=/home/cky/workspace/C/base-practice/include
+INCLUDE_DIR=./include
 
 CPPFLAGS=-Wall -g -pedantic
 LINK_LIB=-lpthread
@@ -20,6 +20,7 @@ vpath %.h include
 # 书写构建规则
 $(BIN):$(OBJS)
 	$(CC) $(CPPFLAGS) $^ $(SEARCH_DIR) $(LINK_LIB) -o $@
+	rm *.o
 
 # 隐含规则
 %.o:%.c

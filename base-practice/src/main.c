@@ -12,17 +12,18 @@
 int main( int argc, char *argv[] )
 {
     char arr[10];
-    arr[9] = '\0';
+    arr[9]  = '\0';
     int len = sizeof(arr);
     int ret = 0;
+    int i   = 0;
+    int fd  = -1;
 
-    int fd = open("file.txt", O_RDONLY );
-    if( fd == -1 )
+    if( -1 == (fd = open("file.txt", O_RDONLY)) )
         printf("open file.txt error\n");
-    int i = 0;
-    while( (ret = read(fd, arr, len - 1)) != 0 )
+
+    while( 0 != (ret = read(fd, arr, len - 1)) )
     {
-        if( ret == -1 )
+        if( -1 == ret )
         {
             if( errno == EINTR )
                 continue;
