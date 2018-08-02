@@ -11,28 +11,28 @@
 
 int main( int argc, char *argv[] )
 {
-    char arr[10];
-    arr[9]  = '\0';
+    char *arr = malloc(1000);
     int len = sizeof(arr);
-    int ret = 0;
-    int i   = 0;
+    ssize_t ret;
     int fd  = -1;
 
     if( -1 == (fd = open("file.txt", O_RDONLY)) )
         printf("open file.txt error\n");
 
-    while( 0 != (ret = read(fd, arr, len - 1)) )
+    while( 0 != len && 0 != (ret = read(fd, arr, len)) )
     {
         if( -1 == ret )
         {
             if( errno == EINTR )
                 continue;
+            
             perror("read error");
             break;
         }
-        printf("%d : %s\n",i,arr);
-        i++;
+        len -= ret;
+        arr += ret;
     }
+    
     close( fd );
     return 0;
 }
