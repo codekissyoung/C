@@ -29,9 +29,9 @@ int main ( int argc, char *argv[] )
     // 初始化要连接的服务端地址
     struct sockaddr_in addr;
     memset( &addr, 0, sizeof( addr ) );
-    addr.sin_family = AF_INET;
+    addr.sin_family      = AF_INET;
     addr.sin_addr.s_addr = inet_addr( server_host );
-    addr.sin_port = htons( server_port );
+    addr.sin_port        = htons( server_port );
 
     // 向服务端发起请求
     connect( sock, ( struct sockaddr* )&addr, sizeof( addr ) );

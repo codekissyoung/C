@@ -4,7 +4,7 @@ CC=gcc
 SRC_DIR=src
 INCLUDE_DIR=./include
 
-CPPFLAGS=-Wall -g -pedantic
+CPPFLAGS=-Wall -g -pedantic -std=gnu11
 LINK_LIB=-lpthread
 SEARCH_DIR=-I$(INCLUDE_DIR)
 
