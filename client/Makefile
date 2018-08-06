@@ -1,6 +1,6 @@
 .PHONY:clean
 CC=gcc
-CPPFLAGS=-Wall -g -std=c11 -pedantic
+CPPFLAGS=-Wall -g -std=gnu11 -pedantic
 BIN=client
 OBJS=client.o
 
