@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <utmp.h>
+#include <time.h>
 #include <sys/time.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -12,51 +14,58 @@
 
 #define TIMEOUT 3
 #define BUF_LEN 1024
+#define USER_PROCESS 7
+#define BUFFER_SIZE 10
+#ifndef UTMP_FILE
+    #define UTMP_FILE ""
+#endif
 
 int main( int argc, char *argv[] )
 {
     pid_t pid;
+    int ret;
     pid = fork();
-    if( pid < 0 )
-        perror("fork");
+
+    // 子进程
     if( pid == 0 )
     {
-        int fd  = open("file.txt",O_RDONLY);
-        int fd2 = open("file.txt",O_APPEND | O_WRONLY);
-        char buffer[] = "abcdefg";
-        int ret2 = write(fd2,buffer,sizeof(buffer) - 1);
-        if( ret2 != -1 )
-            printf("success! ret2 : %d \n", ret2);
-
-        char arr[100];
-        int ret = read(fd,arr,100);
-        if(ret != -1)
-        {
-            printf("size : %ld\n",sizeof(arr));
-            arr[ret] = '\0';
-            for(int i = 0; i < 100; i++ )
-            {
-                if( arr[i] == '\0' )
-                {
-                    printf("arr[%d] : \\0 \n",i);
-                    break;
-                }
-                else
-                    printf("arr[%d] : %c \n",i,arr[i]);
-            }
-            printf("arr: %s\n",arr);
-        }
-        close(fd);
-        close(fd2);
         printf("子进程 pid : %d, ppid: %d, sid: %d \n",getpid(),getppid(),getsid(getpid()));
         exit(0);
     }
-    sleep(1);
+    
+    // 父进程
+    usleep(100);
     printf("父进程 pid : %d, ppid: %d, sid: %d\n",getpid(),getppid(),getsid(getpid()));
+
+    struct utmp current_record;
+    int utmpfd;
+    int reclen = sizeof(current_record);
+    ret = utmpfd = open( UTMP_FILE, O_RDONLY );
+    while( read(utmpfd, &current_record, reclen) == reclen )
+    {
+        if(current_record.ut_type != USER_PROCESS )
+            continue;
+        printf("%s\t %s\t %12.12s\n",current_record.ut_name,
+                current_record.ut_line,ctime((time_t*)(&current_record.ut_time))+4);
+
+    }
+    close(utmpfd);
+
+    // 拷贝复制
+    int in_fd  = open("file.txt",O_RDONLY);
+    int out_fd = open("file_copy.txt",O_WRONLY | O_CREAT, 0644);
+    char buf[BUFFER_SIZE];
+    int n_chars;
+    while( ( n_chars = read(in_fd,buf,BUFFER_SIZE) ) > 0 )
+    {
+        if( write(out_fd,buf,n_chars) != n_chars )
+            perror("copy error\n");
+    }
+    close(in_fd);
+    close(out_fd);
 
     struct timeval tv;
     fd_set readfds;
-    int ret;
 
     FD_ZERO(&readfds);
 
