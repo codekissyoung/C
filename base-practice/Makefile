@@ -1,18 +1,15 @@
-BIN=main
-CC=gcc
-SRC_DIR=src
-INCLUDE_DIR=include
+BIN = main
+CC = gcc
+SRC_DIR = src
+INCLUDE_DIR = include
 
-CPPFLAGS=-Wall -g -pedantic -std=gnu11
-LINK_LIB=-lpthread
-SEARCH_DIR=-I$(INCLUDE_DIR)
+CPPFLAGS = -Wall -g -pedantic -std=gnu11
+LINK_LIB = -lpthread
+SEARCH_DIR = -I$(INCLUDE_DIR)
 
-OBJS=main.o func.o
+OBJS = main.o func.o
 
-.PHONY: all
-all:$(BIN)
-
-VPATH=src obj include
+VPATH = src obj include
 vpath %.c src
 vpath %.h include
 
@@ -24,6 +21,9 @@ $(BIN):$(OBJS)
 # 隐含规则
 %.o:%.c
 	$(CC) $(CPPFLAGS) -c $< $(SEARCH_DIR) $(LINK_LIB) -o $@
+
+.PHONY: all
+all : $(BIN)
 
 .PHONY:clean
 clean:
