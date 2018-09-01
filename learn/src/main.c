@@ -36,6 +36,8 @@ void dfs( int step )
 
 int main(int argc,const char* argv[])
 {
+    int c = add(445,12);
+    printf("hello %d\n",c);
     // 程序版本
     if( 1 == argc || (strcmp("-v",argv[1]) == 0) || (strcmp("--version",argv[1]) == 0) )
     {/*{{{*/

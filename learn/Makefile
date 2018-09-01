@@ -1,28 +1,42 @@
 BIN = cky
 CC  = gcc
-OBJECTS = func.o node.o stdarg.o main.o thread.o global_variables.o
+OBJECTS = func.o stdarg.o thread.o global_variables.o main.o
 DEBUG = -g
-CPPFLAGS = -std=gnu11 -pedantic -Wall -Iinclude -Llib # -Werror
+CPPFLAGS = -std=gnu11 -Iinclude -Llib # -pedantic -Wall -Werror -save-temps
+ARFLAGS = rcsvU
+SHARE_FLAGS = -Iinclude -shared -fPIC 
 VPATH = lib src include
 vpath = %.c src
 vpath = %.h include
 vpath = %.o %.a %.so lib
 
+define print-dev-env
+echo "compiled at :";
+uname -a
+lsb_release -a
+endef
+
 $(BIN) : $(OBJECTS) -lpthread libshare.so libstatic.a
-	$(CC) $(DEBUG) $(CPPFLAGS) -pthread -lstatic -lshare $(OBJECTS) -o $@
+	$(CC) $(DEBUG) $(CPPFLAGS) $(OBJECTS) -pthread -lstatic -lshare -o $@
+	@$(print-dev-env)
 
-libstatic.a : static.o
-	ar rcs lib/$@ $<
+lib/libstatic.a : libstatic.a(static.o) libstatic.a(node.o)
 
-libshare.so : share.c
-	$(CC) -I include -shared -fPIC $< -o lib/$@
+lib/libshare.so : share.c
+	$(CC) $(SHARE_FLAGS) $< -o $@
 
-.INTERMEDIATE = %.o
-%.o : %.c
+%.o : %.c common.h
 	$(COMPILE.c) $< -o $@
 
+.PHONY = all
+all: $(BIN)
+
+.PHONY = clean
 clean:
+	-rm -rf *.i
+	-rm -rf *.s
 	-rm -rf *.o
 	-rm -rf lib/*.so
 	-rm -rf lib/*.a
 	-rm -rf cky
+
