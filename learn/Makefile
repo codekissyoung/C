@@ -14,6 +14,7 @@ define print-dev-env
 echo "compiled at :";
 uname -a
 lsb_release -a
+echo ${MAKE_VERSION}
 endef
 
 $(BIN) : $(OBJECTS) -lpthread libshare.so libstatic.a
