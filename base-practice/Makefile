@@ -1,8 +1,7 @@
-# 定义变量
 BIN=main
 CC=gcc
 SRC_DIR=src
-INCLUDE_DIR=./include
+INCLUDE_DIR=include
 
 CPPFLAGS=-Wall -g -pedantic -std=gnu11
 LINK_LIB=-lpthread

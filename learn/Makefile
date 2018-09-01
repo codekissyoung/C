@@ -1,41 +1,28 @@
-cky:lib/func.o lib/node.o lib/stdarg.o lib/main.o lib/thread.o lib/global_variables.o lib/libshare.so lib/libstatic.a
-	gcc -Q -g -std=c11 -pedantic -Wall -Werror -Iinclude -Llib -lstatic -lshare -pthread lib/func.o lib/node.o lib/stdarg.o lib/thread.o lib/global_variables.o lib/main.o -o cky
+BIN = cky
+CC  = gcc
+OBJECTS = func.o node.o stdarg.o main.o thread.o global_variables.o
+DEBUG = -g
+CPPFLAGS = -std=gnu11 -pedantic -Wall -Iinclude -Llib # -Werror
+VPATH = lib src include
+vpath = %.c src
+vpath = %.h include
+vpath = %.o %.a %.so lib
 
-# $< 表示依赖的第一个文件
-# $^ 表示依赖的所有文件
-# $@ 表示目标文件
+$(BIN) : $(OBJECTS) -lpthread libshare.so libstatic.a
+	$(CC) $(DEBUG) $(CPPFLAGS) -pthread -lstatic -lshare $(OBJECTS) -o $@
 
-lib/main.o:main.c
-	gcc -Q -c -Iinclude $< -o $@
+libstatic.a : static.o
+	ar rcs lib/$@ $<
 
-lib/global_variables.o:src/global_variables.c
-	gcc -Q -c -Iinclude $< -o $@
+libshare.so : share.c
+	$(CC) -I include -shared -fPIC $< -o lib/$@
 
-lib/thread.o:src/thread.c
-	gcc -Q -c -Iinclude $< -o $@
-
-lib/static.o:src/static.c
-	gcc -Q -c -Iinclude $< -o $@
-
-lib/node.o:src/node.c
-	gcc -Q -c -Iinclude $< -o $@
-
-lib/func.o:src/func.c
-	gcc -Q -c -Iinclude $< -o $@
-
-lib/stdarg.o:src/stdarg.c
-	gcc -Q -c -Iinclude $< -o $@
-
-# 静态库的编译
-lib/libstatic.a:lib/static.o
-	ar rcs $@ $<
-
-# 动态库的编译
-lib/libshare.so:src/share.c
-	gcc -shared -fPIC -Iinclude $< -o $@
+.INTERMEDIATE = %.o
+%.o : %.c
+	$(COMPILE.c) $< -o $@
 
 clean:
-	rm lib/*.o
-	rm lib/*.so
-	rm lib/*.a
-	rm cky
+	-rm -rf *.o
+	-rm -rf lib/*.so
+	-rm -rf lib/*.a
+	-rm -rf cky
