@@ -1,6 +1,6 @@
 BIN = cky
 CC  = gcc
-OBJECTS = func.o stdarg.o thread.o global_variables.o main.o
+OBJECTS = $(patsubst %.c,%.o,$(notdir $(wildcard src/*.c)))
 DEBUG = -g
 CPPFLAGS = -std=gnu11 -Iinclude -Llib # -pedantic -Wall -Werror -save-temps
 ARFLAGS = rcsvU
@@ -11,10 +11,10 @@ vpath = %.h include
 vpath = %.o %.a %.so lib
 
 define print-dev-env
-echo "compiled at :";
-uname -a
-lsb_release -a
-echo ${MAKE_VERSION}
+	echo "\n编译环境:";
+	uname -a
+	lsb_release -a
+	echo ${MAKE_VERSION}
 endef
 
 $(BIN) : $(OBJECTS) -lpthread libshare.so libstatic.a
@@ -23,7 +23,7 @@ $(BIN) : $(OBJECTS) -lpthread libshare.so libstatic.a
 
 lib/libstatic.a : libstatic.a(static.o) libstatic.a(node.o)
 
-lib/libshare.so : share.c
+lib/libshare.so : share.o
 	$(CC) $(SHARE_FLAGS) $< -o $@
 
 %.o : %.c common.h
