@@ -15,7 +15,7 @@ int main ( int argc, char *argv[] )
 
     if( ( hptr = gethostbyname( (const char *)ptr ) ) == NULL )
     {
-        printf(" gethostbyname error for host : %s \n ", ptr);
+        printf("gethostbyname error for host : %s \n ", ptr);
         exit( errno );
     }
 

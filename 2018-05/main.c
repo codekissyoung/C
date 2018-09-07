@@ -22,7 +22,7 @@
 
 #define MAX_EVENTS 500
 struct myevent_s
-{  /*{{{*/
+{  
     int fd;
     void (*call_back)(int fd, int events, void *arg);
     int events;
@@ -31,7 +31,7 @@ struct myevent_s
     char buff[128]; // recv data buffer
     int len, s_offset;
     long last_active; // last active time
-};/*}}}*/
+};
 
 // set event
 void EventSet(myevent_s *ev, int fd, void (*call_back)(int, int, void*), void *arg)
