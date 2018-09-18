@@ -1,3 +1,4 @@
+CC = g++
 cc = g++
 #flags = -O2 -Wall -fPIC
 flags = -Wall -fPIC

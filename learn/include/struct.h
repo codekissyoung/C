@@ -52,10 +52,10 @@ typedef enum {FALSE,TRUE} Boolean;
 
 // 声明一个结构体类型
 struct Books {
+	int id;
 	char title[50];
 	char author[50];
 	char subject[100];
-	int id;
 };
 
 

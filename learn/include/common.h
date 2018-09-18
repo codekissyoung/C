@@ -126,6 +126,7 @@ extern char *pr(char *str);
 extern void quick_sort(int arr[],int num);
 extern void printBook( struct Books * );
 extern int call_func( fp1 ); // 设计一个调用回调函数的函数
+extern void dfs( int step );
 
 // 快速排序
 extern void sort_in_quick(int arr[] , int s, int e);
