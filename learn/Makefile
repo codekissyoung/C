@@ -14,7 +14,6 @@ define print-dev-env
 	echo "\n编译环境:";
 	uname -a
 	lsb_release -a
-	echo ${MAKE_VERSION}
 endef
 
 $(BIN) : $(OBJECTS) -lpthread libshare.so libstatic.a
@@ -40,4 +39,3 @@ clean:
 	-rm -rf lib/*.so
 	-rm -rf lib/*.a
 	-rm -rf cky
-
