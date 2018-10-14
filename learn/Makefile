@@ -11,9 +11,9 @@ vpath = %.h include
 vpath = %.o %.a %.so lib
 
 define print-dev-env
-	echo "\n编译环境:";
+	echo -n "\n编译环境: ";
 	uname -a
-	lsb_release -a
+	# lsb_release -a
 endef
 
 $(BIN) : $(OBJECTS) -lpthread libshare.so libstatic.a
@@ -23,10 +23,10 @@ $(BIN) : $(OBJECTS) -lpthread libshare.so libstatic.a
 lib/libstatic.a : libstatic.a(static.o) libstatic.a(node.o)
 
 lib/libshare.so : share.o
-	$(CC) $(SHARE_FLAGS) $< -o $@
+	$(CC) $(DEBUG) $(SHARE_FLAGS) $< -o $@
 
 %.o : %.c common.h
-	$(COMPILE.c) $< -o $@
+	$(COMPILE.c) $(DEBUG) $< -o $@
 
 .PHONY = all
 all: $(BIN)

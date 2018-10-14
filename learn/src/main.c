@@ -1,48 +1,53 @@
 #include "common.h"
 
-int main(int argc,const char* argv[])
+int main( int argc, const char* argv[] )
 {
     if( 1 == argc || (strcmp("-v",argv[1]) == 0) || (strcmp("--version",argv[1]) == 0) )
-    {
+    {/*{{{*/
         puts("------------------------- cky程序用法 ----------------------");
-        printf("cky version : %.2f\n",0.01);
-        printf("glibc version : %s\n" , gnu_get_libc_version() );
-        printf("环境变量HOME : %s\n",getenv("HOME"));
-        printf("当前进程PID : %d\n",getpid());
-        printf("当前进程父PID : %d\n",getppid());
-        printf("用户的uid : %d\n",getuid());
-        printf("有效用户的uid : %d \n",geteuid());
-        printf("当前用户组gid : %d\n",getgid());
-        printf("有效用户组gid : %d\n",getegid());
+        printf("cky version : %.2f\t",0.01);
+        printf("glibc version : %s \t" , gnu_get_libc_version() );
+        printf("$HOME: %s \t",getenv("HOME"));
+        printf("PID: %d\t",getpid());
+        printf("PPID: %d\n",getppid());
+        printf("uid: %d\t",getuid());
+        printf("gid: %d\t",getgid());
+        printf("euid: %d\t",geteuid());
+        printf("egid: %d\n",getegid());
 
-        struct passwd *my_info = getpwuid(getuid());
+        struct passwd *my_info = getpwuid( getuid() );
         if( my_info )
         {
-            printf("My Login Name:%s\n", my_info -> pw_name);
-            printf("My Password :%s\n", my_info -> pw_passwd);
-            printf("My User ID :%d\n", my_info -> pw_uid);
-            printf("My Group ID :%d\n", my_info -> pw_gid);
-            printf("My Real Name:%s\n", my_info -> pw_gecos);
-            printf("My Home Dir :%s\n", my_info -> pw_dir);
-            printf("My Work Shell:%s\n", my_info -> pw_shell);
+            printf("Login Name:%s\t", my_info -> pw_name);
+            printf("User ID :%d\t", my_info -> pw_uid);
+            printf("Group ID :%d\t", my_info -> pw_gid);
+            printf("Home Dir :%s\t", my_info -> pw_dir);
+            printf("Work Shell:%s\n", my_info -> pw_shell);
         }
         return 0;
-    }
+    }/*}}}*/
+
+    printf("Demo '%s' is runing ...\n\n",argv[1]);
+
+    // --------------------------------------- 以下是各个DEMO程序部分 ---------------------------------------
 
     if( strcmp( "struct", argv[1] ) == 0 )
-    {
-        struct Books b1;
-        // b1.title = "How do I love you"; // 这种方式是错误的，数组名直接接收字符串？？？
-        strcpy( b1.title,   "How Do I Love you\n" );
-        strcpy( b1.author,  "codekissyoung\n" );
-        strcpy( b1.subject, "i love you\n" );
-        b1.id = 23334235;
-        printBook( &b1 ); // 取地址符 取出该结构体首地址，传给函数里面使用，从而处理该地址处的数据
-    }
+    {/*{{{*/
+        struct A{
+            int lenth;
+            long long ids[10];
+        };
+        struct A a;
 
-    // 函数指针
+        a.lenth = 10;
+        a.ids[0] = 101202020202;
+
+        printf("sizeof A : %ld\t",sizeof(struct A));
+        printf("sizeof a : %ld\n",sizeof(a));
+    }/*}}}*/
+
     if( strcmp( "func_point", argv[1] ) == 0)
-    {
+    {/*{{{*/
         typedef int ( *fun_ptr )(int,int); // 定义一种函数指针类型
         fun_ptr f = max;       // 用该类型声明一个函数指针，并将该函数指针指向函数
         int     b = f(10,29);
@@ -53,32 +58,17 @@ int main(int argc,const char* argv[])
 
         // 测试下回调函数
         printf("%d\n",call_func(max));     // 将max函数作为参数传进去
-    }
+    }/*}}}*/
 
     // 深度遍历函数
     if( strcmp( "dfs", argv[1] ) == 0 )
-    {
+    {/*{{{*/
         dfs( 1 );
-    }
-
-    // 测试缓冲区
-    // 1.碰见 \n
-    // 2.缓冲区满
-    // 3.碰见输出
-    if( strcmp("io-cache",argv[1]) == 0 )
-    {
-        printf("test io-cache !");
-        printf("test io-cache !");
-        int input;
-        scanf("%d",&input);
-        sleep( 2 );
-        return EXIT_SUCCESS;
-    }
+    }/*}}}*/
 
     // node 链表操作
     if(strcmp("node",argv[1]) == 0)
-    {
-        // 给定一个数字，创建链表存储数据，然后遍历打印出来
+    {/*{{{*/
         printf("How much number you want to save : ");
         int num;
         scanf("%d",&num);
@@ -88,7 +78,8 @@ int main(int argc,const char* argv[])
         Head.data = 0;    // 链表头部的数据存0
         struct node *now; // 当前节点
 
-        for ( int i = 0; i < num ; i++) {
+        for ( int i = 0; i < num ; i++)
+        {
             if( Head.next == NULL){
                 now = &Head;
             }
@@ -108,15 +99,16 @@ int main(int argc,const char* argv[])
             now = now -> next; // 继续下一个节点
         }
         return EXIT_SUCCESS;
-    }
+    }/*}}}*/
 
     // 队列
     if (strcmp("queue",argv[1]) == 0)
-    {
+    {/*{{{*/
         struct queue q;
         q.head = 1;
         q.tail = 1;
-        for ( int i = 1; i <= 5; i++){
+        for ( int i = 1; i <= 5; i++)
+        {
             printf("向队列存一个数 : ");
             scanf("%d",&q.data[q.tail]);
             q.tail ++; //队尾向后加1
@@ -127,16 +119,17 @@ int main(int argc,const char* argv[])
             q.head++;
         }
         return EXIT_SUCCESS;
-    }
+    }/*}}}*/
 
     // 队列
     if (strcmp("queue-qq",argv[1]) == 0)
-    {
+    {/*{{{*/
         int q[102] = {0,6,3,1,7,5,8,9,2,4} , head , tail;
         head = 1;
         tail = 10;
 
-        while( head < tail ){
+        while( head < tail )
+        {
             printf("%d",q[head]);
             head ++;
 
@@ -145,15 +138,13 @@ int main(int argc,const char* argv[])
             tail ++; // 队尾+1
         }
         return EXIT_SUCCESS;
-    }
+    }/*}}}*/
 
     // 快速排序
     if(strcmp("quick_sort",argv[1]) == 0)
-    {
-        // int test_data[] = {10,1,2,6,8,7,5,9,3,16,15,12,4,14,11,13};
-        int test_data[] = {2,1,3,5,4};
+    {/*{{{*/
+        int test_data[] = {10,1,2,6,8,7,5,9,3,16,15,12,4,14,11,13};
         int lenth = sizeof(test_data) / sizeof(int);
-        printf("快排演示 %d \n",lenth);
 
         for(int i = 0; i < sizeof(test_data) / sizeof(int); i++){
             printf("%d\t",test_data[i]);
@@ -166,11 +157,11 @@ int main(int argc,const char* argv[])
         int arr_size = sizeof(arr) / sizeof(arr[0]);
         divide(arr,0,arr_size -1);
         return EXIT_SUCCESS;
-    }
+    }/*}}}*/
 
     // thread access
     if(strcmp("thread_access",argv[1]) == 0)
-    {
+    {/*{{{*/
         pthread_t tid;
         HS arg;
         int stack = 3;
@@ -197,18 +188,17 @@ int main(int argc,const char* argv[])
         // 释放资源
         fclose(file_point);
         return EXIT_SUCCESS;
-    }
+    }/*}}}*/
 
     // 线程与进程
     if(strcmp("thread",argv[1]) == 0)
-    {
-        printf("当前进程ID : %u\n",getpid());
-        printf("当前进程父ID : %u\n",getppid());
-        printf("当前用户ID : %u\n",getuid());
-        printf("当前有效用户ID : %u\n",geteuid());
-        printf("当前组ID : %u\n",getgid());
-        printf("当前有效组ID : %u\n",getegid());
-        printf("-----------------\n\n");
+    {/*{{{*/
+        printf("PIID : %u\t",getpid());
+        printf("PPID : %u\t",getppid());
+        printf("UID : %u\t",getuid());
+        printf("EUID : %u\t",geteuid());
+        printf("GID : %u\t",getgid());
+        printf("EGID : %u\n",getegid());
 
         // 需要传递给线程的参数
         ARG arg;
@@ -227,11 +217,11 @@ int main(int argc,const char* argv[])
         sleep(2);
         printf("the main thread pid is %u ,tid is : %u \n",(unsigned int)getpid(),(unsigned int)tid);
         return EXIT_SUCCESS;
-    }
+    }/*}}}*/
 
     // 从指定的消息队列中读出数据
     if( strcmp("ipc-queue-rcv",argv[1]) == 0)
-    {
+    {/*{{{*/
         // argv[2] 存在
         int qid = atoi( argv[2] );
         struct msg pmsg;
@@ -250,11 +240,11 @@ int main(int argc,const char* argv[])
         }
         system("ipcs -q");
         exit(0);
-    }
+    }/*}}}*/
 
     // 进程间的通信 - 消息队列
     if(strcmp("ipc-queue",argv[1]) == 0)
-    {
+    {/*{{{*/
         key_t key = 113;
         struct msg pmsg; // 消息的结构体变量
         pmsg.msg_types = getpid();
@@ -274,19 +264,13 @@ int main(int argc,const char* argv[])
             }
             printf("successfully send a message to the queue : %d \n",qid);
             system("ipcs -q");
-            /*
-            if(msgctl(qid , IPC_RMID ,NULL) < 0){
-                perror("删除队列失败");
-                exit(1);
-            }
-            */
             exit(0);
         }
-    }
+    }/*}}}*/
 
     // 两个子进程之间的通信
     if(strcmp("brother-pipe",argv[1]) == 0)
-    {
+    {/*{{{*/
         pro_start();
         int fd[2];
         char buf[PIPE_BUF];
@@ -326,11 +310,11 @@ int main(int argc,const char* argv[])
         }
         pro_end();
         exit(0);
-    }
+    }/*}}}*/
 
     // 管道
     if(strcmp("pipe",argv[1]) == 0)
-    {
+    {/*{{{*/
         pro_start();
         int fd[2];
         char buf[PIPE_BUF];
@@ -355,11 +339,11 @@ int main(int argc,const char* argv[])
             sleep(10);
             pro_end();
         }
-    }
+    }/*}}}*/
 
     // no-zombie
     if(strcmp("no-zombie",argv[1]) == 0)
-    {
+    {/*{{{*/
         pid_t pid = fork();
 
         if(pid < 0){
@@ -380,7 +364,7 @@ int main(int argc,const char* argv[])
             }
             sleep(30);
         }
-    }
+    }/*}}}*/
 
     // 僵尸进程的产生
     if(strcmp("zombie",argv[1]) == 0)
@@ -424,19 +408,6 @@ int main(int argc,const char* argv[])
             }
 
             printf("no waiting , parent done \n");
-
-            /*
-            if( wait(&status) == -1 ){
-                printf("fail to error");
-                exit(1);
-            }
-
-            printf("阻断了？\n");
-
-            if( WIFEXITED(status) == 1){
-                printf("the status of first is : %d \n",WEXITSTATUS(status));
-            }
-            */
         }
 
         // 创建第一个子进程
@@ -612,26 +583,29 @@ int main(int argc,const char* argv[])
 
     // 使用预定义宏
     if( strcmp( "default-macro", argv[1] ) == 0 )
-    {
-        printf("File :%s\n", __FILE__ );
-        printf("Date :%s\n", __DATE__ );
-        printf("Time :%s\n", __TIME__ );
-        printf("Line :%d\n", __LINE__ );
+    {/*{{{*/
+        printf("File :%s\t", __FILE__ );
+        printf("Line :%d\t", __LINE__ );
+        printf("Date :%s\t", __DATE__ );
+        printf("Time :%s\t", __TIME__ );
         printf("ANSI :%d\n", __STDC__ );
-        printf("AUTHOR: %s \n---------------\n\n","codekissyoung");
-    }
+    }/*}}}*/
 
     // 读取文件
     if(strcmp("read-file",argv[1]) == 0)
     {
         char ch;
         FILE* fp = fopen("test.txt","r");
-        if(fp){
-            while((ch = getc(fp)) != EOF){ // 读取文件内容显示
+        if(fp)
+        {
+            while((ch = getc(fp)) != EOF)
+            { 
                 putchar(ch);
             }
-            fclose(fp); // 关闭文件
-        }else{
+            fclose(fp);
+        }
+        else
+        {
             printf("打开文件失败\n");
             exit(1);
         }
@@ -722,7 +696,7 @@ int main(int argc,const char* argv[])
             printf("maxrss is %ld\n",rusage.ru_maxrss);
         }
     }
-    // ------------------------------------------ end --------------------------------------------- //
+
     return EXIT_SUCCESS;
 }
 

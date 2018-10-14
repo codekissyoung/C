@@ -22,9 +22,3 @@ void simple_print_int(int begin,...){
 	printf("\n");
 
 }
-
-
-
-
-
-
