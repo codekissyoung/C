@@ -168,22 +168,10 @@ int main(int argc,const char* argv[])
         return EXIT_SUCCESS;
     }
 
-    // 线程退出
-    if(strcmp("thread_exit",argv[1]) == 0)
-    {
-        pthread_t tid1 , tid2 , tid3;
-        void **res;
-        pthread_create(&tid1,NULL,first_thread,NULL);
-        pthread_create(&tid2,NULL,second_thread,NULL);
-        pthread_create(&tid3,NULL,third_thread,NULL);
-        pthread_join( tid1 , res ); // 获取进程退出资源
-        sleep(10);
-    }
-
     // thread access
     if(strcmp("thread_access",argv[1]) == 0)
     {
-        pthread_t tid , tid2;
+        pthread_t tid;
         HS arg;
         int stack = 3;
         arg.heap = (int *)malloc(sizeof(int));
@@ -302,7 +290,7 @@ int main(int argc,const char* argv[])
         pro_start();
         int fd[2];
         char buf[PIPE_BUF];
-        pid_t pid,pid2;
+        pid_t pid;
         int len;
 
         if( pipe(fd) < 0  ) {
@@ -347,7 +335,6 @@ int main(int argc,const char* argv[])
         int fd[2];
         char buf[PIPE_BUF];
         ssize_t len;
-        char str[256];
         if( pipe(fd) < 0){
             printf("pipe error\n");
             exit(1);
@@ -420,7 +407,7 @@ int main(int argc,const char* argv[])
     if(strcmp("wait",argv[1]) == 0)
     {
         pid_t pid = fork();
-        int num,status;
+        int status;
         if(pid < 0){
             perror("fail to fork");
             exit(1);
@@ -581,26 +568,6 @@ int main(int argc,const char* argv[])
             }
             fputs(words,stdout);
         }
-    }
-
-    // 指向多维数组的指针
-    if( strcmp("multi-array",argv[1]) == 0 )
-    {
-        int zippo[3][2] = {
-            {2,3},
-            {4,5},
-            {6,7}
-        };
-        int (*pz)[2]; // 指向一个含有两个int类型值的数组
-        pz = zippo;
-        printf("zippo : %p , zippo[0]: %p :zippo[0][0] : %d \n",zippo,zippo[0],zippo[0][0]);
-        printf("pz : %p , *pz: %p : **pz: %d \n",pz,*pz,**pz);
-        printf("pz = %p,pz + 1:%p \n",pz,pz+1);
-        printf("pz[0] = %p,pz[0] + 1:%p \n",pz[0],pz[0]+1);
-        printf("*pz = %p,*pz + 1:%p \n",*pz,*pz+1);
-        printf("**pz = %d,*(*pz + 1):%d \n",**pz,*(*pz+1));
-        printf("**(pz + 1) = %d,*(*(pz + 1) + 1):%d \n",**(pz + 1),*(*(pz + 1)+1));
-        printf("pz[0][0] = %d,pz[0][1]:%d \n",pz[0][0],pz[0][1]);
     }
 
     // 测试下字符串数组

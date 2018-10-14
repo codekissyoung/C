@@ -68,8 +68,8 @@ void pp(){/*{{{*/
 	int *p = &a;
 	int **q = &p;
 	printf("*p : %d \n",*p);
-	printf("p : %p \n",p);
-	printf("*q : %p \n",*q);
+	printf("p : %p \n",(void*)p);
+	printf("*q : %p \n",(void*)*q);
 }/*}}}*/
 
 // 改变指针的指向
@@ -177,7 +177,6 @@ void divide(int *arr,int low,int high){/*{{{*/
 	int base      = arr[low]; // 找基准点
 	int low_mark  = low; // 低下标
 	int high_mark = high; // 高下标
-	int temp;
 	
 	printf("b:");
 	for(int i = low;i <= high;i++){

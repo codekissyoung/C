@@ -1,8 +1,8 @@
 BIN = cky
 CC  = gcc
 OBJECTS = $(patsubst %.c,%.o,$(notdir $(wildcard src/*.c)))
-DEBUG = -g
-CPPFLAGS = -std=gnu11 -Iinclude -Llib # -pedantic -Wall -Werror -save-temps
+DEBUG = -g3
+CPPFLAGS = -std=gnu11 -Iinclude -Llib -pedantic -Wall # -save-temps
 ARFLAGS = rcsvU
 SHARE_FLAGS = -Iinclude -shared -fPIC 
 VPATH = lib src include

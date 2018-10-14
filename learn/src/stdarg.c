@@ -9,7 +9,7 @@ void simple_print_int(int begin,...){
 
 	int j = va_arg(arg_ptr , int ); // 使用 arg_ptr 指针 和 参数类型，来获取参数的值
 	
-	printf("begin : %p \n",&begin);
+	printf("begin : %p \n",(void*)&begin);
 	
 	int k = va_arg(arg_ptr , int );
 
