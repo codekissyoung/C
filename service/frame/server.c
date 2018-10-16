@@ -7,10 +7,7 @@
 #include "conf.h"
 #include "log.h"
 
-/* settings */
 struct setting setting;
-
-/* pid file */
 static const char *pid_file = "./pid";
 
 /* forward declarations */
@@ -18,10 +15,9 @@ void io_thread_init(int nthreads);
 void dispatch_io(int fd, int event_flag, enum io_cmd cmd, struct io_buff *buff);
 void io_thread_stop();
 
-/*
- * set file description to non-block 
- */
-static void set_non_block(int sock) {
+// set file description to non-block 
+static void set_non_block(int sock)
+{
 	int val = fcntl(sock, F_GETFL, 0);
 	if (val == -1) {
 		log_txt_err("fcntl[F_GETFL] error");
@@ -33,24 +29,18 @@ static void set_non_block(int sock) {
 	}
 }
 
-/*
- * create listen socket and intialize it
- */
-static int server_sock_init(char *ip, int port) {
+// create listen socket and intialize it
+static int server_sock_init(char *ip, int port)
+{/*{{{*/
 	int sock;
 	struct sockaddr_in server_addr;
     int enable = 1;
 
-	/* create socket */
 	if ((sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0) {
 		perror("socket error");
 		log_txt_err("socket error");
 		exit(1);
 	}
-
-	//set_non_block(sock);
-	//epoll_add(sock, EPOLLIN | EPOLLET);
-
     // set reuseaddr
     if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0) {
         perror("setsockopt(SO_REUSEADDR) failed");
@@ -83,12 +73,11 @@ static int server_sock_init(char *ip, int port) {
     }
 
 	return sock;
-}
+}/*}}}*/
 
-/*
- * accept a connection
- */
-static int server_accept(int server_sock) {
+// accept a connection
+static int server_accept(int server_sock)
+{/*{{{*/
 	struct sockaddr addr;
 	socklen_t len;
 
@@ -96,12 +85,11 @@ static int server_accept(int server_sock) {
 	len = sizeof(addr);
 
 	return accept(server_sock, &addr, &len);
-}
+}/*}}}*/
 
-/*
- * initialize setting
- */
-static void read_conf(char *conf_file) {
+// initialize setting
+static void read_conf(char *conf_file)
+{/*{{{*/
 	int ret = 0;
 	int i = 0;
 
@@ -155,7 +143,7 @@ static void read_conf(char *conf_file) {
 
 	/* destroy config */
 	conf_uninit();
-}
+}/*}}}*/
 
 /*
  * initialize modules
@@ -476,7 +464,8 @@ void usage(void) {
 	exit(0);
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{/*{{{*/
 	struct event_base *event_handle;
 	int server_sock, c, daemon = 0;
 	char conf_file[255], action[255];
@@ -490,13 +479,13 @@ int main(int argc, char *argv[]) {
 	//strcpy(conf_file, "./Company_Service.ini");
 	//strcpy(conf_file, "./QA_Service.ini");
 
-	/* if use crrect */
+	/* process arguments */
 	if (argc == 1)
 		usage();
-
-	/* process arguments */
-	while ((c = getopt(argc, argv, "c:dh?")) != -1) {
-		switch (c) {
+	while ((c = getopt(argc, argv, "c:dh?")) != -1)
+    {
+		switch (c)
+        {
 			case 'c':
 				strcpy(conf_file, optarg);	
 				break;
@@ -509,10 +498,8 @@ int main(int argc, char *argv[]) {
 				break;
 		}
 	}
-
-	if (optind == argc) {
+	if (optind == argc)
 		usage();
-	}
 	strcpy(action, argv[optind]);
 
 	/* parse action */
@@ -572,4 +559,4 @@ int main(int argc, char *argv[]) {
 	event_loop(event_handle);
 
 	return 0;
-}
+}/*}}}*/
