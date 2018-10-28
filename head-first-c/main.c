@@ -33,6 +33,19 @@ int main( int argc, char *argv[] )
     }    
     printf("\n");
 
+    void ( *replies[] )( response ) = {dump, second_chance, marriage };
+
+    response r[] = {
+        {"Maru",DUMP},
+        {"Classic",SECOND_CHANCE},
+        {"Byun",MARRIAGE}
+    };
+
+    for( int i = 0; i < 3; i ++ )
+    {
+        (replies[r[i].type])(r[i]);
+    }
+    return 0;
     /*
     char question[80];
     char suspect[20];
