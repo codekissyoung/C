@@ -6,10 +6,34 @@
 #include "main.h"
 #include "encrypt.h"
 #include "question.h"
-
+#include "sort.h"
 
 int main( int argc, char *argv[] )
 {
+    int scores[] = {23.242,322,453,564,434,567,239};
+
+
+    qsort( scores, sizeof(scores) / sizeof(int), sizeof(int), compare_scores );
+
+    for( int i = 0; i < sizeof(scores) / sizeof(int); i++ )
+    {
+        printf("%d\t",scores[i]);
+    }    
+
+    printf("\n");
+
+
+
+    char *names[] = {"Dark","Maru","inovation","Classic","showtime","byun","tyty"};
+
+    qsort( names, 7, sizeof(char*), compare_names );
+    for( int i = 0; i < 7; i++ )
+    {
+        printf("%s\t", names[i] );
+    }    
+    printf("\n");
+
+    /*
     char question[80];
     char suspect[20];
 
@@ -60,6 +84,7 @@ int main( int argc, char *argv[] )
 
     release( start_node );
     return 0;
+    */
 
     /*
     // optarg
