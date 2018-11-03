@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <sys/types.h>
+
 #include "common.h"
 #include "main.h"
 #include "encrypt.h"
@@ -12,8 +14,6 @@
 
 int main( int argc, char *argv[] )
 {
-
-
     pid_t fd[2];
 
     if( pipe( fd ) == -1 )
