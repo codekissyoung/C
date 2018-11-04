@@ -6,6 +6,7 @@
 #include <arpa/inet.h>
 #include <errno.h>
 #include <signal.h>
+#include <pthread.h>
 #include "server.h"
 
 int listener_d;
@@ -33,11 +34,10 @@ int main( int argc, char *argv[] )
     if( listen(listener_d,10) == -1 )
         error("Cant not listen");
 
-    struct sockaddr_storage client_addr;
-    unsigned int address_size = sizeof(client_addr);
-
     puts("Waiting for connection!");
 
+    struct sockaddr_storage client_addr;
+    unsigned int address_size = sizeof(client_addr);
     char buf[255];
     pid_t pid;
 

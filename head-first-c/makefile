@@ -1,13 +1,16 @@
-FLAGS=-p -Wall -Wcast-align -std=gnu11  -pedantic -I. -L.
+FLAGS=-p -Wall -Wcast-align -std=gnu11  -pedantic -I. -L. -pthread
 LIB=
 DEBUG=-g3
 
-all:main server
+all:main server client
+
+main:main.o question.o log.o libsecurity.a libsort.so
+	gcc $(DEBUG) $(FLAGS) $(LIB) $^ -o $@
 
 server:server.o
 	gcc $(DEBUG) $(FLAGS) $(LIB) $^ -o $@
 
-main:main.o question.o log.o libsecurity.a libsort.so
+client:client.o
 	gcc $(DEBUG) $(FLAGS) $(LIB) $^ -o $@
 
 libsecurity.a:encrypt.o checksum.o
@@ -35,6 +38,9 @@ log.o:log.c log.h
 	gcc $(DEBUG) $(FLAGS) -c $< -o $@
 
 server.o:server.c server.h
+	gcc $(DEBUG) $(FLAGS) -c $< -o $@
+
+client.o:client.c
 	gcc $(DEBUG) $(FLAGS) -c $< -o $@
 
 .PHONY:clean
