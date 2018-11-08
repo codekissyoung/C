@@ -49,15 +49,15 @@ int say( int socket, char *s )
     return result;
 }
 
-int main(int argc, char const *argv[])
+int main( int argc, char const *argv[] )
 {
     int d_sock;
     d_sock = open_socket("codekissyoung.com","30000");
 
     char buf[255];
-    sprintf(buf,"GET / http/1.1\r\n");
+    sprintf( buf, "GET / http/1.1\r\n" );
     say( d_sock, buf );
-    say( d_sock, "Host: en.wikipedia.org\r\n\r\n");
+    say( d_sock, "Host: en.wikipedia.org\r\n\r\n" );
 
     char rec[256];
     int bytes_rcvd = recv( d_sock, rec, 255, 0 );

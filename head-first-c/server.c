@@ -18,7 +18,7 @@ void diediedie( int sig );
 
 int say( int socket, char *s );
 int read_in( int socket, char *buf, int len );
-int catch_signal( int sig, void(*handler)(int));
+int catch_signal( int sig, void(*handler)(int) );
 int open_listener_socket();
 
 
@@ -31,28 +31,28 @@ int main( int argc, char *argv[] )
 
     bind_to_port(listener_d, 30000);
 
-    if( listen(listener_d,10) == -1 )
+    if( listen( listener_d, 10 ) == -1 )
         error("Cant not listen");
 
     puts("Waiting for connection!");
 
     struct sockaddr_storage client_addr;
     unsigned int address_size = sizeof(client_addr);
+
     char buf[255];
     pid_t pid;
-
     while( 1 )
     {
-        int connect_d = accept(listener_d, (struct sockaddr *)&client_addr, &address_size);
+        int connect_d = accept( listener_d, (struct sockaddr *)&client_addr, &address_size );
         if( connect_d == -1 )
             error("不能打开第二个socket");
-
 
         // 子进程
         if( (pid = fork()) == 0 )
         {
             close(listener_d);
             printf("pid : %d\n",connect_d);
+
             if(say(connect_d,"Internet Knock-Knock Protocol Server \r\nVersion 1.0\r\nKnock!Knock!\r\n") != -1)
             {
                 read_in(connect_d,buf,sizeof(buf));
