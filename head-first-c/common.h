@@ -19,3 +19,9 @@ typedef struct {
     struct island *next;
 } island;
 
+typedef struct Test_arr_struct {
+    int age;
+    double weight;
+    char name[10];
+    uint64_t user_ids[1000];
+} Test_arr_struct;

@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <sys/types.h>
+#include <stdint.h>
 
 #include "common.h"
 #include "main.h"
@@ -14,6 +15,9 @@
 
 int main( int argc, char *argv[] )
 {
+    Test_arr_struct test_arr_struct;
+
+    printf("sizeof : %ld\n",sizeof(test_arr_struct));
     pid_t fd[2];
 
     if( pipe( fd ) == -1 )
@@ -49,7 +53,6 @@ int main( int argc, char *argv[] )
     fgets( line, 255, stdin );
     printf( "%s", line );
     
-
 /*
     if( execl("/sbin/ifconfig", "/sbin/ifconifg", NULL ) == -1  )
     {

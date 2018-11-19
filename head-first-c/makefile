@@ -47,4 +47,7 @@ client.o:client.c
 clean:
 	rm *.o
 	rm *.a
+	rm *.so
 	rm main
+	rm client
+	rm server
