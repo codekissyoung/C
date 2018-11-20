@@ -2,7 +2,7 @@ FLAGS=-p -Wall -Wcast-align -std=gnu11  -pedantic -I. -L. -pthread
 LIB=
 DEBUG=-g3
 
-all:main server client
+all:main server client epoll-server
 
 main:main.o question.o log.o libsecurity.a libsort.so
 	gcc $(DEBUG) $(FLAGS) $(LIB) $^ -o $@
@@ -11,6 +11,9 @@ server:server.o
 	gcc $(DEBUG) $(FLAGS) $(LIB) $^ -o $@
 
 client:client.o
+	gcc $(DEBUG) $(FLAGS) $(LIB) $^ -o $@
+
+epoll-server:epoll-server.o
 	gcc $(DEBUG) $(FLAGS) $(LIB) $^ -o $@
 
 libsecurity.a:encrypt.o checksum.o
@@ -43,6 +46,9 @@ server.o:server.c server.h
 client.o:client.c client.h
 	gcc $(DEBUG) $(FLAGS) -c $< -o $@
 
+epoll-server.o:epoll-server.c epoll-server.h
+	gcc $(DEBUG) $(FLAGS) -c $< -o $@
+
 .PHONY:clean
 clean:
 	rm *.o
@@ -51,3 +57,4 @@ clean:
 	rm main
 	rm client
 	rm server
+	rm epoll-server
