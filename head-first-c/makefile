@@ -40,7 +40,7 @@ log.o:log.c log.h
 server.o:server.c server.h
 	gcc $(DEBUG) $(FLAGS) -c $< -o $@
 
-client.o:client.c
+client.o:client.c client.h
 	gcc $(DEBUG) $(FLAGS) -c $< -o $@
 
 .PHONY:clean

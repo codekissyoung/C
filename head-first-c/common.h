@@ -25,3 +25,11 @@ typedef struct Test_arr_struct {
     char name[10];
     uint64_t user_ids[1000];
 } Test_arr_struct;
+
+typedef struct Node
+{
+    int nodeSize;
+    int bufSize;
+    // char buf[0]; // gnu 拓展 -pedantic 会报 warning: ISO C forbids zero-size array ‘buf’ [-Wpedantic]
+    char buf[]; // c99 之后的拓展
+} Node;

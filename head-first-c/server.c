@@ -3,13 +3,19 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/socket.h>
+#include <sys/types.h>
+#include <netinet/in.h>
 #include <arpa/inet.h>
 #include <errno.h>
 #include <signal.h>
 #include <pthread.h>
+#include <stdint.h>
+
+#include "common.h"
 #include "server.h"
 
 int listener_d;
+typedef struct sockaddr_storage sockaddr_storage;
 
 void error( char *s );
 void bind_to_port( int socket, int port );
@@ -21,89 +27,96 @@ int read_in( int socket, char *buf, int len );
 int catch_signal( int sig, void(*handler)(int) );
 int open_listener_socket();
 
-
 int main( int argc, char *argv[] )
 {
+    // 设置中断处理函数失败
     if( catch_signal( SIGINT, handler_shutdown ) == -1 )
         error("设置中断处理函数失败");
 
+    // ------------------- 程序开始 ------------------- //
+
     listener_d = open_listener_socket();
 
-    bind_to_port(listener_d, 30000);
+    bind_to_port( listener_d, 30000 );
 
     if( listen( listener_d, 10 ) == -1 )
         error("Cant not listen");
 
-    puts("Waiting for connection!");
+    puts("Waiting for connection ...");
 
-    struct sockaddr_storage client_addr;
-    unsigned int address_size = sizeof(client_addr);
+    sockaddr_storage client_addr;
+    pid_t    pid;
+    socklen_t address_size = sizeof(client_addr);
 
-    char buf[255];
-    pid_t pid;
     while( 1 )
     {
         int connect_d = accept( listener_d, (struct sockaddr *)&client_addr, &address_size );
         if( connect_d == -1 )
             error("不能打开第二个socket");
 
-        // 子进程
-        if( (pid = fork()) == 0 )
+        if( (pid = fork()) < 0 )
+            error("fork error\n");
+        
+        // 父进程     
+        if( pid > 0 )
+        {
+            close(connect_d);
+        }
+
+        // 子进程 
+        else
         {
             close(listener_d);
-            printf("pid : %d\n",connect_d);
-
-            if(say(connect_d,"Internet Knock-Knock Protocol Server \r\nVersion 1.0\r\nKnock!Knock!\r\n") != -1)
+            if( say( connect_d, "Server Connected!\n" ) != -1 )
             {
-                read_in(connect_d,buf,sizeof(buf));
-                if( strncmp("who is there?",buf,12) )
-                    say(connect_d, "You should say who is there?");
-                else
-                {
-                    if( say(connect_d,"Oscar\r\n>") != -1 )
-                    {
-                        read_in(connect_d,buf,sizeof(buf));
-                        if(strncmp("Oscar who?",buf,10))
-                        {
-                            say(connect_d,"you should say Oscar who\r\n");
-                        }
-                        else
-                        {
-                            say(connect_d,"Oscar silly question ,you get a silly answer\r\n");
-                        }
-                    }
-                }
+                int nodeSize = 0;
+                int read_num = read_in( connect_d, (char*)&nodeSize, sizeof(nodeSize) );
+                if( read_num < 0 )
+                    error("read nodeSize error\n");
+
+                Node *client_data = (Node*)malloc( nodeSize );
+                client_data -> nodeSize = nodeSize;
+                read_num = read_in( connect_d, (char*)&(client_data -> bufSize), nodeSize - sizeof(nodeSize) );
+                if( read_num < 0 )
+                    error("read Buffer error\n");
+
+                printf("nodeSize = %d\n bufSize = %d\n buf = %s\n",client_data->nodeSize,client_data->bufSize,client_data->buf);
+                // printf("nodeSize : %d\n",nodeSize);
+                // char_num = read_in( connect_d, buf, sizeof(buf) );
+                // buf[char_num] = '\0';
+                // printf(" %ld 个字节, 读取到了 %s\n", char_num, buf );
             }
             close(connect_d);
             exit(0);
         }
-        // 父进程
-        close(connect_d);
     }
     return 0;
 }
 
+// recv()调用不一定一次调用就能接收到所有数据
+// recv()返回已接收的字符个数，发生错误则返回-1,客户端关闭了链接则返回0
 int read_in( int socket, char *buf, int len )
 {
-    char *s   = buf;
-    int  slen = len;
-    int  c    = recv(socket, s, slen, 0);
-
-    while( ( c > 0) && ( s[c-1] != '\n' ) )
-    {
-        s += c;
-        slen -= c;
-        c = recv( socket, s, slen, 0 );
-    }
-
-    if( c < 0 )
-        return c;
-    else if( c == 0 )
-        buf[0] = '\0';
-    else
-        s[c-1] = '\0';
-
-    return len - slen;
+    char *local_buff = buf;
+    int local_len = len;
+    int recv_len = 0;
+    do{
+        recv_len = recv( socket, local_buff, local_len, 0 );
+        if( recv_len < 0 )
+        {
+            return recv_len;
+        }
+        if( recv_len == 0 )
+        {
+            return 0;
+        }
+        if( recv_len > 0 )
+        {
+            local_buff += recv_len;
+            local_len -= recv_len;
+        }
+    }while(local_buff[-1] != '\n');
+    return len - local_len;
 }
 
 void error( char *s )
@@ -125,14 +138,14 @@ void bind_to_port( int socket, int port )
     struct sockaddr_in name;
     name.sin_family      = PF_INET;
     name.sin_port        = (in_port_t)htons(30000);
-    name.sin_addr.s_addr = htonl(INADDR_ANY);
+    name.sin_addr.s_addr = htonl( INADDR_ANY );
 
+    // 操作系统限制在某个端口绑定了套接字，在接下来30s内，不允许任何程序再绑定这个端口,通过下面这个设置，可以解除这个限制
     int reuse = 1;
     if( setsockopt( socket, SOL_SOCKET, SO_REUSEADDR, (char*)&reuse, sizeof(int)) == -1 )
         error("Can not reuse option on socket");
-    int c = bind( socket, (struct sockaddr *)&name, sizeof(name) );
-
-    if( c == -1 )
+    
+    if( bind( socket, (struct sockaddr *)&name, sizeof(name) ) == -1 )
         error("Can not bind to socket");
 }
 
