@@ -4,6 +4,7 @@ DEBUG=-g3
 
 all:main server client epoll-server
 
+# 可执行程序
 main:main.o question.o log.o libsecurity.a libsort.so
 	gcc $(DEBUG) $(FLAGS) $(LIB) $^ -o $@
 
@@ -16,15 +17,17 @@ client:client.o
 epoll-server:epoll-server.o
 	gcc $(DEBUG) $(FLAGS) $(LIB) $^ -o $@
 
+main.o:main.c main.h common.h
+	gcc $(DEBUG) $(FLAGS) -c $< -o $@
+
+# 库
 libsecurity.a:encrypt.o checksum.o
 	ar -rcs libsecurity.a encrypt.o checksum.o
 
 libsort.so:sort.o
 	gcc -shared $^ -o $@
 
-main.o:main.c main.h common.h
-	gcc $(DEBUG) $(FLAGS) -c $< -o $@
-
+# 临时文件
 encrypt.o:encrypt.c encrypt.h
 	gcc $(DEBUG) $(FLAGS) -c $< -o $@
 
@@ -49,6 +52,7 @@ client.o:client.c client.h
 epoll-server.o:epoll-server.c epoll-server.h
 	gcc $(DEBUG) $(FLAGS) -c $< -o $@
 
+# 清理操作
 .PHONY:clean
 clean:
 	rm *.o

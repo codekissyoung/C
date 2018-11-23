@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 #include <unistd.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <netdb.h>
+#include <time.h>
 #include <errno.h>
 #include <signal.h>
 #include <pthread.h>
@@ -34,7 +37,6 @@ int main( int argc, char *argv[] )
         error("设置中断处理函数失败");
 
     // ------------------- 程序开始 ------------------- //
-
     listener_d = open_listener_socket();
 
     bind_to_port( listener_d, 30000 );
@@ -79,12 +81,7 @@ int main( int argc, char *argv[] )
                 read_num = read_in( connect_d, (char*)&(client_data -> bufSize), nodeSize - sizeof(nodeSize) );
                 if( read_num < 0 )
                     error("read Buffer error\n");
-
                 printf("nodeSize = %d\n bufSize = %d\n buf = %s\n",client_data->nodeSize,client_data->bufSize,client_data->buf);
-                // printf("nodeSize : %d\n",nodeSize);
-                // char_num = read_in( connect_d, buf, sizeof(buf) );
-                // buf[char_num] = '\0';
-                // printf(" %ld 个字节, 读取到了 %s\n", char_num, buf );
             }
             close(connect_d);
             exit(0);
@@ -93,8 +90,8 @@ int main( int argc, char *argv[] )
     return 0;
 }
 
-// recv()调用不一定一次调用就能接收到所有数据
-// recv()返回已接收的字符个数，发生错误则返回-1,客户端关闭了链接则返回0
+// recv() 调用不一定一次调用就能接收到所有数据
+// recv() 返回已接收的字符个数，发生错误则返回-1,客户端关闭了链接则返回0
 int read_in( int socket, char *buf, int len )
 {
     char *local_buff = buf;
@@ -180,6 +177,3 @@ void handler_shutdown( int sig )
     fprintf(stderr,"Bye!\n");
     exit(0);
 }
-
-
-

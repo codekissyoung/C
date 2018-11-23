@@ -1,4 +1,5 @@
-struct preferences{
+struct preferences
+{
     const char *food;
     float exercise_hours;
 };

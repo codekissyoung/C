@@ -28,14 +28,14 @@ int main( int argc, const char *argv[] )
     ssize_t n;
     char line[MAXLINE];
     socklen_t clilen;
-    struct epoll_event ev,events[20]; //声明epoll_event结构体的变量,ev用于注册事件,数组用于回传要处理的事件
+    struct epoll_event ev,events[20];            //声明epoll_event结构体的变量,ev用于注册事件,数组用于回传要处理的事件
 
     epfd     = epoll_create(256);                // 生成用于处理accept的epoll专用的文件描述符
     listenfd = socket(AF_INET, SOCK_STREAM, 0);
     setnonblocking(listenfd);                    // 把socket设置为非阻塞方式
     
     ev.data.fd = listenfd;                      // 设置与要处理的事件相关的文件描述符
-    ev.events  = EPOLLIN | EPOLLET;  // 设置要处理的事件类型
+    ev.events  = EPOLLIN | EPOLLET;             // 设置要处理的事件类型
     epoll_ctl(epfd,EPOLL_CTL_ADD,listenfd,&ev); //注册epoll事件
 
     bzero(&serveraddr, sizeof(serveraddr));
@@ -45,6 +45,7 @@ int main( int argc, const char *argv[] )
 
     bind(listenfd,(struct sockaddr *)&serveraddr, sizeof(serveraddr));
     listen(listenfd, LISTENQ);
+    printf("epoll server waiting for connection ...\n");
 
     for ( ; ; ) {
          nfds=epoll_wait(epfd,events,20,500); //等待epoll事件的发生
