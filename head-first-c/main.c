@@ -15,68 +15,13 @@
 
 int main( int argc, char *argv[] )
 {
-    Test_arr_struct test_arr_struct;
-
-    printf("sizeof : %ld\n",sizeof(test_arr_struct));
-    pid_t fd[2];
-
-    if( pipe( fd ) == -1 )
-    {
-        printf("open fd error");
-        exit(1);
-    }
-
-    pid_t pid = fork();
-
-    if( pid == -1 )
-    {
-        printf("fork error");
-        exit(1);
-    }
-
-    if( pid == 0 )
-    {
-        dup2( fd[1], 1 );
-        close( fd[0] );
-
-        printf("from child ");
-        return 0;        
-    }
-
-
-    dup2( fd[0], 0 );
-    close( fd[1] );
-
-    printf("from parent !");
-
-    char line[255];
-    fgets( line, 255, stdin );
-    printf( "%s", line );
     
-/*
-    if( execl("/sbin/ifconfig", "/sbin/ifconifg", NULL ) == -1  )
-    {
-        if( execlp("ifconfig","ifconfig",NULL) == -1 )
-        {
-            fprintf(stderr,"cannot run ifconfig : %s", strerror(errno));
-            return 1;
-        }
-    }
-*/
-/*
-   char comment[80];
-   char cmd[120];
-
-   fgets( comment, 80, stdin );
-   sprintf( cmd, "echo '%s %s' >> reports.log", comment, now() );
-   system(cmd);
-*/
     int scores[] = {23.242,322,453,564,434,567,239};
     qsort( scores, sizeof(scores) / sizeof(int), sizeof(int), compare_scores );
     for( int i = 0; i < sizeof(scores) / sizeof(int); i++ )
     {
         printf("%d\t",scores[i]);
-    }    
+    }
     printf("\n");
 
     char *names[] = {"Dark","Maru","inovation","Classic","showtime","byun","tyty"};
@@ -199,4 +144,3 @@ int main( int argc, char *argv[] )
     return 0;
     */
 }
-
