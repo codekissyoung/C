@@ -5,6 +5,8 @@
 #include <errno.h>
 #include <sys/types.h>
 #include <stdint.h>
+#include <dirent.h>
+#include <sys/wait.h>
 
 #include "common.h"
 #include "main.h"
@@ -13,9 +15,55 @@
 #include "sort.h"
 #include "log.h"
 
+#define MAXLINE 512
+
 int main( int argc, char *argv[] )
 {
+    int64_t a = -1;
     
+    uint64_t b = (uint64_t)a;
+
+    
+    printf("process id : %d\n",getpid());
+    
+    char    buf[MAXLINE];
+    pid_t   pid;
+    int     status;
+    printf("cky > ");
+    int buf_len;
+
+    while( fgets(buf,MAXLINE,stdin) != NULL )
+    {
+        buf_len = strlen(buf);
+        if( buf[ buf_len - 1 ]== '\n' )
+            buf[ buf_len - 1 ] = '\0';
+        
+        pid = fork();
+
+        if( pid < 0 )
+        {
+            printf("fork error!");
+            exit(errno);
+        }
+        
+        // child
+        if( pid == 0 )
+        {
+            execlp(buf, buf, (char*)0);
+            printf("执行失败: %s\n",buf);
+            exit(127);
+        }
+
+        pid = waitpid( pid, &status, 0 );
+
+        if( pid < 0 )
+        {
+            printf("waitpid error\n");
+            exit(errno);
+        }
+        printf("cky > ");
+    }
+
     int scores[] = {23.242,322,453,564,434,567,239};
     qsort( scores, sizeof(scores) / sizeof(int), sizeof(int), compare_scores );
     for( int i = 0; i < sizeof(scores) / sizeof(int); i++ )
