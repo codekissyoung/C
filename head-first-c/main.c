@@ -1,12 +1,20 @@
 #include <stdio.h>
 #include <string.h>
+#include <strings.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <stddef.h>
 #include <errno.h>
-#include <sys/types.h>
 #include <stdint.h>
 #include <dirent.h>
+#include <signal.h>
+
 #include <sys/wait.h>
+#include <sys/ioctl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/termios.h>
+#include <sys/types.h>
 
 #include "common.h"
 #include "main.h"
@@ -15,7 +23,12 @@
 #include "sort.h"
 #include "log.h"
 
-#define MAXLINE 512
+#define MAXLINE 4096
+#define _XOPEN_SOURCE 600
+#define FILE_MODE ( S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH )
+#define DIR_MODE ( FILE_MODE | S_XUSR | S_IXGRP | S_IXOTH )
+#define min(a,b) ((a) < (b) ? (a) : (b))
+#define max(a,b) ((a) > (b) ? (a) : (b))
 
 int main( int argc, char *argv[] )
 {   
