@@ -62,20 +62,6 @@ static int _proc_get_post_cmd(struct io_buff *buff)
     rds_req._user_types = req->_user_types;
     rds_req._tag = req->_tag;
 
-    //for debug
-    /*
-    log_txt_err("rds_req._user_num=%d", rds_req._user_num) ;
-    for (int i=0; i<rds_req._user_num; i++)
-    {
-        log_txt_err("rds_req._user_id=%llu", rds_req._user_ids[i]) ;
-        log_txt_err("rds_req._user_type=%d", rds_req._user_types[i]) ;
-        log_txt_err("rds_req._tag=%s", rds_req._tag) ;
-    }
-    */
-
-    /*
-    rds_req._start_idx = req->_start_idx;
-    */
     rds_req._start_idx = 0 ;
     rds_req._req_num = req->_req_num;
 
@@ -85,21 +71,6 @@ static int _proc_get_post_cmd(struct io_buff *buff)
         log_txt_err("redis_get_post failed!");
         return -1;
     }
-
-    //for debug
-    /*
-    log_txt_err("rds_rsp._list_num=%d", rds_rsp._list_num) ;
-    for (int i=0; i<rds_rsp._list_num; i++)
-    {
-        int j=0 ;
-        while (rds_rsp._lists[i][j] != 0)
-        {
-            log_txt_err("rds_rsp._lists[%d][%d]=%llu",i,j,rds_rsp._lists[i][j]) ;
-            j++ ;
-        }
-    }
-    */
-    
 
     // merge
     int in_list_x[MAX_RET_POST_NUM] ;
@@ -116,16 +87,6 @@ static int _proc_get_post_cmd(struct io_buff *buff)
         rsp->_user_types[j] = req->_user_types[in_list_x[j]] ;
         rsp->_user_ids[j] = req->_user_ids[in_list_x[j]];
     }
-    //for debug
-    /*
-    log_txt_err("multi_merge num=%d", ret) ;
-    for (int j=0; j<ret; j++)
-    {
-        log_txt_err("post id[%d]=%llu", j, rsp->_posts[j]) ;
-        log_txt_err("user_types[%d]=%d", j, rsp->_user_types[j]) ;
-        log_txt_err("user_ids[%d]=%llu", j, rsp->_user_ids[j]) ;
-    }
-    */
     
     // pack ret
     rsp->_header.len = sizeof(bs2as_get_post_t) - sizeof(rsp->_posts) + sizeof(rsp->_posts[0]) * ret;
@@ -202,8 +163,6 @@ static int _proc_get_post_by_page_cmd(struct io_buff *buff)
     rsp->_header.sequence = req->_header.sequence;
     rsp->_header.state = 0;
     rsp->_post_num = actual_post_num;
-
-    // log_txt_info("finished one get-post-request, return-pack-length:%d", rsp->_header.len);
 
     return 0;
 }
