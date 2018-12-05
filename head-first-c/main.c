@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include <dirent.h>
 #include <signal.h>
+#include <fcntl.h>
 
 #include <sys/wait.h>
 #include <sys/ioctl.h>
@@ -29,6 +30,25 @@
 #define DIR_MODE ( FILE_MODE | S_XUSR | S_IXGRP | S_IXOTH )
 #define min(a,b) ((a) < (b) ? (a) : (b))
 #define max(a,b) ((a) > (b) ? (a) : (b))
+
+// 设置文件状态标志函数
+void set_fl( int fd, int flags )
+{
+    int val = fcntl( fd, F_GETFL, 0);
+    if( val < 0 )
+    {
+        perror("error");
+        exit(errno);
+    }
+
+    val |= flags;
+
+    if( fcntl( fd, F_SETFL, val ) < 0 )
+    {
+        perror("error");
+        exit(errno);
+    }
+}
 
 int main( int argc, char *argv[] )
 {   
