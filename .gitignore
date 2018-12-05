@@ -13,3 +13,4 @@ QT/QT.pro.user
 base-practice/main
 gmon.out
 .idea/
+.vscode/
