@@ -25,7 +25,7 @@ libsecurity.a:encrypt.o checksum.o
 	ar -rcs libsecurity.a encrypt.o checksum.o
 
 libsort.so:sort.o
-	gcc -shared $^ -o $@
+	gcc -shared -fPIC $^ -o $@
 
 # 临时文件
 encrypt.o:encrypt.c encrypt.h
@@ -38,7 +38,7 @@ question.o:question.c question.h
 	gcc $(DEBUG) $(FLAGS) -c $< -o $@
 
 sort.o:sort.c sort.h
-	gcc $(DEBUG) $(FLAGS) -c $< -o $@
+	gcc $(DEBUG) $(FLAGS) -fPIC -c $< -o $@
 
 log.o:log.c log.h
 	gcc $(DEBUG) $(FLAGS) -c $< -o $@

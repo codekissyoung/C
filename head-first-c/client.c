@@ -60,9 +60,8 @@ int main( int argc, char const *argv[] )
     d_sock = open_socket("codekissyoung.com","30000");
 
     if( argc < 2 )
-    {
         printf("client arg1");
-    }
+
     int tmpLen = strlen(argv[1]);
 
     Node    *dataBuf    = (Node*)malloc( sizeof(Node) + tmpLen + 1 );

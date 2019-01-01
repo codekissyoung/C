@@ -16,6 +16,7 @@
 #include <sys/stat.h>
 #include <sys/termios.h>
 #include <sys/types.h>
+#include <pthread.h>
 
 #include "common.h"
 #include "main.h"
@@ -50,8 +51,80 @@ void set_fl( int fd, int flags )
     }
 }
 
+struct foo{
+    int a, b, c, d;
+};
+
+pthread_t ntid;
+
+void printids(const char *s)
+{
+    pid_t pid;
+    pthread_t tid;
+
+    pid = getpid();
+    tid = pthread_self();
+    printf("%s pid %lu, tid %lu 0x%lx \n",s,(unsigned long)pid,tid,tid);
+}
+
+void printfoo( const char *s, const struct foo *fp )
+{
+    printf("%s\n",s);
+    printf("struct at 0x%lx\n",(unsigned long)fp);
+    printf("foo.a = %d\t foo.b = %d\t foo.c=%d\t foo.d=%d\n",fp->a,fp->b,fp->c,fp->d);
+}
+
+void *thr_fn(void *arg)
+{
+    printids("new thread: ");
+    return (void *)0;
+}
+
+void *thr_fn1( void *arg )
+{
+    struct foo foo = {1,2,3,4};
+    printfoo( "thread 1 : \n", &foo );
+    return ((void*)&foo);
+}
+
+void *thr_fn2( void *arg )
+{
+    printf("thread2 : %lu existing\n", (unsigned long)pthread_self());
+    pthread_exit((void*)0);
+}
+
+
 int main( int argc, char *argv[] )
-{   
+{
+    pthread_t tid1;
+    pthread_t tid2;
+    void *tret;
+    struct foo *fp;
+
+    int err = pthread_create( &tid1, NULL, thr_fn1, NULL );
+    if( err != 0 )
+        printf("can not create thread1\n");
+
+    err = pthread_join( tid1, (void *)&fp );
+    if( err != 0 )
+        printf("can not join with thread 1\n");
+    // printf("thread 1 exit code with %ld\n",(long)tret);
+
+    sleep(1);
+
+    err = pthread_create(&tid2, NULL, thr_fn2, NULL);
+    if( err != 0 )
+        printf("can not create thread2\n");
+
+    // err = pthread_join( tid2, &tret );
+    // if( err != 0 )
+    //     printf("can not join with thread 2\n");
+    // printf("thread 2 exit code with %ld\n", (long)tret);    
+    // sleep(1);
+    sleep(1);
+    printfoo("parent : \n", fp);
+    printids("main thread: ");
+
     int scores[] = {23.242,322,453,564,434,567,239};
     qsort( scores, sizeof(scores) / sizeof(int), sizeof(int), compare_scores );
     for( int i = 0; i < sizeof(scores) / sizeof(int); i++ )
