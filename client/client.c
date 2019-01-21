@@ -20,7 +20,7 @@ int main ( int argc, char *argv[] )
     }
 
     // 获取服务器域名对应的 第一个ip
-    const char *server_host =  inet_ntop( hptr -> h_addrtype, hptr -> h_addr, str, sizeof( str ) );
+    const char *server_host = inet_ntop( hptr -> h_addrtype, hptr -> h_addr, str, sizeof( str ) );
     const int   server_port = 2046;
 
     // 客户端进程

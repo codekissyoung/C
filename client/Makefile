@@ -1,13 +1,13 @@
 .PHONY:clean
-CC=gcc
-CPPFLAGS=-Wall -g -std=gnu11 -pedantic
-BIN=client
-OBJS=client.o
+CC = gcc
+CPPFLAGS = -Wall -g -std=gnu11 -pedantic
+BIN = client
+OBJS = client.o
 
-$(BIN):$(OBJS)
+$(BIN) : $(OBJS)
 	$(CC) $(CPPFLAGS) $^ -o $@
 
-%.o:%.c
+%.o : %.c
 	$(CC) $(CPPFLAGS) -c $< -o $@
 
 clean:
