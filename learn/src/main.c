@@ -368,7 +368,7 @@ int main( int argc, const char* argv[] )
 
     // 僵尸进程的产生
     if(strcmp("zombie",argv[1]) == 0)
-    {
+    {/*{{{*/
         pid_t pid = fork();
         if(pid < 0){
         }else if(pid == 0){
@@ -385,11 +385,11 @@ int main( int argc, const char* argv[] )
             printf("the parent process %d end \n", getpid());
             exit(0);
         }
-    }
+    }/*}}}*/
 
     // wait
     if(strcmp("wait",argv[1]) == 0)
-    {
+    {/*{{{*/
         pid_t pid = fork();
         int status;
         if(pid < 0){
@@ -445,11 +445,11 @@ int main( int argc, const char* argv[] )
                 printf("the teminated signal is : %d\n",WTERMSIG(status));
             }
         }
-    }
+    }/*}}}*/
 
     // 多进程操作
     if(strcmp("proc",argv[1]) == 0)
-    {
+    {/*{{{*/
         pid_t pid = fork();
         if(pid < 0){
             printf("fork 出错");
@@ -460,11 +460,11 @@ int main( int argc, const char* argv[] )
         }else {
             printf(" 父进程 ");
         }
-    }
+    }/*}}}*/
 
     // 线程操作
     if(strcmp("vfork",argv[1]) == 0)
-    {
+    {/*{{{*/
         int stack = 1;
         int *heap = (int *) malloc(sizeof(int));
         *heap = 100;
@@ -501,28 +501,28 @@ int main( int argc, const char* argv[] )
             sleep(2); // 保证子进程先运行
             printf("stack : %d ,*heap : %d, global : %d",stack,*heap,global);
         }
-    }
+    }/*}}}*/
 
     // 移位操作
     if(strcmp("shift",argv[1]) == 0)
-    {
+    {/*{{{*/
         int a = 12;
         a = a >> 2;
         printf("a : %d \n",a);
-    }
+    }/*}}}*/
 
     // 测试EOF
     if(strcmp("eof",argv[1]) == 0)
-    {
+    {/*{{{*/
         char test_eof;
         while( (test_eof = getchar()) != EOF){
             putchar(test_eof);
         }
-    }
+    }/*}}}*/
 
     // 测试fgets()
     if(strcmp("fgets",argv[1]) == 0)
-    {
+    {/*{{{*/
         char words[STLEN];
         int i;
         while(fgets(words,STLEN,stdin) != NULL && words[0] != '\n'){
@@ -539,11 +539,11 @@ int main( int argc, const char* argv[] )
             }
             fputs(words,stdout);
         }
-    }
+    }/*}}}*/
 
     // 测试下字符串数组
     if( strcmp( "str-array", argv[1] ) == 0 )
-    {
+    {/*{{{*/
         const char *pointer_str[5] = {
             "string1 heheh",
             "string2 ,sdfadf",
@@ -579,7 +579,7 @@ int main( int argc, const char* argv[] )
             {6,7}
         };
         sum_rows(zippo,3);
-    }
+    }/*}}}*/
 
     // 使用预定义宏
     if( strcmp( "default-macro", argv[1] ) == 0 )
@@ -593,7 +593,7 @@ int main( int argc, const char* argv[] )
 
     // 读取文件
     if(strcmp("read-file",argv[1]) == 0)
-    {
+    {/*{{{*/
         char ch;
         FILE* fp = fopen("test.txt","r");
         if(fp)
@@ -609,18 +609,18 @@ int main( int argc, const char* argv[] )
             printf("打开文件失败\n");
             exit(1);
         }
-    }
+    }/*}}}*/
 
     // 不定参数
     if( strcmp("uncertain-var",argv[1]) == 0 )
-    {
+    {/*{{{*/
         print_args(-1,"hello","world",NULL);
         print_args(-1,"Olympic","china","Beijing",NULL);
-    }
+    }/*}}}*/
 
     // 进程
     if( strcmp("fork",argv[1]) == 0 )
-    {
+    {/*{{{*/
         int stack = 1;
         int *heap;
         heap = (int *)malloc(sizeof(int));
@@ -642,11 +642,11 @@ int main( int argc, const char* argv[] )
             printf("stack : %d , *heap :%d,global:%d\n",stack,*heap,global);
             printf("this is parent , pid is : %u,child-pid is : %u\n",getpid(),pid);
         }
-    }
+    }/*}}}*/
 
     // exec 函数
     if( strcmp("exec",argv[1]) == 0 )
-    {
+    {/*{{{*/
         pid_t pid;
         char *argv[] = {"hello"};
         pid = fork();
@@ -660,11 +660,11 @@ int main( int argc, const char* argv[] )
             printf("parent!");
         }
         system("ls -alh");
-    }
+    }/*}}}*/
 
     // wait3 函数
     if( strcmp("wait3",argv[1]) == 0)
-    {
+    {/*{{{*/
         pid_t pid;
         int status;
         struct rusage rusage;
@@ -695,7 +695,7 @@ int main( int argc, const char* argv[] )
             printf("msgsnd is %ld\n",rusage.ru_msgsnd);
             printf("maxrss is %ld\n",rusage.ru_maxrss);
         }
-    }
+    }/*}}}*/
 
     return EXIT_SUCCESS;
 }
