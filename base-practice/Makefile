@@ -1,15 +1,12 @@
-BIN = main
-CC = gcc
-SRC_DIR = src
+BIN 		= main
+CC 			= gcc
+SRC_DIR 	= src
 INCLUDE_DIR = include
-
-CPPFLAGS = -Wall -g -pedantic -std=gnu11
-LINK_LIB = -lpthread
-SEARCH_DIR = -I$(INCLUDE_DIR)
-
-OBJS = main.o func.o
-
-VPATH = src obj include
+CPPFLAGS 	= -Wall -Werror -Wcast-align -g -pedantic -std=gnu11 -rdynamic # -save-temps -Q -v
+LINK_LIB 	= -lpthread
+SEARCH_DIR 	= -I$(INCLUDE_DIR)
+OBJS 		= main.o func.o
+VPATH 		= src obj include
 vpath %.c src
 vpath %.h include
 
@@ -28,3 +25,5 @@ all : $(BIN)
 .PHONY:clean
 clean:
 	rm -f *.o $(BIN)
+	rm *.i
+	rm *.s
