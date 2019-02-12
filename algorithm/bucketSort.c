@@ -34,12 +34,11 @@ void bucketSort(int a[], int n, int max)
     }
 }
 
-
 int main( int argc, char *argv[] )
 {
-	int a[] = {19,33,4,32,33,42,22,44,54,43,32,211,11,34,32};
-
-	bucketSort( a, sizeof(a) / sizeof(int), 211 );
-	return 0;
+    int a[] = {19,33,4,32,33,42,22,44,54,43,32,211,11,34,32};
+    bucketSort( a, sizeof(a) / sizeof(int), 211 );
+    for( int i = 0; i < sizeof(a) / sizeof(int); i++ )
+        printf("%d ",a[i]);
+    return 0;
 }
-
