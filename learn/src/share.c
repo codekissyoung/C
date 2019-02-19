@@ -1,4 +1,6 @@
 #include "common.h"
-void share(){
+
+void share()
+{
 	printf("share .so lib ");
 }

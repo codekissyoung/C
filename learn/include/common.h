@@ -169,4 +169,3 @@ extern struct node* init(int num);
 extern void show_queue(const struct queue *q);
 // 打印栈
 extern void show_stack(const struct stack *s);
-
