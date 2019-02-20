@@ -11,7 +11,7 @@ OBJECTS = $(patsubst %.c,%.o,$(notdir $(wildcard src/*.c)))
 
 DEBUG = -g3
 
-CPPFLAGS = -std=gnu11 -pipe -pedantic -Wall -Werror $(DEBUG) -Iinclude -Llib
+CPPFLAGS = -std=gnu11 -pedantic -Wall -Werror $(DEBUG) -Iinclude -Llib
 
 ARFLAGS = rcsU
 
