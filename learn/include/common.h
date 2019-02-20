@@ -53,28 +53,23 @@
 
 /*      C 标准库函数     */
 #include <assert.h>
-#include <float.h> /* 浮点类型大小限制 */
-#include <math.h> /* 数学库 */
+#include <float.h> 			/* 浮点类型大小限制 */
+#include <math.h>			/* 数学库 */
 #include <stdarg.h>
 #include <stdlib.h>
-#include <ctype.h> /* 专门处理字符的函数*/
-#include <limits.h> /* 整数类型大小限制 */
+#include <ctype.h> 			/* 专门处理字符的函数*/
+#include <limits.h> 		/* 整数类型大小限制 */
 #include <setjmp.h>
 #include <stddef.h>
 #include <string.h>
-#include <errno.h> /* 错误号申明头文件 */
-#include <locale.h> // 本地化函数
+#include <errno.h> 			/* 错误号申明头文件 */
+#include <locale.h> 		/* 本地化函数 */
 #include <signal.h>
 #include <stdio.h>
 #include <time.h>
-
 #include <stdint.h>
 #include <inttypes.h>
-#include <gnu/libc-version.h> // gnu glibc version
-
-/* 引入其他的头文件 */
-
-#include "struct.h"
+#include <gnu/libc-version.h> /* gnu glibc version */
 
 /*全局宏*/
 #define MAX 64
@@ -104,6 +99,64 @@ extern int b1;
 extern float PI;
 extern char ** environ;
 extern int global;
+
+// 结构化数据
+struct book{
+	char title[40];
+	char author[40];
+	float value;
+};
+
+/* 栈 */
+struct stack{
+	int data[1000];
+	int top;
+};
+
+/* 链表 */
+struct node{
+	int data;
+	struct node *next;
+};
+
+/* 队列 */
+struct queue {
+	int data[1000];
+	int head;
+	int tail;
+};
+
+struct msg{
+	long msg_types;
+	char msg_buf[511];
+};
+
+struct test_struct{
+	int array[2];
+	char ch;
+};
+
+struct arg_struct{
+	char arg1[10];
+	int arg2;
+	float arg3;
+};
+
+typedef struct heap_stack{
+	int *heap;
+	int *stack;
+} HS;
+
+typedef struct arg_struct ARG;
+typedef struct test_struct Test;
+typedef enum {FALSE,TRUE} Boolean;
+
+struct Books {
+	int id;
+	char title[50];
+	char author[50];
+	char subject[100];
+};
 
 /*全局接口函数*/
 extern int swap(int *a,int *b);
