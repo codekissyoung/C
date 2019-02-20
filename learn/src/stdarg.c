@@ -1,7 +1,8 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-void simple_print_int(int begin,...){
+void simple_print_int(int begin,...)
+{
 
 	va_list arg_ptr; // 参数指针
 

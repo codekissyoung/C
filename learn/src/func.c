@@ -30,9 +30,10 @@ int swap(int *a,int *b){/*{{{*/
 	return *a + *b;
 }/*}}}*/
 
-void f(){/*{{{*/
+void f()
+{
 	printf("b1 in f() : %d \n", b1);
-}/*}}}*/
+}
 
 // 不定参数
 int print_args(int begin, ...){/*{{{*/
@@ -93,7 +94,8 @@ void _print_star(int a){/*{{{*/
 }/*}}}*/
 
 // 打印一个菱形
-void print_diamond(int a){/*{{{*/
+void print_diamond(int a)
+{
 	printf("菱形长度: %d \n",a);
 	int i;
 	for(i = 0;i < a;i++){
@@ -109,17 +111,18 @@ void print_diamond(int a){/*{{{*/
 		_print_star((2 * i) - 1);
 		printf("\n");
 	}
-}/*}}}*/
+}
 
 // 乘法表
-void plus(int a){/*{{{*/
+void plus(int a)
+{
 	for(int row = 1; row <= a;row++){
 		for(int col = 1;col <= row;col ++){
 			printf("%d x %d = %d\t",col,row,col * row);
 		}
 		printf("\n");
 	}
-}/*}}}*/
+}
 
 // 处理二维数组的函数
 void sum_rows(int ar[][2],int rows){/*{{{*/
@@ -255,27 +258,30 @@ void card_eat(struct queue *q,struct stack *s){/*{{{*/
 }/*}}}*/
 
 // 测试下gdb
-int factorial(int n){/*{{{*/
+int factorial(int n)
+{
 	int i = 1;
 	int sum = 0;
 	for(;i<n;i++){
 		sum = sum + i;
 	}
 	return sum;
-}/*}}}*/
+}
 
 // 进程中止处理函数
-void when_exit(void){/*{{{*/
+void when_exit(void)
+{
 	printf("\n进程 %d 退出了\n",getpid());
-}/*}}}*/
+}
 
 void self_info()
-{/*{{{*/
+{
 	printf("PID: %d  PPID:%d  UID: %d  EUID:%d  GID: %d  EGID: %d\n",getpid(),getppid(),getuid(),geteuid(),getgid(),getegid());
-}/*}}}*/
+}
 
 // 打印进程 ID 和 线程ID
-void* print_pro_thread_id(void * arg){/*{{{*/
+void* print_pro_thread_id(void * arg)
+{
 	pid_t pid = getpid();
 	pthread_t tid = pthread_self();
 	printf("pid : %u , thread id : %u \n",(unsigned int)pid, (unsigned  int)tid);
@@ -283,9 +289,9 @@ void* print_pro_thread_id(void * arg){/*{{{*/
 	ARG* p = (ARG*) arg;
 	printf("the args : %s , %d ,%f \n",p->arg1 , p->arg2 , p->arg3 );
 	return NULL;
-}/*}}}*/
+}
 
-void sort_in_quick(int arr[] , int s, int e){/*{{{*/
+void sort_in_quick(int arr[] , int s, int e){
 	// 先选取一个基准 默认左边第一个
 	int base = arr[s];
 	int left = s; // 设置左边标兵
@@ -325,7 +331,7 @@ void sort_in_quick(int arr[] , int s, int e){/*{{{*/
 	sort_in_quick(arr,s,right - 1);
 	sort_in_quick(arr,right + 1,e);
 	return ;
-}/*}}}*/
+}
 
 // 返回最大值
 int max(int x ,int y){
@@ -348,7 +354,7 @@ void printBook(struct Books *b){
 // 深度优先搜索 初始化数据
 int a[10],book[10],total = 0;
 void dfs( int step )
-{/*{{{*/
+{
     int i;
     if( step == 10 )
     {
@@ -376,4 +382,4 @@ void dfs( int step )
         }
     }
     return;
-}/*}}}*/
+}
