@@ -73,7 +73,7 @@
 #include <gnu/libc-version.h> // gnu glibc version
 
 /* 引入其他的头文件 */
-#include "thread.h"
+
 #include "struct.h"
 
 /*全局宏*/
@@ -169,3 +169,9 @@ extern struct node* init(int num);
 extern void show_queue(const struct queue *q);
 // 打印栈
 extern void show_stack(const struct stack *s);
+
+// 线程
+extern void *first_thread (void *arg);
+extern void *second_thread(void *arg);
+extern void *third_thread (void *arg);
+
