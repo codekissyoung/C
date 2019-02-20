@@ -1,49 +1,49 @@
 // 结构化数据
-struct book{/*{{{*/
+struct book{
 	char title[40];
 	char author[40];
 	float value;
-};/*}}}*/
+};
 
 /* 栈 */
-struct stack{/*{{{*/
+struct stack{
 	int data[1000];
 	int top;
-};/*}}}*/
+};
 
 /* 链表 */
-struct node{/*{{{*/
+struct node{
 	int data;
 	struct node *next;
-};/*}}}*/
+};
 
 /* 队列 */
-struct queue {/*{{{*/
+struct queue {
 	int data[1000];
 	int head;
 	int tail;
-};/*}}}*/
+};
 
-struct msg{/*{{{*/
+struct msg{
 	long msg_types;
 	char msg_buf[511];
-};/*}}}*/
+};
 
-struct test_struct{/*{{{*/
+struct test_struct{
 	int array[2];
 	char ch;
-};/*}}}*/
+};
 
-struct arg_struct{/*{{{*/
+struct arg_struct{
 	char arg1[10];
 	int arg2;
 	float arg3;
-};/*}}}*/
+};
 
-typedef struct heap_stack{/*{{{*/
+typedef struct heap_stack{
 	int *heap;
 	int *stack;
-} HS;/*}}}*/
+} HS;
 
 typedef struct arg_struct ARG;
 typedef struct test_struct Test;
@@ -57,22 +57,4 @@ struct Books {
 	char author[50];
 	char subject[100];
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
