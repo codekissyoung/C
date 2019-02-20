@@ -13,4 +13,4 @@ autoconf --version | grep autoconf;echo;  # 检查 autoconf 版本
 
 automake --version | grep automake;echo;  # 检查 automake 版本
 
-libtoolize --version | grep automake;echo; # 检查 libtool 版本
+libtoolize --version | grep automake; # 检查 libtool 版本
