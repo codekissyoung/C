@@ -28,6 +28,7 @@ int main( int argc, const char* argv[] )
     }/*}}}*/
 
     printf("Demo '%s' is runing ...\n\n",argv[1]);
+	share();
 
     // --------------------------------------- 以下是各个DEMO程序部分 ---------------------------------------
 

@@ -3,15 +3,13 @@ define print-dev-env
 	uname -a;
 endef
 
-BIN = cky
-
 CC  = gcc
 
 OBJECTS = $(patsubst %.c,%.o,$(notdir $(wildcard src/*.c)))
 
 DEBUG = -g3
 
-CPPFLAGS = -std=gnu11 -pedantic -Wall -Werror $(DEBUG) -Iinclude -Llib
+CPPFLAGS = -std=gnu11 -pedantic -Wall -Werror -I include -L lib $(DEBUG)
 
 ARFLAGS = rcsU
 
@@ -22,13 +20,11 @@ vpath = %.c src
 vpath = %.h include
 vpath = %.o %.a %.so lib
 
-.PHONY = all
-
-.PHONY = clean
-
 #############################  start ##############################
+.PHONY = all
+all: cky
 
-$(BIN) : $(OBJECTS) -lpthread -lshare -lstatic
+cky : $(OBJECTS) -lpthread -lshare -lstatic
 	$(CC) $(CPPFLAGS) $(OBJECTS) -pthread -lshare -lstatic -o $@
 	@$(print-dev-env)
 
@@ -40,8 +36,7 @@ lib/libshare.so : share.o
 %.o : %.c common.h
 	$(CC) $(CPPFLAGS) -c $<
 
-all: $(BIN)
-
+.PHONY = clean
 clean:
 	rm -rf *.i
 	rm -rf *.s
