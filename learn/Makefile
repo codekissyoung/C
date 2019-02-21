@@ -14,8 +14,6 @@ CFLAGS 		= -std=gnu11 -pedantic -Wall -Werror -I include -L lib $(DEBUG)
 
 ARFLAGS 	= rcsU
 
-SHARE_FLAGS = -Iinclude -shared -fPIC
-
 VPATH 		= lib src include
 vpath 		= %.c src
 vpath 		= %.h include
@@ -33,7 +31,7 @@ cky : $(OBJECTS) -lpthread -lshare -lstatic
 lib/libstatic.a : libstatic.a(static.o) libstatic.a(node.o)
 
 lib/libshare.so : share.o
-	$(CC) $(SHARE_FLAGS) $< -o $@
+	$(CC) -I include -shared -fPIC $< -o $@
 
 %.o : %.c common.h
 
