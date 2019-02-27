@@ -4,13 +4,15 @@ define print-dev-env
 	uname -a;
 endef
 
+BIN         = cky
+
 CC  		= gcc
 
 OBJECTS 	= $(patsubst %.c,%.o,$(notdir $(wildcard src/*.c)))
 
 DEBUG 		= -g3
 
-CFLAGS 		= -std=gnu11 -pedantic -Wall -Werror -I include -L lib $(DEBUG)
+CFLAGS 		= -std=gnu11 -pedantic -Wall -Werror -Iinclude $(DEBUG)
 
 ARFLAGS 	= rcsU
 
@@ -22,24 +24,25 @@ vpath 		= %.o %.a %.so lib
 #############################  start ##############################
 
 .PHONY = all
-all: cky
+all: $(BIN)
 
-cky : $(OBJECTS) -lpthread -lshare -lstatic
-	$(CC) $(CFLAGS) $(OBJECTS) -pthread -lshare -lstatic -o $@
-	@$(print-dev-env)
+$(BIN) : $(OBJECTS) -lpthread libstatic.a libshare.so
+	$(CC) -o $@ $(CFLAGS) $(OBJECTS) -pthread -L. -lshare -lstatic
 
-lib/libstatic.a : libstatic.a(static.o) libstatic.a(node.o)
+libstatic.a : libstatic.a(static.o) libstatic.a(node.o)
 
-lib/libshare.so : share.o
-	$(CC) -I include -shared -fPIC $< -o $@
+libshare.so : share.o
+	$(CC) -o $@ -Iinclude -shared -fPIC $<
 
 %.o : %.c common.h
 
 .PHONY = clean
 clean:
-	rm -rf *.i
-	rm -rf *.s
-	rm -rf *.o
-	rm -rf lib/*.so
-	rm -rf lib/*.a
-	rm -rf cky
+	$(RM) *.i
+	$(RM) *.s
+	$(RM) *.o
+	$(RM) *.so
+	$(RM) *.a
+	$(RM) lib/*.so
+	$(RM) lib/*.a
+	$(RM) $(BIN)
