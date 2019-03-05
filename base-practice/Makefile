@@ -10,13 +10,11 @@ VPATH 		= src obj include
 vpath %.c src
 vpath %.h include
 
-# 书写构建规则
 $(BIN):$(OBJS)
 	$(CC) $(CPPFLAGS) $^ $(SEARCH_DIR) $(LINK_LIB) -o $@
 	rm *.o
 
-# 隐含规则
-%.o:%.c
+%.o : %.c
 	$(CC) $(CPPFLAGS) -c $< $(SEARCH_DIR) $(LINK_LIB) -o $@
 
 .PHONY: all
