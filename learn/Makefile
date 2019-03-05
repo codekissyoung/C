@@ -1,9 +1,3 @@
-# makefile 宏
-define print-dev-env
-	echo -n "编译环境: ";
-	uname -a;
-endef
-
 BIN         = cky
 
 CC  		= gcc
@@ -24,7 +18,7 @@ vpath 		= %.o %.a %.so lib
 #############################  start ##############################
 
 .PHONY = all
-all: $(BIN)
+all : $(BIN)
 
 $(BIN) : $(OBJECTS) -lpthread libstatic.a libshare.so
 	$(CC) -o $@ $(CFLAGS) $(OBJECTS) -pthread -L. -lshare -lstatic
