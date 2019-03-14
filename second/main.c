@@ -50,7 +50,7 @@ int main()
     return 0;
 }/*}}}*/
 
-int my_getline( char s[], int lim )
+int my_getline( char *s, int lim )
 {/*{{{*/
     int c, i;
     for ( i = 0; i < lim - 1 && ( c = getchar() ) != EOF; ++i )
