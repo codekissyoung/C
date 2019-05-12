@@ -5,6 +5,7 @@
 #include "func.h"
 
 #define SHOWHOST
+
 char (*(*X())[])();
 void (*b[10])(void(*)());
 
