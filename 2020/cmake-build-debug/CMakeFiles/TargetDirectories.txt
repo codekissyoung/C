@@ -1,0 +1,3 @@
+/home/cky/workspace/C/2020/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/cky/workspace/C/2020/cmake-build-debug/CMakeFiles/2020.dir
+/home/cky/workspace/C/2020/cmake-build-debug/CMakeFiles/edit_cache.dir
