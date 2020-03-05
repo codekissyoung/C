@@ -1,0 +1,7 @@
+/home/cky/.local/share/JetBrains/Toolbox/apps/CLion/ch-1/193.5096.27/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/cky/workspace/C/frame
+CMake Error at CMakeLists.txt:1 (cmake_minimum_required):
+  cmake_minimum_required called with unknown argument "version".
+
+
+-- Configuring incomplete, errors occurred!
+See also "/home/cky/workspace/C/frame/cmake-build-debug/CMakeFiles/CMakeOutput.log".

@@ -19,8 +19,8 @@
 #include <sys/epoll.h>
 
 #define MAX_EVENTS 500
-struct myevent_s
-{  /*{{{*/
+typedef struct myevent_s
+{
     int fd;
     void (*call_back)(int fd, int events, void *arg);
     int events;
@@ -29,25 +29,27 @@ struct myevent_s
     char buff[128]; // recv data buffer
     int len, s_offset;
     long last_active; // last active time
-};/*}}}*/
+} myevent_s;
 
-// set event
+
+typedef struct sockaddr_in sockaddr_in;
+typedef struct sockaddr sockaddr;
+
 void EventSet(myevent_s *ev, int fd, void (*call_back)(int, int, void*), void *arg)
-{  /*{{{*/
+{
     ev->fd = fd;
     ev->call_back = call_back;
     ev->events = 0;
     ev->arg = arg;
     ev->status = 0;
-    bzero(ev->buff, sizeof(ev->buff));
+    memset( ev->buff, 0, sizeof(ev->buff) );
     ev->s_offset = 0;
     ev->len = 0;
     ev->last_active = time(NULL);
-}  /*}}}*/
+}
 
-// add/mod an event to epoll
 void EventAdd(int epollFd, int events, myevent_s *ev)
-{  /*{{{*/
+{
     struct epoll_event epv = {0, {0}};
     int op;
     epv.data.ptr = ev;
@@ -63,7 +65,7 @@ void EventAdd(int epollFd, int events, myevent_s *ev)
         printf("Event Add failed[fd=%d], evnets[%d]\n", ev->fd, events);
     else
         printf("Event Add OK[fd=%d], op=%d, evnets[%0X]\n", ev->fd, op, events);
-}  /*}}}*/
+}
 
 // delete an event from epoll
 void EventDel(int epollFd, myevent_s *ev)
@@ -193,7 +195,7 @@ void InitListenSocket(int epollFd, short port)
     EventAdd(epollFd, EPOLLIN, &g_Events[MAX_EVENTS]);
     // bind & listen
     sockaddr_in sin;
-    bzero(&sin, sizeof(sin));
+    memset( &sin, 0, sizeof(sin) );
     sin.sin_family = AF_INET;
     sin.sin_addr.s_addr = INADDR_ANY;
     sin.sin_port = htons(port);
@@ -204,12 +206,11 @@ void InitListenSocket(int epollFd, short port)
 int main(int argc, char **argv)
 {
     unsigned short port = 12345;
-
     if(argc == 2)
         port = atoi(argv[1]);
-
-    // create epoll
+   
     g_epollFd = epoll_create(MAX_EVENTS);
+    
     if(g_epollFd <= 0)
         printf("create epoll failed.%d\n", g_epollFd);
 
@@ -256,7 +257,6 @@ int main(int argc, char **argv)
             }
         }
     }
-    // free resource
     return 0;
 }
 

@@ -1,11 +1,9 @@
 CC = gcc
-CPPFLAGS = -Wall -g -m64 -pedantic -std=c11 -pthread -DDEBUG
-
+CFLAGS = -g -Wall -m64 -pthread -std=c11
 SRC = $(wildcard *.c)
 BIN = $(patsubst %.c,%, $(SRC))
 
 all : $(BIN)
 
-.PHONY:clean
 clean:
 	$(RM) $(BIN) *.i *.o *.s core
