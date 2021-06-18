@@ -1,4 +1,4 @@
-/home/cky/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6250.12/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/cky/workspace/C/2020
+/home/link/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7442.42/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/link/workspace/C/2020
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/cky/workspace/C/2020/cmake-build-debug
+-- Build files have been written to: /home/link/workspace/C/2020/cmake-build-debug
