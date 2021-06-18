@@ -1,1 +1,0 @@
-/usr/bin/cc  -pthread -g CMakeFiles/2020.dir/main.c.o -o 2020 
