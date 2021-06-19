@@ -14,4 +14,6 @@ base-practice/main
 gmon.out
 .idea/
 .vscode/
-./2020/cmake-build-debug
+2020/cmake-build-debug/
+client
+server

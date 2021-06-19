@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/link/workspace/C/unixDomainSocket/main.c" "/home/link/workspace/C/2020/cmake-build-debug/CMakeFiles/2020.dir/home/link/workspace/C/unixDomainSocket/main.c.o"
-  "/home/link/workspace/C/2020/main.c" "/home/link/workspace/C/2020/cmake-build-debug/CMakeFiles/2020.dir/main.c.o"
+  "/home/cky/workspace/C/unixDomainSocket/main.c" "/home/cky/workspace/C/2020/cmake-build-debug/CMakeFiles/2020.dir/home/cky/workspace/C/unixDomainSocket/main.c.o"
+  "/home/cky/workspace/C/2020/main.c" "/home/cky/workspace/C/2020/cmake-build-debug/CMakeFiles/2020.dir/main.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
