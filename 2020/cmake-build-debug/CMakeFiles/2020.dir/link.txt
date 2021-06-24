@@ -1,1 +1,1 @@
-/usr/bin/cc  -pthread -g CMakeFiles/2020.dir/main.c.o CMakeFiles/2020.dir/home/link/workspace/C/unixDomainSocket/main.c.o -o 2020 
+/usr/bin/cc  -pthread -g CMakeFiles/2020.dir/main.c.o CMakeFiles/2020.dir/home/cky/workspace/C/unixDomainSocket/main.c.o -o 2020 

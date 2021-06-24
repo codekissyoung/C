@@ -53,19 +53,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/link/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7442.42/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/cky/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7442.42/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/link/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7442.42/bin/cmake/linux/bin/cmake -E rm -f
+RM = /home/cky/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7442.42/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/link/workspace/C/2020
+CMAKE_SOURCE_DIR = /home/cky/workspace/C/2020
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/link/workspace/C/2020/cmake-build-debug
+CMAKE_BINARY_DIR = /home/cky/workspace/C/2020/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/2020.dir/depend.make
@@ -78,43 +78,43 @@ include CMakeFiles/2020.dir/flags.make
 
 CMakeFiles/2020.dir/main.c.o: CMakeFiles/2020.dir/flags.make
 CMakeFiles/2020.dir/main.c.o: ../main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/link/workspace/C/2020/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/2020.dir/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/2020.dir/main.c.o -c /home/link/workspace/C/2020/main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/cky/workspace/C/2020/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/2020.dir/main.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/2020.dir/main.c.o -c /home/cky/workspace/C/2020/main.c
 
 CMakeFiles/2020.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/2020.dir/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/link/workspace/C/2020/main.c > CMakeFiles/2020.dir/main.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/cky/workspace/C/2020/main.c > CMakeFiles/2020.dir/main.c.i
 
 CMakeFiles/2020.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/2020.dir/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/link/workspace/C/2020/main.c -o CMakeFiles/2020.dir/main.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/cky/workspace/C/2020/main.c -o CMakeFiles/2020.dir/main.c.s
 
-CMakeFiles/2020.dir/home/link/workspace/C/unixDomainSocket/main.c.o: CMakeFiles/2020.dir/flags.make
-CMakeFiles/2020.dir/home/link/workspace/C/unixDomainSocket/main.c.o: /home/link/workspace/C/unixDomainSocket/main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/link/workspace/C/2020/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/2020.dir/home/link/workspace/C/unixDomainSocket/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/2020.dir/home/link/workspace/C/unixDomainSocket/main.c.o -c /home/link/workspace/C/unixDomainSocket/main.c
+CMakeFiles/2020.dir/home/cky/workspace/C/unixDomainSocket/main.c.o: CMakeFiles/2020.dir/flags.make
+CMakeFiles/2020.dir/home/cky/workspace/C/unixDomainSocket/main.c.o: /home/cky/workspace/C/unixDomainSocket/main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/cky/workspace/C/2020/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/2020.dir/home/cky/workspace/C/unixDomainSocket/main.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/2020.dir/home/cky/workspace/C/unixDomainSocket/main.c.o -c /home/cky/workspace/C/unixDomainSocket/main.c
 
-CMakeFiles/2020.dir/home/link/workspace/C/unixDomainSocket/main.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/2020.dir/home/link/workspace/C/unixDomainSocket/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/link/workspace/C/unixDomainSocket/main.c > CMakeFiles/2020.dir/home/link/workspace/C/unixDomainSocket/main.c.i
+CMakeFiles/2020.dir/home/cky/workspace/C/unixDomainSocket/main.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/2020.dir/home/cky/workspace/C/unixDomainSocket/main.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/cky/workspace/C/unixDomainSocket/main.c > CMakeFiles/2020.dir/home/cky/workspace/C/unixDomainSocket/main.c.i
 
-CMakeFiles/2020.dir/home/link/workspace/C/unixDomainSocket/main.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/2020.dir/home/link/workspace/C/unixDomainSocket/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/link/workspace/C/unixDomainSocket/main.c -o CMakeFiles/2020.dir/home/link/workspace/C/unixDomainSocket/main.c.s
+CMakeFiles/2020.dir/home/cky/workspace/C/unixDomainSocket/main.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/2020.dir/home/cky/workspace/C/unixDomainSocket/main.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/cky/workspace/C/unixDomainSocket/main.c -o CMakeFiles/2020.dir/home/cky/workspace/C/unixDomainSocket/main.c.s
 
 # Object files for target 2020
 2020_OBJECTS = \
 "CMakeFiles/2020.dir/main.c.o" \
-"CMakeFiles/2020.dir/home/link/workspace/C/unixDomainSocket/main.c.o"
+"CMakeFiles/2020.dir/home/cky/workspace/C/unixDomainSocket/main.c.o"
 
 # External object files for target 2020
 2020_EXTERNAL_OBJECTS =
 
 2020: CMakeFiles/2020.dir/main.c.o
-2020: CMakeFiles/2020.dir/home/link/workspace/C/unixDomainSocket/main.c.o
+2020: CMakeFiles/2020.dir/home/cky/workspace/C/unixDomainSocket/main.c.o
 2020: CMakeFiles/2020.dir/build.make
 2020: CMakeFiles/2020.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/link/workspace/C/2020/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable 2020"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/cky/workspace/C/2020/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable 2020"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/2020.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -127,6 +127,6 @@ CMakeFiles/2020.dir/clean:
 .PHONY : CMakeFiles/2020.dir/clean
 
 CMakeFiles/2020.dir/depend:
-	cd /home/link/workspace/C/2020/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/link/workspace/C/2020 /home/link/workspace/C/2020 /home/link/workspace/C/2020/cmake-build-debug /home/link/workspace/C/2020/cmake-build-debug /home/link/workspace/C/2020/cmake-build-debug/CMakeFiles/2020.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/cky/workspace/C/2020/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/cky/workspace/C/2020 /home/cky/workspace/C/2020 /home/cky/workspace/C/2020/cmake-build-debug /home/cky/workspace/C/2020/cmake-build-debug /home/cky/workspace/C/2020/cmake-build-debug/CMakeFiles/2020.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/2020.dir/depend
 

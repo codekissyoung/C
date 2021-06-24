@@ -58,19 +58,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/link/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7442.42/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/cky/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7442.42/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/link/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7442.42/bin/cmake/linux/bin/cmake -E rm -f
+RM = /home/cky/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7442.42/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/link/workspace/C/2020
+CMAKE_SOURCE_DIR = /home/cky/workspace/C/2020
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/link/workspace/C/2020/cmake-build-debug
+CMAKE_BINARY_DIR = /home/cky/workspace/C/2020/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -78,7 +78,7 @@ CMAKE_BINARY_DIR = /home/link/workspace/C/2020/cmake-build-debug
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/link/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7442.42/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/cky/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7442.42/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -89,7 +89,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/link/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7442.42/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/home/cky/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7442.42/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -99,9 +99,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/link/workspace/C/2020/cmake-build-debug/CMakeFiles /home/link/workspace/C/2020/cmake-build-debug//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cky/workspace/C/2020/cmake-build-debug/CMakeFiles /home/cky/workspace/C/2020/cmake-build-debug//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/link/workspace/C/2020/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cky/workspace/C/2020/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -142,32 +142,32 @@ depend:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/2020.dir/build.make CMakeFiles/2020.dir/build
 .PHONY : 2020/fast
 
-home/link/workspace/C/unixDomainSocket/main.o: home/link/workspace/C/unixDomainSocket/main.c.o
+home/cky/workspace/C/unixDomainSocket/main.o: home/cky/workspace/C/unixDomainSocket/main.c.o
 
-.PHONY : home/link/workspace/C/unixDomainSocket/main.o
+.PHONY : home/cky/workspace/C/unixDomainSocket/main.o
 
 # target to build an object file
-home/link/workspace/C/unixDomainSocket/main.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/2020.dir/build.make CMakeFiles/2020.dir/home/link/workspace/C/unixDomainSocket/main.c.o
-.PHONY : home/link/workspace/C/unixDomainSocket/main.c.o
+home/cky/workspace/C/unixDomainSocket/main.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/2020.dir/build.make CMakeFiles/2020.dir/home/cky/workspace/C/unixDomainSocket/main.c.o
+.PHONY : home/cky/workspace/C/unixDomainSocket/main.c.o
 
-home/link/workspace/C/unixDomainSocket/main.i: home/link/workspace/C/unixDomainSocket/main.c.i
+home/cky/workspace/C/unixDomainSocket/main.i: home/cky/workspace/C/unixDomainSocket/main.c.i
 
-.PHONY : home/link/workspace/C/unixDomainSocket/main.i
+.PHONY : home/cky/workspace/C/unixDomainSocket/main.i
 
 # target to preprocess a source file
-home/link/workspace/C/unixDomainSocket/main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/2020.dir/build.make CMakeFiles/2020.dir/home/link/workspace/C/unixDomainSocket/main.c.i
-.PHONY : home/link/workspace/C/unixDomainSocket/main.c.i
+home/cky/workspace/C/unixDomainSocket/main.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/2020.dir/build.make CMakeFiles/2020.dir/home/cky/workspace/C/unixDomainSocket/main.c.i
+.PHONY : home/cky/workspace/C/unixDomainSocket/main.c.i
 
-home/link/workspace/C/unixDomainSocket/main.s: home/link/workspace/C/unixDomainSocket/main.c.s
+home/cky/workspace/C/unixDomainSocket/main.s: home/cky/workspace/C/unixDomainSocket/main.c.s
 
-.PHONY : home/link/workspace/C/unixDomainSocket/main.s
+.PHONY : home/cky/workspace/C/unixDomainSocket/main.s
 
 # target to generate assembly for a file
-home/link/workspace/C/unixDomainSocket/main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/2020.dir/build.make CMakeFiles/2020.dir/home/link/workspace/C/unixDomainSocket/main.c.s
-.PHONY : home/link/workspace/C/unixDomainSocket/main.c.s
+home/cky/workspace/C/unixDomainSocket/main.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/2020.dir/build.make CMakeFiles/2020.dir/home/cky/workspace/C/unixDomainSocket/main.c.s
+.PHONY : home/cky/workspace/C/unixDomainSocket/main.c.s
 
 main.o: main.c.o
 
@@ -205,9 +205,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... 2020"
-	@echo "... home/link/workspace/C/unixDomainSocket/main.o"
-	@echo "... home/link/workspace/C/unixDomainSocket/main.i"
-	@echo "... home/link/workspace/C/unixDomainSocket/main.s"
+	@echo "... home/cky/workspace/C/unixDomainSocket/main.o"
+	@echo "... home/cky/workspace/C/unixDomainSocket/main.i"
+	@echo "... home/cky/workspace/C/unixDomainSocket/main.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
