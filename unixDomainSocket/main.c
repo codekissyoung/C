@@ -1,9 +1,6 @@
 #include "main.h"
-
 #define MAXLINE 80
-
 char *socket_path = "server.socket";
-
 int main(void)
 {
     struct sockaddr_un serun, cliun;
