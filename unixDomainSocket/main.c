@@ -37,7 +37,6 @@ int main(void)
             perror("accept error");
             continue;
         }
-
         while(1) {
             n = read(connfd, buf, sizeof(buf));
             if (n < 0) {

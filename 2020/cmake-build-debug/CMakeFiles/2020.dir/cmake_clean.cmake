@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "2020"
   "2020.pdb"
-  "CMakeFiles/2020.dir/home/cky/workspace/C/unixDomainSocket/main.c.o"
+  "CMakeFiles/2020.dir/home/link/workspace/C/unixDomainSocket/main.c.o"
   "CMakeFiles/2020.dir/main.c.o"
 )
 

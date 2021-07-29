@@ -17,3 +17,4 @@ gmon.out
 2020/cmake-build-debug/
 client
 server
+cmake-build-debug
