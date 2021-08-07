@@ -1,9 +1,6 @@
 #include "main.h"
-
 #define MAXLINE 80
-
 char *socket_path = "server.socket";
-
 int main(void)
 {
     struct sockaddr_un serun, cliun;
@@ -40,7 +37,6 @@ int main(void)
             perror("accept error");
             continue;
         }
-
         while(1) {
             n = read(connfd, buf, sizeof(buf));
             if (n < 0) {

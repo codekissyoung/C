@@ -1,8 +1,9 @@
 #!/bin/bash
 echo "create directory ..."
+
 echo_exit()
 {
-    echo "ERROR: $@"
+    echo "ERROR: $*"
     exit 1
 }
 
