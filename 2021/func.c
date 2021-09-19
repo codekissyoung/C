@@ -7,7 +7,7 @@ void echo(int i)
     printf("%d\n",i);
 }
 
-void echostr(char *str)
+__attribute__((unused)) void echostr(char *str)
 {
     printf("%s\n",str);
 }
