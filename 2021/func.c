@@ -98,3 +98,7 @@ void quickSortDemo()
         printf("%d,", arr[i]);
     }
 }
+
+void error_log(char *msg){
+    printf("[%s %s]%s:%d %s\n",__DATE__, __TIME__, __FILE__,__LINE__, msg);
+}
