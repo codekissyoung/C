@@ -11,12 +11,14 @@
 #define TEST(con,...) ((con)?printf("pass test: %s\n",#con):printf(__VA_ARGS__))
 #define FUNC_CALLED() printf("%s called\n", __FUNCTION__);
 #define FUNC_RETURN() printf("%s returned\n", __FUNCTION__);
+#define error_log(x) printf("[%s%s]%s:%d %s\n", __DATE__, __TIME__, __FILE__, __LINE__, x);
 
-void error_log(char *);
+//void error_log(char *);
 void echo(int);
 void echostr(char*);
 void quickSort(int, int[]);
 void swap(int*, int*);
 void quickSortDemo();
+void deadLoopDemo();
 
 #endif

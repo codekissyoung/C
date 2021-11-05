@@ -99,6 +99,19 @@ void quickSortDemo()
     }
 }
 
-void error_log(char *msg){
-    printf("[%s %s]%s:%d %s\n",__DATE__, __TIME__, __FILE__,__LINE__, msg);
+// 死循环例子
+void deadLoopDemo()
+{
+    FILE *fp;
+    unsigned char c;
+    fp = fopen("data/test.bin", "rb");
+    // EOF = 0xffffffff (-1)
+    // 当文件到达末尾时，fgetc(fp) 返回 EOF (-1)
+    // 然后由于 c 是 unsigned char 类型，所以存值为 0xff
+    // 然后 c != EOF 对比时，又转换为 0x000000ff 与 EOF (-1) 对比
+    // 然后程序就进入死循环了
+    while ((c = fgetc(fp)) != EOF){
+        putchar(c);
+    }
+    fclose(fp);
 }
