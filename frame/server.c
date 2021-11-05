@@ -304,16 +304,14 @@ static int if_process_run() {
 
 	/* if process exist */	
 	pid = get_pid();	
-	sprintf(cmd, "ps -p %ld|grep %ld|wc -l", (long)pid, (long)pid);
+	sprintf(cmd, "ps -p %ld | grep %ld | wc -l", (long)pid, (long)pid);
 	pfd = popen(cmd, "r");
 	if (pfd == NULL) {
 		fprintf(stderr, "popen failed\n");
 		exit(1);
 	}
 	fread(result, 1, sizeof(result) - 1, pfd);
-
 	pclose(pfd);
-
 	return strtol(result, NULL, 10);
 }
 
@@ -392,11 +390,13 @@ void usage(void) {
 
 int main(int argc, char *argv[])
 {
-	if (argc == 1) usage();
+	if (argc == 1)
+        usage();
 
-	struct event_base *event_handle;
+    struct event_base *event_handle;
 	int server_sock, c, daemon = 0;
 	char conf_file[255], action[255];
+
 	strcpy(conf_file, "./server.ini");
 	
 	while ((c = getopt(argc, argv, "c:dh?")) != -1)
@@ -418,13 +418,13 @@ int main(int argc, char *argv[])
 	if (optind == argc) {
 		usage();
 	}
+
 	strcpy(action, argv[optind]);
 
-	/* parse action */
 	parse_action(action);
 
-	/* check if the program is running */
-	if (if_process_run()) {
+	if (if_process_run())
+    {
 		fprintf(stdout, "the program is already running\n"); 
 		exit(1);
 	}

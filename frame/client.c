@@ -2,17 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
-#include <sys/stat.h>
 #include <sys/time.h>
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <iconv.h>
 #include <signal.h>
 #include <errno.h>
-#include <unistd.h>
 #include "protocol.h"
 #include <sys/types.h>
-#include <errno.h>
 
 extern char *optarg;
 extern int optind, opterr, optopt;
@@ -48,11 +45,10 @@ static int conn_init(char *host, int port) {
 
 	/* connect */
 	if (connect(sock, (struct sockaddr*)&servaddr, sizeof(servaddr)) < 0) {
-		//printf("connect error\n");
+		printf("connect error\n");
 		close(sock);
 		return  -1;
 	}
-
 	return sock;
 }
 
@@ -377,6 +373,7 @@ static void usage(char *argv[])
 }
 
 int main(int argc, char *argv[]) {
+
 	if (argc == 1) {
 		usage(argv);
 		exit(0);
@@ -389,7 +386,7 @@ int main(int argc, char *argv[]) {
 	setting.req_len = 1;
 	setting.port	= 9008;
 	setting.is_long_connection = 0;
-	setting.debug	= 0;
+	setting.debug	= 1;
 
 	/* get option arg */
 	int opt;

@@ -2,11 +2,8 @@
 #include "server.h"
 #include "log.h"
 
-/* thread array */
-static proc_thread *threads = NULL;
-
-/* free thread list */
-static proc_thread *thread_freelist = NULL;
+static proc_thread *threads = NULL;         /* thread array */
+static proc_thread *thread_freelist = NULL; /* free thread list */
 static pthread_mutex_t freelist_lock;
 
 /* intialization lock */
@@ -82,13 +79,10 @@ static void thread_async_process(io_buff *buff) {
             log_txt_err("magic_code not match, magic in request is:%d expect:%d", magic, mod->magic_code);
         }
 
-
         create_error_pack(buff->wbuff, ERR_MAGIC_CODE);
         dispatch_write(buff->sfd, buff);
-
         return;
     }
-            
     /* 处理逻辑 */
     mod->proc_func(buff);
 }
