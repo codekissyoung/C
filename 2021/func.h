@@ -4,10 +4,14 @@
 //void error_log(char *);
 void echo(int);
 void echostr(char*);
+
 void quickSort(int, int[]);
 void swap(int*, int*);
+
 void quickSortDemo();
 void deadLoopDemo();
+
+// 返回一个表示当前时间的格式化字符串
 char* date();
 
 #define SQUARE(x) ((x) * (x))
