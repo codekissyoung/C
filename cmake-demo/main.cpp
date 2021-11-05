@@ -1,6 +1,6 @@
 #include <iostream>
-#include "mod1.hpp"
-#include "mod2.hpp"
+#include "mod1/mod1.hpp"
+#include "mod2/mod2.hpp"
 
 using namespace std;
 

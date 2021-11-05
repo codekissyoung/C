@@ -11,6 +11,7 @@ void* count()
     counter++;
     printf("Counter value : %d\n", counter);
     pthread_mutex_unlock(&mutex1);
+    return NULL;
 }
 
 int main()
