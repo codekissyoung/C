@@ -1,6 +1,16 @@
 #include "func.h"
 #include <stdio.h>
 #include <assert.h>
+#include <time.h>
+
+char* date()
+{
+    static char string[20]; // 位于静态区，程序结束时由系统进行释放
+    time_t rawTime;
+    time( &rawTime );
+    strftime(string, 20, "%Y-%m-%d %H:%M:%S", localtime(&rawTime ));
+    return string;
+}
 
 void echo(int i)
 {
