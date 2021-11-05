@@ -24,6 +24,6 @@ char* date();
 #define TEST(con,...) ((con)?printf("pass test: %s\n",#con):printf(__VA_ARGS__))
 #define FUNC_CALLED() printf("%s called\n", __FUNCTION__);
 #define FUNC_RETURN() printf("%s returned\n", __FUNCTION__);
-#define error_log(x) printf("[%s]%s:%d %s\n", date(), __FILE__, __LINE__, x);
+#define error_log(x) printf("[%s] %s:%d " "%s" "\n", date(), __FILE__, __LINE__, x);
 
 #endif
