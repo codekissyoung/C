@@ -43,6 +43,7 @@ void daemon_log( char* str );
 int main( int argc, char *argv[] )
 {
     printf( "libc version : %s \n", gnu_get_libc_version());
+
     // 将进程变为守护进程
     init_daemon();
 
