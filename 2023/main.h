@@ -1,0 +1,6 @@
+#ifndef INC_2023_MAIN_H
+#define INC_2023_MAIN_H
+
+#define LINK_TEST_DEFINE 10
+
+#endif //INC_2023_MAIN_H
