@@ -10,33 +10,35 @@
 #define INITIAL_TOKEN_LIST_CAPACITY 30
 
 typedef enum {
-    TokenType_Identifier,
-    TokenType_IntLiteral,
-    TokenType_Plus,
-    TokenType_Minus,
-    TokenType_Star,
-    TokenType_Slash,
-    TokenType_SemiColon,
-    TokenType_LeftParen,
-    TokenType_RightParen,
-    TokenType_Assignment,
-    TokenType_Greater,
-    TokenType_GreaterEqual,
-    TokenType_LessEqual,
-    TokenType_Less,
-    TokenType_NotEqual,
-    TokenType_EOF
+    TokenType_Identifier,   // 表示标识符（如变量名和函数名）
+    TokenType_IntLiteral,   // 表示整数字面量（如 42）
+    TokenType_Plus,         // 表示加号运算符（+）
+    TokenType_Minus,        // 表示减号运算符（-）
+    TokenType_Star,         // 表示乘号运算符（*）
+    TokenType_Slash,        // 表示除号运算符（/）
+    TokenType_SemiColon,    // 表示分号（;）
+    TokenType_LeftParen,    // 表示左括号（(）
+    TokenType_RightParen,   // 表示右括号（)）
+    TokenType_Assignment,   // 表示赋值运算符（=）
+    TokenType_Greater,      // 表示大于号（>）
+    TokenType_GreaterEqual, // 表示大于等于号（>=）
+    TokenType_LessEqual,    // 表示小于等于号（<=）
+    TokenType_Less,         // 表示小于号（<）
+    TokenType_NotEqual,     // 表示不等于号（!=）
+    TokenType_EOF           // 表示文件结束或输入结束
 } TokenType;
 
 typedef struct {
-    TokenType type;
-    char text[MAX_TOKEN_TEXT_LENGTH];
+    TokenType type;                   // 表示 Token 的类型（如运算符、字面量等）
+    char text[MAX_TOKEN_TEXT_LENGTH]; // 存储 Token 的文本内容
 } Token;
 
+typedef Token *TokenPtr;
+
 typedef struct {
-    int count;
-    int capacity;
-    Token **tokens;
+    int count;                      // 当前 TokenList 中的 Token 数量
+    int capacity;                   // TokenList 的容量，即最多可容纳的 Token 数量
+    TokenPtr *tokens;               // 指向 TokenPtr 类型的指针
 } TokenList;
 
 Token *create_token(TokenType type, const char *text) {
@@ -73,11 +75,26 @@ void destroy_token_list(TokenList *token_list) {
     }
 }
 
+// 将 token 添加到 token_list 中
 void add_token_to_list(TokenList *token_list, Token *token) {
+    // 如果 token_list 中的 Token 数量已达到容量上限，需要扩大容量
     if (token_list->count >= token_list->capacity) {
+        // 扩大容量为原来的 2 倍
         token_list->capacity *= 2;
-        token_list->tokens = (Token **)realloc(token_list->tokens, token_list->capacity * sizeof(Token *));
+        // 使用 realloc 调整 tokens 的内存大小以适应新的容量
+        // 注意：
+        // 内存泄漏：如果realloc失败并返回NULL，原始指针将不会被释放。
+        // 为了避免内存泄漏，我们需要在使用realloc之前保存原始指针的副本，以便在realloc失败时释放原始内存。
+        // 数据丢失：如果realloc分配了一个新的内存块并将数据从旧内存块复制到新内存块，那么在分配过程中，指向旧内存块的其他指针将变得无效。
+        // 这可能导致数据丢失或程序崩溃。为了避免这个问题，确保在realloc之后更新所有指向原始内存块的指针。
+        TokenPtr *new_tokens = (TokenPtr *)realloc(token_list->tokens, token_list->capacity * sizeof(TokenPtr));
+        if (new_tokens == NULL) {
+            free(token_list->tokens);
+        } else {
+            token_list->tokens = new_tokens;
+        }
     }
+    // 将 token 添加到 tokens 数组中，并更新 count
     token_list->tokens[token_list->count++] = token;
 }
 
