@@ -7,4 +7,6 @@ include_directories(.)
 
 add_executable(2023
         main.c
-        main.h)
+        main.h
+        tree_node.c
+        tree_node.h)
