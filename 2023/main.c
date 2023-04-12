@@ -310,10 +310,18 @@ void print_tokens(const TokenList *token_list) {
 }
 
 int main() {
-    const char *code = "int age = 5;\n\tstring name = \"link\";";
-    TokenList *token_list = tokenize(code);
-    printf("source code :\n%s\n", code);
-    print_tokens(token_list);
-    destroy_token_list(token_list);
+
+//    const char *code = "int age = 5;\n\tstring name = \"link\";";
+//    TokenList *token_list = tokenize(code);
+//    printf("source code :\n%s\n", code);
+//    print_tokens(token_list);
+//    destroy_token_list(token_list);
+
+    const char *expr = "1 + 2 * (3 + 4) - 5";
+    TokenList *token_list2 = tokenize(expr);
+    printf("source code :\n%s\n", expr);
+    print_tokens(token_list2);
+    destroy_token_list(token_list2);
+
     return 0;
 }
