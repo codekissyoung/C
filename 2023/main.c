@@ -3,9 +3,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "main.h"
-#include "tree_node.h"
-
 #define MAX_TOKEN_TEXT_LENGTH 256
 #define INITIAL_TOKEN_LIST_CAPACITY 30
 
@@ -309,19 +306,78 @@ void print_tokens(const TokenList *token_list) {
     }
 }
 
+int expression(TokenList *token_list, int *index);
+int term(TokenList *token_list, int *index);
+int factor(TokenList *token_list, int *index);
+
+int factor(TokenList *token_list, int *index) {
+    Token *t = token_list->tokens[*index];
+    int value;
+
+    if (t->type == TokenType_IntLiteral) {
+        value = atoi(t->text);
+        (*index)++;
+    } else if (t->type == TokenType_LeftParen) {
+        (*index)++;
+        value = expression(token_list, index);
+        if (token_list->tokens[*index]->type == TokenType_RightParen) {
+            (*index)++;
+        } else {
+            printf("Mismatched parenthesis\n");
+            exit(EXIT_FAILURE);
+        }
+    } else {
+        printf("Unexpected token type: %d\n", t->type);
+        exit(EXIT_FAILURE);
+    }
+
+    return value;
+}
+
+int term(TokenList *token_list, int *index) {
+    int left = factor(token_list, index);
+
+    while (token_list->tokens[*index]->type == TokenType_Star || token_list->tokens[*index]->type == TokenType_Slash) {
+        Token *op = token_list->tokens[*index];
+        (*index)++;
+        int right = factor(token_list, index);
+        if (op->type == TokenType_Star) {
+            left *= right;
+        } else {
+            left /= right;
+        }
+    }
+
+    return left;
+}
+
+int expression(TokenList *token_list, int *index) {
+    int left = term(token_list, index);
+
+    while (token_list->tokens[*index]->type == TokenType_Plus || token_list->tokens[*index]->type == TokenType_Minus) {
+        Token *op = token_list->tokens[*index];
+        (*index)++;
+        int right = term(token_list, index);
+        if (op->type == TokenType_Plus) {
+            left += right;
+        } else {
+            left -= right;
+        }
+    }
+
+    return left;
+}
+
 int main() {
-
-//    const char *code = "int age = 5;\n\tstring name = \"link\";";
-//    TokenList *token_list = tokenize(code);
-//    printf("source code :\n%s\n", code);
-//    print_tokens(token_list);
-//    destroy_token_list(token_list);
-
     const char *expr = "1 + 2 * (3 + 4) - 5";
-    TokenList *token_list2 = tokenize(expr);
+    TokenList *token_list = tokenize(expr);
     printf("source code :\n%s\n", expr);
-    print_tokens(token_list2);
-    destroy_token_list(token_list2);
+    print_tokens(token_list);
 
+    int index = 0;
+    int result = expression(token_list, &index);
+    printf("Expression result: %d\n", result);
+
+    destroy_token_list(token_list);
     return 0;
 }
