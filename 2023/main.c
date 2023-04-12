@@ -25,7 +25,9 @@ typedef enum {
     TokenType_LessEqual,    // 表示小于等于号（<=）
     TokenType_Less,         // 表示小于号（<）
     TokenType_NotEqual,     // 表示不等于号（!=）
-    TokenType_EOF           // 表示文件结束或输入结束
+    TokenType_EOF,           // 表示文件结束或输入结束
+    TokenType_DoubleQuote, // 添加双引号类型
+    TokenType_SingleQuote, // 添加单引号类型
 } TokenType;
 
 typedef struct {
@@ -79,22 +81,23 @@ void destroy_token_list(TokenList *token_list) {
 void add_token_to_list(TokenList *token_list, Token *token) {
     // 如果 token_list 中的 Token 数量已达到容量上限，需要扩大容量
     if (token_list->count >= token_list->capacity) {
-        // 扩大容量为原来的 2 倍
         token_list->capacity *= 2;
         // 使用 realloc 调整 tokens 的内存大小以适应新的容量
+        TokenPtr *new_tokens = (TokenPtr *)realloc(token_list->tokens, token_list->capacity * sizeof(TokenPtr));
         // 注意：
         // 内存泄漏：如果realloc失败并返回NULL，原始指针将不会被释放。
-        // 为了避免内存泄漏，我们需要在使用realloc之前保存原始指针的副本，以便在realloc失败时释放原始内存。
-        // 数据丢失：如果realloc分配了一个新的内存块并将数据从旧内存块复制到新内存块，那么在分配过程中，指向旧内存块的其他指针将变得无效。
-        // 这可能导致数据丢失或程序崩溃。为了避免这个问题，确保在realloc之后更新所有指向原始内存块的指针。
-        TokenPtr *new_tokens = (TokenPtr *)realloc(token_list->tokens, token_list->capacity * sizeof(TokenPtr));
+        // 为了避免内存泄漏，我们需要在使用realloc之前保存原始指针的副本，以便在realloc失败时释放原始内存
+        // 数据丢失：如果realloc分配了一个新的内存块并将数据从旧内存块复制到新内存块，那么在分配过程中，指向旧内存块的其他指针将变得无效
+        // 这可能导致数据丢失或程序崩溃。为了避免这个问题，确保在realloc之后更新所有指向原始内存块的指针
         if (new_tokens == NULL) {
+            // 当realloc失败时，释放原始内存并处理错误，例如退出程序或返回错误代码
             free(token_list->tokens);
+            fprintf(stderr, "Memory allocation error\n");
+            exit(EXIT_FAILURE);
         } else {
             token_list->tokens = new_tokens;
         }
     }
-    // 将 token 添加到 tokens 数组中，并更新 count
     token_list->tokens[token_list->count++] = token;
 }
 
@@ -126,18 +129,22 @@ bool is_identifier_part(char c) {
 }
 
 TokenList *tokenize(const char *code) {
+    // 创建一个TokenList
     TokenList *token_list = create_token_list();
     int index = 0;
     int length = strlen(code);
 
+    // 遍历输入的代码字符串
     while (index < length) {
         char c = code[index];
 
+        // 跳过空白字符
         if (is_whitespace(c)) {
             index++;
             continue;
         }
 
+        // 处理整数字面量
         if (is_digit(c)) {
             int start = index;
             while (index < length && is_digit(code[index])) {
@@ -150,6 +157,7 @@ TokenList *tokenize(const char *code) {
             continue;
         }
 
+        // 处理标识符
         if (is_identifier_start(c)) {
             int start = index;
             while (index < length && is_identifier_part(code[index])) {
@@ -162,6 +170,7 @@ TokenList *tokenize(const char *code) {
             continue;
         }
 
+        // 处理其他符号
         switch (c) {
             case '+':
                 add_token_to_list(token_list, create_token(TokenType_Plus, "+"));
@@ -227,27 +236,83 @@ TokenList *tokenize(const char *code) {
                     exit(EXIT_FAILURE);
                 }
                 break;
+            case '"':
+                {
+                    int start = index + 1;
+                    index++;
+                    // 在解析字符串时，它会检查反斜杠，并跳过紧跟在反斜杠后面的双引号或单引号
+                    // 这样，你可以在字符串中使用\"和\'，而不会导致字符串提前结束
+                    while (index < length && (code[index] != '"' || code[index - 1] == '\\')) {
+                        index++;
+                    }
+                    if (index == length) {
+                        printf("未关闭的双引号\n");
+                        exit(EXIT_FAILURE);
+                    }
+                    char buffer[MAX_TOKEN_TEXT_LENGTH];
+                    int buf_index = 0;
+                    for (int i = start; i < index; i++) {
+                        if (code[i] == '\\' && (i + 1 < index) && code[i + 1] == '"') {
+                            continue;
+                        }
+                        buffer[buf_index++] = code[i];
+                    }
+                    buffer[buf_index] = '\0';
+                    add_token_to_list(token_list, create_token(TokenType_DoubleQuote, buffer));
+                    index++;
+                }
+                break;
+
+            case '\'':
+                {
+                    int start = index + 1;
+                    index++;
+                    // 在解析字符串时，它会检查反斜杠，并跳过紧跟在反斜杠后面的双引号或单引号
+                    // 这样，你可以在字符串中使用\"和\'，而不会导致字符串提前结束
+                    while (index < length && (code[index] != '\'' || code[index - 1] == '\\')) {
+                        index++;
+                    }
+                    if (index == length) {
+                        printf("未关闭的单引号\n");
+                        exit(EXIT_FAILURE);
+                    }
+                    char buffer[MAX_TOKEN_TEXT_LENGTH];
+                    int buf_index = 0;
+                    for (int i = start; i < index; i++) {
+                        if (code[i] == '\\' && (i + 1 < index) && code[i + 1] == '\'') {
+                            continue;
+                        }
+                        buffer[buf_index++] = code[i];
+                    }
+                    buffer[buf_index] = '\0';
+                    add_token_to_list(token_list, create_token(TokenType_SingleQuote, buffer));
+                    index++;
+                }
+                break;
+
             default:
                 printf("Unexpected character: %c\n", c);
                 exit(EXIT_FAILURE);
         }
     }
 
+    // 在末尾添加EOF（文件结束）Token
     add_token_to_list(token_list, create_token(TokenType_EOF, "EOF"));
     return token_list;
 }
 
 void print_tokens(const TokenList *token_list) {
+    printf("tokens :\n");
     for (int i = 0; i < token_list->count; i++) {
-        Token *token = token_list->tokens[i];
-        printf("类型: %d, 文本: %s\n", token->type, token->text);
+        Token *token = get_token_from_list(token_list, i);
+        printf("type : %d, context : %s\n", token->type, token->text);
     }
 }
 
 int main() {
-    const char *code = "int age = 5;";
+    const char *code = "int age = 5;\n\tstring name = \"link\";";
     TokenList *token_list = tokenize(code);
-    printf("解析: %s\n", code);
+    printf("source code :\n%s\n", code);
     print_tokens(token_list);
     destroy_token_list(token_list);
     return 0;
