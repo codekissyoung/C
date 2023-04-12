@@ -306,78 +306,218 @@ void print_tokens(const TokenList *token_list) {
     }
 }
 
-int expression(TokenList *token_list, int *index);
-int term(TokenList *token_list, int *index);
-int factor(TokenList *token_list, int *index);
+typedef enum {
+    NODE_TYPE_LITERAL,
+    NODE_TYPE_BINARY_OPERATOR
+} NodeType; // 节点的类型
 
-int factor(TokenList *token_list, int *index) {
-    Token *t = token_list->tokens[*index];
+typedef struct Node {
+    NodeType type;
+} Node;
+
+typedef struct {
+    Node base;
     int value;
+} LiteralNode;
 
-    if (t->type == TokenType_IntLiteral) {
-        value = atoi(t->text);
-        (*index)++;
-    } else if (t->type == TokenType_LeftParen) {
-        (*index)++;
-        value = expression(token_list, index);
-        if (token_list->tokens[*index]->type == TokenType_RightParen) {
-            (*index)++;
-        } else {
+typedef struct {
+    Node base;
+    Node *left;
+    Node *right;
+    TokenType operator;
+} BinaryOperatorNode;
+
+Node *factor(TokenList *token_list, int *token_index);
+Node *expression(TokenList *token_list, int *index);
+Node *term(TokenList *token_list, int *index);
+
+Node *factor(TokenList *token_list, int *token_index) {
+    Token *token = get_token_from_list(token_list, *token_index);
+    Node *node = NULL;
+
+    if (token->type == TokenType_IntLiteral) {
+        (*token_index)++;
+        LiteralNode *literal_node = (LiteralNode *)malloc(sizeof(LiteralNode));
+        literal_node->base.type = NODE_TYPE_LITERAL;
+        literal_node->value = atoi(token->text);
+        node = (Node *)literal_node;
+    } else if (token->type == TokenType_LeftParen) {
+        (*token_index)++; // 跳过左括号
+        node = expression(token_list, token_index); // 处理括号内的表达式
+
+        token = get_token_from_list(token_list, *token_index);
+        if (token->type != TokenType_RightParen) {
             printf("Mismatched parenthesis\n");
             exit(EXIT_FAILURE);
         }
+        (*token_index)++; // 跳过右括号
     } else {
-        printf("Unexpected token type: %d\n", t->type);
+        printf("Unexpected token in factor: %d\n", token->type);
         exit(EXIT_FAILURE);
     }
 
-    return value;
+    return node;
 }
 
-int term(TokenList *token_list, int *index) {
-    int left = factor(token_list, index);
 
-    while (token_list->tokens[*index]->type == TokenType_Star || token_list->tokens[*index]->type == TokenType_Slash) {
-        Token *op = token_list->tokens[*index];
-        (*index)++;
-        int right = factor(token_list, index);
-        if (op->type == TokenType_Star) {
-            left *= right;
-        } else {
-            left /= right;
-        }
+Node *term(TokenList *token_list, int *token_index) {
+    Node *left = factor(token_list, token_index);
+    Token *token = get_token_from_list(token_list, *token_index);
+
+    while (token->type == TokenType_Star || token->type == TokenType_Slash) {
+        (*token_index)++;
+        Node *right = factor(token_list, token_index);
+        BinaryOperatorNode *node = (BinaryOperatorNode *)malloc(sizeof(BinaryOperatorNode));
+        node->base.type = NODE_TYPE_BINARY_OPERATOR;
+        node->left = left;
+        node->right = right;
+        node->operator = token->type;
+        left = (Node *)node;
+
+        token = get_token_from_list(token_list, *token_index);
     }
 
     return left;
 }
 
-int expression(TokenList *token_list, int *index) {
-    int left = term(token_list, index);
+Node *expression(TokenList *token_list, int *token_index) {
+    Node *left = term(token_list, token_index);
+    Token *token = get_token_from_list(token_list, *token_index);
 
-    while (token_list->tokens[*index]->type == TokenType_Plus || token_list->tokens[*index]->type == TokenType_Minus) {
-        Token *op = token_list->tokens[*index];
-        (*index)++;
-        int right = term(token_list, index);
-        if (op->type == TokenType_Plus) {
-            left += right;
-        } else {
-            left -= right;
-        }
+    while (token->type == TokenType_Plus || token->type == TokenType_Minus) {
+        (*token_index)++;
+        Node *right = term(token_list, token_index);
+        BinaryOperatorNode *node = (BinaryOperatorNode *)malloc(sizeof(BinaryOperatorNode));
+        node->base.type = NODE_TYPE_BINARY_OPERATOR;
+        node->left = left;
+        node->right = right;
+        node->operator = token->type;
+        left = (Node *)node;
+
+        token = get_token_from_list(token_list, *token_index);
+    }
+    return left;
+}
+
+int evaluate_ast(Node *node) {
+    if (node == NULL) {
+        return 0;
     }
 
-    return left;
+    switch (node->type) {
+        case NODE_TYPE_LITERAL: {
+            LiteralNode *literal_node = (LiteralNode *)node;
+            return literal_node->value;
+        }
+        case NODE_TYPE_BINARY_OPERATOR: {
+            BinaryOperatorNode *binary_operator_node = (BinaryOperatorNode *)node;
+            int left_value = evaluate_ast(binary_operator_node->left);
+            int right_value = evaluate_ast(binary_operator_node->right);
+
+            switch (binary_operator_node->operator) {
+                case TokenType_Plus:
+                    return left_value + right_value;
+                case TokenType_Minus:
+                    return left_value - right_value;
+                case TokenType_Star:
+                    return left_value * right_value;
+                case TokenType_Slash:
+                    return left_value / right_value;
+                default:
+                    printf("Unexpected operator: %d\n", binary_operator_node->operator);
+                    exit(EXIT_FAILURE);
+            }
+        }
+        default:
+            printf("Unexpected node type: %d\n", node->type);
+            exit(EXIT_FAILURE);
+    }
+}
+
+void print_ast(const Node *node, int indent) {
+    if (node == NULL) {
+        return;
+    }
+
+    for (int i = 0; i < indent; i++) {
+        printf("  ");
+    }
+
+    switch (node->type) {
+        case NODE_TYPE_LITERAL: {
+            const LiteralNode *literal_node = (const LiteralNode *)node;
+            printf("Num: %d\n", literal_node->value);
+            break;
+        }
+        case NODE_TYPE_BINARY_OPERATOR: {
+            const BinaryOperatorNode *binary_operator_node = (const BinaryOperatorNode *)node;
+            printf("Opr: ");
+            switch (binary_operator_node->operator) {
+                case TokenType_Plus:
+                    printf("+\n");
+                    break;
+                case TokenType_Minus:
+                    printf("-\n");
+                    break;
+                case TokenType_Star:
+                    printf("*\n");
+                    break;
+                case TokenType_Slash:
+                    printf("/\n");
+                    break;
+                default:
+                    printf("Unexpected operator: %d\n", binary_operator_node->operator);
+                    exit(EXIT_FAILURE);
+            }
+            print_ast(binary_operator_node->left, indent + 1);
+            print_ast(binary_operator_node->right, indent + 1);
+            break;
+        }
+        default:
+            printf("Unexpected node type: %d\n", node->type);
+            exit(EXIT_FAILURE);
+    }
+}
+
+void free_ast(Node *node) {
+    if (node == NULL) {
+        return;
+    }
+
+    switch (node->type) {
+        case NODE_TYPE_LITERAL: {
+            LiteralNode *literal_node = (LiteralNode *)node;
+            free(literal_node);
+            break;
+        }
+        case NODE_TYPE_BINARY_OPERATOR: {
+            BinaryOperatorNode *binary_operator_node = (BinaryOperatorNode *)node;
+            free_ast(binary_operator_node->left);
+            free_ast(binary_operator_node->right);
+            free(binary_operator_node);
+            break;
+        }
+        default:
+            printf("Unexpected node type: %d\n", node->type);
+            exit(EXIT_FAILURE);
+    }
 }
 
 int main() {
     const char *expr = "1 + 2 * (3 + 4) - 5";
     TokenList *token_list = tokenize(expr);
     printf("source code :\n%s\n", expr);
-    print_tokens(token_list);
 
-    int index = 0;
-    int result = expression(token_list, &index);
-    printf("Expression result: %d\n", result);
+    int token_index = 0;
+    Node *ast = expression(token_list, &token_index);
+    printf("AST:\n");
+    print_ast(ast, 0);
+
+    int result = evaluate_ast(ast);
+    printf("The result is: %d\n", result);
 
     destroy_token_list(token_list);
+    free_ast(ast);
+
     return 0;
 }
