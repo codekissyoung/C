@@ -359,7 +359,6 @@ Node *factor(TokenList *token_list, int *token_index) {
     return node;
 }
 
-
 Node *term(TokenList *token_list, int *token_index) {
     Node *left = factor(token_list, token_index);
     Token *token = get_token_from_list(token_list, *token_index);
@@ -381,21 +380,30 @@ Node *term(TokenList *token_list, int *token_index) {
 }
 
 Node *expression(TokenList *token_list, int *token_index) {
+    // 首先调用 term 函数解析乘法和除法表达式
     Node *left = term(token_list, token_index);
+    // 获取当前 token
     Token *token = get_token_from_list(token_list, *token_index);
 
+    // 当 token 类型为 TokenType_Plus 或 TokenType_Minus 时，表示有加法或减法运算
     while (token->type == TokenType_Plus || token->type == TokenType_Minus) {
+        // token_index 自增
         (*token_index)++;
+        // 解析右侧的 term
         Node *right = term(token_list, token_index);
+        // 创建一个 BinaryOperatorNode 结构体存储二元操作符信息
         BinaryOperatorNode *node = (BinaryOperatorNode *)malloc(sizeof(BinaryOperatorNode));
         node->base.type = NODE_TYPE_BINARY_OPERATOR;
         node->left = left;
         node->right = right;
         node->operator = token->type;
+        // 将新创建的二元操作节点作为左侧节点，继续进行下一次循环，处理连续的加法和减法运算
         left = (Node *)node;
 
+        // 获取下一个 token
         token = get_token_from_list(token_list, *token_index);
     }
+    // 返回构建好的 AST 节点
     return left;
 }
 
