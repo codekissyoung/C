@@ -331,53 +331,90 @@ Node *factor(TokenList *token_list, int *token_index);
 Node *expression(TokenList *token_list, int *index);
 Node *term(TokenList *token_list, int *index);
 
+// 定义 factor 函数，接收 TokenList 和 token_index 指针作为参数
 Node *factor(TokenList *token_list, int *token_index) {
+    // 获取当前 token
     Token *token = get_token_from_list(token_list, *token_index);
+    // 定义一个 Node 指针变量，用于存储处理后的节点
     Node *node = NULL;
-
+    // 如果当前 token 是整数字面量
     if (token->type == TokenType_IntLiteral) {
+        // 移动到下一个 token
         (*token_index)++;
+        // 创建一个 LiteralNode 节点，用于存储整数值
         LiteralNode *literal_node = (LiteralNode *)malloc(sizeof(LiteralNode));
+        // 设置节点类型为字面量
         literal_node->base.type = NODE_TYPE_LITERAL;
+        // 将 token 文本转换为整数值并存储在节点中
         literal_node->value = atoi(token->text);
+        // 将创建的 LiteralNode 节点转换为 Node 类型
         node = (Node *)literal_node;
-    } else if (token->type == TokenType_LeftParen) {
-        (*token_index)++; // 跳过左括号
-        node = expression(token_list, token_index); // 处理括号内的表达式
-
+    }
+        // 如果当前 token 是左括号
+    else if (token->type == TokenType_LeftParen) {
+        // 跳过左括号，移动到下一个 token
+        (*token_index)++;
+        // 处理括号内的表达式，并获取对应的节点
+        node = expression(token_list, token_index);
+        // 获取下一个 token
         token = get_token_from_list(token_list, *token_index);
+        // 如果下一个 token 不是右括号，说明括号不匹配
         if (token->type != TokenType_RightParen) {
             printf("Mismatched parenthesis\n");
             exit(EXIT_FAILURE);
         }
-        (*token_index)++; // 跳过右括号
-    } else {
+        // 跳过右括号，移动到下一个 token
+        (*token_index)++;
+    }
+        // 如果遇到意外的 token 类型
+    else {
         printf("Unexpected token in factor: %d\n", token->type);
         exit(EXIT_FAILURE);
     }
-
+    // 返回处理后的节点
     return node;
 }
 
+// 定义 term 函数，接收 TokenList 和 token_index 指针作为参数
 Node *term(TokenList *token_list, int *token_index) {
+    // 首先解析一个 factor（数字或括号内的表达式）
     Node *left = factor(token_list, token_index);
+
+    // 获取当前 token
     Token *token = get_token_from_list(token_list, *token_index);
 
+    // 如果当前 token 是乘法或除法操作符，继续循环
     while (token->type == TokenType_Star || token->type == TokenType_Slash) {
+        // 移动到下一个 token
         (*token_index)++;
+
+        // 解析下一个 factor
         Node *right = factor(token_list, token_index);
+
+        // 创建一个新的二元操作符节点用于存储乘法或除法操作
         BinaryOperatorNode *node = (BinaryOperatorNode *)malloc(sizeof(BinaryOperatorNode));
+
+        // 设置节点类型为二元操作符
         node->base.type = NODE_TYPE_BINARY_OPERATOR;
+
+        // 设置节点的左子树和右子树
         node->left = left;
         node->right = right;
+
+        // 设置节点的操作符
         node->operator = token->type;
+
+        // 更新 left 节点，以便在下一次循环中处理连续的乘法和除法操作
         left = (Node *)node;
 
+        // 获取下一个 token
         token = get_token_from_list(token_list, *token_index);
     }
 
+    // 返回处理后的节点
     return left;
 }
+
 
 // EBNF 描述算法
 // expression ::= term (additive_op term)*
