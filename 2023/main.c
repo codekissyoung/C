@@ -380,16 +380,13 @@ Node *term(TokenList *token_list, int *token_index) {
 }
 
 // EBNF 描述算法
-//expression ::= term (additive_op term)*
-//term ::= factor (multiplicative_op factor)*
-//factor ::= integer | '(' expression ')'
-//
-//additive_op ::= '+' | '-'
-//multiplicative_op ::= '*' | '/'
-//
-//integer ::= digit+
+// expression ::= term (additive_op term)*
+// term ::= factor (multiplicative_op factor)*
+// factor ::= integer | '(' expression ')'
+// additive_op ::= '+' | '-'
+// multiplicative_op ::= '*' | '/'
+// integer ::= digit+
 //            digit ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
-
 Node *expression(TokenList *token_list, int *token_index) {
     // 首先调用 term 函数解析乘法和除法表达式
     Node *left = term(token_list, token_index);
