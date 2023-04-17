@@ -38,8 +38,28 @@ typedef Token *TokenPtr;
 typedef struct {
     int count;                      // 当前 TokenList 中的 Token 数量
     int capacity;                   // TokenList 的容量，即最多可容纳的 Token 数量
-    TokenPtr *tokens;               // 指向 TokenPtr 类型的指针
+    TokenPtr *tokens;               // 指向 tokens --> TokenPtr --> Token类型的指针
 } TokenList;
+
+bool is_whitespace(char c) {
+    return c == ' ' || c == '\t' || c == '\n' || c == '\r';
+}
+
+bool is_digit(char c) {
+    return c >= '0' && c <= '9';
+}
+
+bool is_alpha(char c) {
+    return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+}
+
+bool is_identifier_start(char c) {
+    return is_alpha(c) || c == '_';
+}
+
+bool is_identifier_part(char c) {
+    return is_alpha(c) || is_digit(c) || c == '_';
+}
 
 Token *create_token(TokenType type, const char *text) {
     Token *token = (Token *)malloc(sizeof(Token));
@@ -104,26 +124,6 @@ Token *get_token_from_list(TokenList *token_list, int index) {
         return NULL;
     }
     return token_list->tokens[index];
-}
-
-bool is_whitespace(char c) {
-    return c == ' ' || c == '\t' || c == '\n' || c == '\r';
-}
-
-bool is_digit(char c) {
-    return c >= '0' && c <= '9';
-}
-
-bool is_alpha(char c) {
-    return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
-}
-
-bool is_identifier_start(char c) {
-    return is_alpha(c) || c == '_';
-}
-
-bool is_identifier_part(char c) {
-    return is_alpha(c) || is_digit(c) || c == '_';
 }
 
 TokenList *tokenize(const char *code) {
