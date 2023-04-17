@@ -14,45 +14,45 @@ void treeDemo()
     root->right->right = createNode(7);
 
     printf("前序遍历: ");
-    preorderTraversal(root);
+    preOrderTraversal(root);
     printf("\n");
 
     printf("中序遍历: ");
-    inorderTraversal(root);
+    inOrderTraversal(root);
     printf("\n");
 
     printf("后序遍历: ");
-    postorderTraversal(root);
+    postOrderTraversal(root);
     printf("\n");
 }
 
 // 前序遍历
-void preorderTraversal(TreeNode* root) {
+void preOrderTraversal(TreeNode* root) {
     if (root == NULL) {
         return;
     }
     printf("%d ", root->val);
-    preorderTraversal(root->left);
-    preorderTraversal(root->right);
+    preOrderTraversal(root->left);
+    preOrderTraversal(root->right);
 }
 
 // 中序遍历
-void inorderTraversal(TreeNode* root) {
+void inOrderTraversal(TreeNode* root) {
     if (root == NULL) {
         return;
     }
-    inorderTraversal(root->left);
+    inOrderTraversal(root->left);
     printf("%d ", root->val);
-    inorderTraversal(root->right);
+    inOrderTraversal(root->right);
 }
 
 // 后序遍历
-void postorderTraversal(TreeNode* root) {
+void postOrderTraversal(TreeNode* root) {
     if (root == NULL) {
         return;
     }
-    postorderTraversal(root->left);
-    postorderTraversal(root->right);
+    postOrderTraversal(root->left);
+    postOrderTraversal(root->right);
     printf("%d ", root->val);
 }
 

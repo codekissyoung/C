@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define MAX_TOKEN_TEXT_LENGTH 256
+#define MAX_TOKEN_TEXT_LENGTH 512
 #define INITIAL_TOKEN_LIST_CAPACITY 30
 
 typedef enum {
@@ -13,6 +13,7 @@ typedef enum {
     TokenType_Minus,        // 表示减号运算符（-）
     TokenType_Star,         // 表示乘号运算符（*）
     TokenType_Slash,        // 表示除号运算符（/）
+    TokenType_Comment_Slash,// 表示注释（// ..... \n）
     TokenType_SemiColon,    // 表示分号（;）
     TokenType_LeftParen,    // 表示左括号（(）
     TokenType_RightParen,   // 表示右括号（)）
@@ -22,9 +23,9 @@ typedef enum {
     TokenType_LessEqual,    // 表示小于等于号（<=）
     TokenType_Less,         // 表示小于号（<）
     TokenType_NotEqual,     // 表示不等于号（!=）
-    TokenType_EOF,           // 表示文件结束或输入结束
-    TokenType_DoubleQuote, // 添加双引号类型
-    TokenType_SingleQuote, // 添加单引号类型
+    TokenType_EOF,          // 表示文件结束或输入结束
+    TokenType_DoubleQuote,  // 添加双引号类型
+    TokenType_SingleQuote,  // 添加单引号类型
 } TokenType;
 
 typedef struct {
@@ -182,8 +183,20 @@ TokenList *tokenize(const char *code) {
                 index++;
                 break;
             case '/':
-                add_token_to_list(token_list, create_token(TokenType_Slash, "/"));
-                index++;
+                // 可能是 // .... \n 这样的注释
+                if(code[index+1] == '/'){
+                    int start = index;
+                    while (start < length && code[index] != '\n'){
+                        index++;
+                    }
+                    char buffer[MAX_TOKEN_TEXT_LENGTH];
+                    strncpy(buffer,code + start,index - start);
+                    buffer[index -start] = '\0';
+                    add_token_to_list(token_list, create_token(TokenType_Comment_Slash,buffer));
+                }else{
+                    add_token_to_list(token_list, create_token(TokenType_Slash, "/"));
+                    index++;
+                }
                 break;
             case ';':
                 add_token_to_list(token_list, create_token(TokenType_SemiColon, ";"));
@@ -335,6 +348,12 @@ Node *term(TokenList *token_list, int *index);
 Node *factor(TokenList *token_list, int *token_index) {
     // 获取当前 token
     Token *token = get_token_from_list(token_list, *token_index);
+    // 跳过注释节点
+    while (token->type == TokenType_Comment_Slash){
+        (*token_index)++;
+        token = get_token_from_list(token_list, *token_index);
+    }
+
     // 定义一个 Node 指针变量，用于存储处理后的节点
     Node *node = NULL;
     // 如果当前 token 是整数字面量
@@ -350,7 +369,7 @@ Node *factor(TokenList *token_list, int *token_index) {
         // 将创建的 LiteralNode 节点转换为 Node 类型
         node = (Node *)literal_node;
     }
-        // 如果当前 token 是左括号
+    // 如果当前 token 是左括号
     else if (token->type == TokenType_LeftParen) {
         // 跳过左括号，移动到下一个 token
         (*token_index)++;
@@ -366,7 +385,7 @@ Node *factor(TokenList *token_list, int *token_index) {
         // 跳过右括号，移动到下一个 token
         (*token_index)++;
     }
-        // 如果遇到意外的 token 类型
+    // 如果遇到意外的 token 类型
     else {
         printf("Unexpected token in factor: %d\n", token->type);
         exit(EXIT_FAILURE);
@@ -382,6 +401,12 @@ Node *term(TokenList *token_list, int *token_index) {
 
     // 获取当前 token
     Token *token = get_token_from_list(token_list, *token_index);
+
+    // 跳过注释节点
+    while (token->type == TokenType_Comment_Slash){
+        (*token_index)++;
+        token = get_token_from_list(token_list, *token_index);
+    }
 
     // 如果当前 token 是乘法或除法操作符，继续循环
     while (token->type == TokenType_Star || token->type == TokenType_Slash) {
@@ -415,7 +440,6 @@ Node *term(TokenList *token_list, int *token_index) {
     return left;
 }
 
-
 // EBNF 描述算法
 // expression ::= term (additive_op term)*
 // term ::= factor (multiplicative_op factor)*
@@ -429,6 +453,12 @@ Node *expression(TokenList *token_list, int *token_index) {
     Node *left = term(token_list, token_index);
     // 获取当前 token
     Token *token = get_token_from_list(token_list, *token_index);
+
+    // 跳过注释节点
+    while (token->type == TokenType_Comment_Slash){
+        (*token_index)++;
+        token = get_token_from_list(token_list, *token_index);
+    }
 
     // 当 token 类型为 TokenType_Plus 或 TokenType_Minus 时，表示有加法或减法运算
     while (token->type == TokenType_Plus || token->type == TokenType_Minus) {
@@ -557,9 +587,10 @@ void free_ast(Node *node) {
 }
 
 int main() {
-    const char *expr = "1 + 2 * (3 + 4) - 5";
+    const char *expr = "// compute 中文 expr\n// author by link\n1 + 2 * (3 + 4) - 5;";
     TokenList *token_list = tokenize(expr);
     printf("source code :\n%s\n", expr);
+//    print_tokens(token_list);
 
     int token_index = 0;
     Node *ast = expression(token_list, &token_index);
